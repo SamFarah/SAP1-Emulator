@@ -15,32 +15,53 @@ namespace SAP1Emulator
         ClockGenerator clock;
         public MainForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            clock = new ClockGenerator();
+            clock.Frequency = trackBar1.Value;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            MainTimer.Start();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            clock= new  ClockGenerator ();
-            clock.Frequency = numericUpDown1.Value;
-            clock.Run();
-            MainTimer.Start();
-        }
 
+            if (clock.ClockMode == ClockGenerator.ClockModes.Auto)
+            {
+                ClockModeBtn.Text = "Stopped";
+                ClockModeBtn.BackColor = Color.Red;
+                clock.ClockMode = ClockGenerator.ClockModes.SignleStep;
+                clock.Stop();
+                StepClockBtn.Enabled = true;
+            }
+            else
+            {
+                ClockModeBtn.Text = "Running";
+                ClockModeBtn.BackColor = Color.LightGreen;
+                clock.ClockMode = ClockGenerator.ClockModes.Auto;
+                clock.Run();
+                StepClockBtn.Enabled = false;
+            }        
+        }
         private void MainTimer_Tick(object sender, EventArgs e)
-        {         
-            led1.ChangeState(clock.Output);
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            clock.Frequency = numericUpDown1.Value;
+            led1.ChangeState(clock.Output);
+            led2.ChangeState(clock.OutputInverse);
+        }        
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            clock.Step();
         }
 
-       
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            clock.Frequency = trackBar1.Value;
+            FreqLbl.Text = "Frequency: " + clock.Frequency.ToString() + "Hz";
+        }
+
+      
     }
 }

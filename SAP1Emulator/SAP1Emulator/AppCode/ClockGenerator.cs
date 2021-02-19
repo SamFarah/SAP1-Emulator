@@ -20,11 +20,13 @@ class ClockGenerator
     public decimal Frequency { get; set; }
     public ClockModes ClockMode { get; set; }
     public bool Output { get; set; }
+    public bool OutputInverse { get { return !Output; } }
 
     private Thread thread { get; set; }
     public ClockGenerator()
     {
-        thread = new Thread(Toggle);        
+        thread = new Thread(Toggle);
+        ClockMode = ClockModes.SignleStep;
     }
 
 
@@ -38,9 +40,22 @@ class ClockGenerator
     }
     public void Run()
     {
-        thread.Start();
+        switch (thread.ThreadState)
+        {
+            case ThreadState.Running: break;
+            case ThreadState.Suspended: thread.Resume(); break;
+            case ThreadState.Stopped: thread.Start(); break;
+            case ThreadState.Unstarted: thread.Start(); break;
+        }
+
+    }
+
+    public void Stop()
+    {
+        if (thread.ThreadState == ThreadState.Running || thread.ThreadState == ThreadState.WaitSleepJoin) thread.Suspend();
+
     }
     public void Step()
-    { }
+    { Output = !Output; }
 }
 

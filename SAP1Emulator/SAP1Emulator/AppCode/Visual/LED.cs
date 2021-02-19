@@ -16,8 +16,14 @@ namespace SAP1Emulator.AppCode.Visual
     public partial class LED : Panel
     {
 
+        
+        [Category("Appearance"),
+        Description("The LED colour"),
+        DefaultValue(typeof(Color), "Red"),
+        Editor("LEDColor", typeof(Color))]
+        public Color LEDColor { get; set; }        
 
-        Panel onPanel, offPaenl;
+
 
         Graphics gra;
         bool State;
@@ -31,13 +37,14 @@ namespace SAP1Emulator.AppCode.Visual
             Rect = new Rectangle(0, 0, len, len);
             State = false;
             OldState = false;
+            LEDColor = Color.Red;
             // this.Controls.Add(Rect);
 
             //  pictureBox = new PictureBox();
             //  this.Controls.Add(pictureBox);
 
 
-            
+
         }
 
 
@@ -66,7 +73,7 @@ namespace SAP1Emulator.AppCode.Visual
 
         private void TurnOn()
         {
-            SolidBrush redBrush = new SolidBrush(Color.Red);
+            SolidBrush redBrush = new SolidBrush(LEDColor);
             gra.FillEllipse(redBrush, Rect);
             gra.DrawEllipse(new Pen(Color.Black), Rect);
         }
