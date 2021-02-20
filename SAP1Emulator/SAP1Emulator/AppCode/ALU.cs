@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class Adder : Register
+class ALU : Register
 {
 
-    public Adder(Register op1, Register op2)
+    public ALU(Register op1, Register op2)
     {
         Op1 = op1;
         Op2 = op2;

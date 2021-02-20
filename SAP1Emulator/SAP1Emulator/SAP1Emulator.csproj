@@ -49,9 +49,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCode\Adder.cs" />
+    <Compile Include="AppCode\ALU.cs" />
     <Compile Include="AppCode\Bus.cs" />
     <Compile Include="AppCode\ClockGenerator.cs" />
+    <Compile Include="AppCode\Counter.cs" />
+    <Compile Include="AppCode\SRAM.cs" />
     <Compile Include="AppCode\Register.cs" />
     <Compile Include="AppCode\Utilities.cs" />
     <Compile Include="AppCode\Visual\LED.cs">

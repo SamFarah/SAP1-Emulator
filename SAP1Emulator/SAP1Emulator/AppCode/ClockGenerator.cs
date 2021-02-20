@@ -26,12 +26,14 @@ class ClockGenerator
 
     public delegate void PulseFunctionDel();
     public PulseFunctionDel RisingEdge;
+    public PulseFunctionDel FallingEdge;
 
-    public ClockGenerator(PulseFunctionDel RisingEdgeHandler)
+    public ClockGenerator(PulseFunctionDel RisingEdgeHandler, PulseFunctionDel FallingEdgeHandler)
     {
         thread = new Thread(Pulse);
         ClockMode = ClockModes.SignleStep;
         RisingEdge = RisingEdgeHandler;
+        FallingEdge = FallingEdgeHandler;
     }
 
 
@@ -41,6 +43,7 @@ class ClockGenerator
         {
             Output = !Output;
             if (Output) RisingEdge();
+            else FallingEdge();
             Thread.Sleep((int)(1000 / Frequency / 2));
            
 
