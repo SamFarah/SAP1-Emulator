@@ -23,6 +23,7 @@ namespace SAP1Emulator.AppCode.Visual
         private bool OldState;
         private const int len = 10;
 
+
         public LED()
         {
             InitializeComponent();
@@ -31,23 +32,18 @@ namespace SAP1Emulator.AppCode.Visual
             State = false;
             OldState = false;
             LEDColor = Color.Red;
+
         }
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
             Size = new Size(len + 1, len + 1);
-            TurnOff();
+            PaintLED();
         }
-
-        private void TurnOn()
+      
+        private void PaintLED()
         {
-            SolidBrush redBrush = new SolidBrush(LEDColor);
-            gra.FillEllipse(redBrush, Rect);
-            gra.DrawEllipse(new Pen(Color.Black), Rect);
-        }
-        private void TurnOff()
-        {
-            SolidBrush redBrush = new SolidBrush(Color.White);
+            SolidBrush redBrush = new SolidBrush(State ? LEDColor:Color.White);
             gra.FillEllipse(redBrush, Rect);
             gra.DrawEllipse(new Pen(Color.Black), Rect);
         }
@@ -55,12 +51,7 @@ namespace SAP1Emulator.AppCode.Visual
         public void ChangeState(bool val)
         {
             State = val;
-
-            if (State != OldState) //only change when state is not equal to previous state /reduce overhead
-            {
-                if (State) TurnOn();
-                else TurnOff();
-            }
+            if (State != OldState) PaintLED(); //only change when state is not equal to previous state /reduce overhead            
             OldState = State;
         }
     }
