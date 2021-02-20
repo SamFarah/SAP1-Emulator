@@ -33,8 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,15 +46,25 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCode\Adder.cs" />
+    <Compile Include="AppCode\Bus.cs" />
     <Compile Include="AppCode\ClockGenerator.cs" />
+    <Compile Include="AppCode\Register.cs" />
     <Compile Include="AppCode\Utilities.cs" />
     <Compile Include="AppCode\Visual\LED.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AppCode\Visual\LED.Designer.cs">
       <DependentUpon>LED.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppCode\Visual\LEDDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AppCode\Visual\LEDDisplay.Designer.cs">
+      <DependentUpon>LEDDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -62,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AppCode\Visual\LEDDisplay.resx">
+      <DependentUpon>LEDDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
