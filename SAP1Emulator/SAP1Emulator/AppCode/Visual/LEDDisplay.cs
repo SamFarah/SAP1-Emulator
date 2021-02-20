@@ -30,14 +30,17 @@ namespace SAP1Emulator.AppCode.Visual
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-            int i = 0;
-            foreach (LED led in LEDs)
+            int nibbleSpacing = 2;
+
+
+            for (int i =0;i<LEDs.Count;i++ )
             {
-                Controls.Add(led);
-                led.Location = new Point(3 + (12 * i++), 3);
+                LEDs[i].Location = new Point( i==0?3:(LEDs[i-1].Location.X +  (12+ (i%4==0? nibbleSpacing : 0) )) , 3);
+                Controls.Add(LEDs[i]);
+             //   MessageBox.Show(led.Location.X.ToString()); 
             }
 
-            Size = new Size((LEDs.Count == 0 ? 12 : LEDs.Count * 12) + 6, 16);
+            Size = new Size((LEDs.Count == 0 ? 12 : LEDs.Count * 12) + 6 + ((LEDs.Count/4-1)* nibbleSpacing), 16);
 
             if (this.DesignMode) ControlPaint.DrawBorder(pe.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Dotted);
         }

@@ -12,19 +12,34 @@ class Adder : Register
     {
         Op1 = op1;
         Op2 = op2;
-        
     }
 
     private Register Op1 { get; set; }
     private Register Op2 { get; set; }
-
-
-    public override byte Data { get => (byte)(Op1.Data + Op2.Data); }
-    
-    public override  byte? Write()
-    {
-        if (Enable) return Data;
-        return null;        
+    public bool Subtract { get; set; } //if active will will Subtract
+    public bool CarryIn { get; set; }
+    public bool CarryOut { get
+        {
+            return AluResult>255;
+        }
     }
+
+    private UInt16 AluResult;
+
+    public override byte Data
+    {
+        get
+        {
+            if (Subtract)
+                AluResult=(UInt16)(Op1.Data + (~Op2.Data + 0x01) + (CarryIn?1:0));
+            else
+                AluResult=(UInt16)(Op1.Data + Op2.Data + (CarryIn ? 1 : 0));
+
+            return (byte)AluResult;
+
+        }
+    }
+
+    
 }
 
