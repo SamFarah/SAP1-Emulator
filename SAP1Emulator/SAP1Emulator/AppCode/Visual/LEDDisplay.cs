@@ -51,10 +51,10 @@ namespace SAP1Emulator.AppCode.Visual
 
             if (this.DesignMode) ControlPaint.DrawBorder(pe.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Dotted);
         }
-        public void DisplayData(int Data)
+        public void DisplayData(int Data,bool Flipped = false)
         {
             for (int i = 0; i < LEDs.Count; i++)
-                LEDs[LEDs.Count - 1 - i].ChangeState((Data & (1 << i)) > 0);
+                LEDs[Flipped?i: LEDs.Count - 1 - i].ChangeState((Data & (1 << i)) > 0);
 
         }
     }

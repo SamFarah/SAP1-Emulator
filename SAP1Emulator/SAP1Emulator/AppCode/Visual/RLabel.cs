@@ -17,6 +17,7 @@ namespace SAP1Emulator.AppCode.Visual
             rotationAngle = 0d;
             this.Size = new Size(105, 12);
             base.AutoSize = false;
+            TopLine = false;
         }
         [Description("Rotation Angle"), Category("Appearance")]
         public double RotationAngle
@@ -24,8 +25,12 @@ namespace SAP1Emulator.AppCode.Visual
             get { return rotationAngle; }
             set { rotationAngle = value; this.Invalidate(); }
         }
+
+        [Description("Put Line Top"), Category("Appearance")]
+        public bool TopLine { get; set; }        
+
         protected override void OnPaint(PaintEventArgs e)
-        {
+        {            
             this.AutoSize = false;
             Graphics graphics = e.Graphics;
 
@@ -57,6 +62,13 @@ namespace SAP1Emulator.AppCode.Visual
             graphics.RotateTransform((float)rotationAngle);
             graphics.DrawString(base.Text, this.Font, textBrush, 0, 0);
             graphics.ResetTransform();
+
+            if(TopLine)
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
+                                          Color.Black, 0, ButtonBorderStyle.None,
+                                          Color.Black,1, ButtonBorderStyle.Solid,
+                                          Color.Black, 0, ButtonBorderStyle.None,
+                                          Color.Black, 0, ButtonBorderStyle.None);
         }
 
     }

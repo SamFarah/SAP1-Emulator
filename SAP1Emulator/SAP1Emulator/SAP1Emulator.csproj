@@ -52,6 +52,7 @@
     <Compile Include="AppCode\ALU.cs" />
     <Compile Include="AppCode\Bus.cs" />
     <Compile Include="AppCode\ClockGenerator.cs" />
+    <Compile Include="AppCode\ControlLogic.cs" />
     <Compile Include="AppCode\Counter.cs" />
     <Compile Include="AppCode\SAP1_8Bit.cs" />
     <Compile Include="AppCode\SRAM.cs" />

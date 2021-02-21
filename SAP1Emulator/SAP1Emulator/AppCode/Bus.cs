@@ -11,6 +11,7 @@ class Bus
     private byte mData { get; set; }
     public byte Data { get { Write (); return mData; } set { mData = value; } } //  output is not linked to clock
 
+    public byte GetData() { return mData; }
 
 
     //connected modules:
@@ -86,7 +87,7 @@ class Bus
         temp = Inst.Write();
         if (temp != null)
         {
-            mData = (byte)((mData & 0xF0) | (temp & 0x0F));
+            mData = (byte)( temp & 0x0F);
             writes++;
         } //instruction register only puts 4 LSB bits on bus
 
@@ -107,7 +108,7 @@ class Bus
         temp = PC.Write();
         if (temp != null)
         {
-            mData = (byte)((mData & 0xF0) | (temp & 0x0F));
+            mData = (byte)(temp & 0x0F);
             writes++;
         }
 
@@ -121,6 +122,17 @@ class Bus
         if (writes == 0) mData = 0x00; //if no device putting on bus then zero it out
     }
 
+    public void Reset()
+    {        
+        Data = 0x00;
+        A.Reset();
+        B.Reset ();
+        Inst.Reset();
+        //Sum.Reset();
+        MAR .Reset();        
+        PC.Reset();
+        Output.Reset();
 
+    }
 }
 

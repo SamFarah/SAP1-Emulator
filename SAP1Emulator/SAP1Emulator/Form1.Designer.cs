@@ -49,10 +49,6 @@
             this.ARegValLbl = new System.Windows.Forms.Label();
             this.SumRegValLbl = new System.Windows.Forms.Label();
             this.BRegValLbl = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.InstRegValLbl = new System.Windows.Forms.Label();
             this.InstOutBtn = new System.Windows.Forms.Button();
             this.InstInBtn = new System.Windows.Forms.Button();
@@ -89,6 +85,33 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.ClkHltBtn = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.StatusRegLBl = new System.Windows.Forms.Label();
+            this.rLabel16 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.CLDecodedLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led85 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led86 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led87 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led88 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led89 = new SAP1Emulator.AppCode.Visual.LED();
+            this.MICounterLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led82 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led83 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led84 = new SAP1Emulator.AppCode.Visual.LED();
+            this.rLabel15 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel14 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel13 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel11 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel12 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel10 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel9 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel8 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel7 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel6 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel5 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel4 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel3 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel2 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel1 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.StatusLEDDsiaply = new SAP1Emulator.AppCode.Visual.LEDDisplay();
@@ -183,26 +206,20 @@
             this.led18 = new SAP1Emulator.AppCode.Visual.LED();
             this.ledDisplay2 = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led1 = new SAP1Emulator.AppCode.Visual.LED();
+            this.rLabel17 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel18 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel19 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel21 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.led2 = new SAP1Emulator.AppCode.Visual.LED();
-            this.rLabel3 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel4 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel5 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel6 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel7 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel8 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel9 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel10 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel11 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel12 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel13 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel14 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel15 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.StatusRegLBl = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ResetBtn = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.CLDecodedLEDDisplay.SuspendLayout();
+            this.MICounterLEDDisplay.SuspendLayout();
             this.StatusLEDDsiaply.SuspendLayout();
             this.OutputRegLEDDisplay.SuspendLayout();
             this.PCLEDDisplay.SuspendLayout();
@@ -214,7 +231,6 @@
             this.ARegLEDDisplay.SuspendLayout();
             this.BusLEDDisplay.SuspendLayout();
             this.ledDisplay2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // ClockModeBtn
@@ -246,6 +262,7 @@
             this.StepClockBtn.TabIndex = 5;
             this.StepClockBtn.Text = "Step";
             this.StepClockBtn.UseVisualStyleBackColor = true;
+            this.StepClockBtn.Click += new System.EventHandler(this.StepClockBtn_Click);
             this.StepClockBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StepClockBtn_MouseDown);
             this.StepClockBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.StepClockBtn_MouseUp);
             // 
@@ -273,7 +290,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Output LED:";
+            this.label1.Text = "Clock Pulse:";
             // 
             // label3
             // 
@@ -407,45 +424,6 @@
             this.BRegValLbl.Size = new System.Drawing.Size(29, 13);
             this.BRegValLbl.TabIndex = 32;
             this.BRegValLbl.Text = "BVal";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button8);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(771, 20);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 33;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Test only";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(112, 30);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 2;
-            this.button8.Text = "Push to Bus";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Hex Value:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "0x00";
             // 
             // InstRegValLbl
             // 
@@ -625,13 +603,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.RAMView);
             this.groupBox2.Controls.Add(this.ProGramBtn);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.ProgRamDataTB);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.ProgRAMAddrTB);
-            this.groupBox2.Location = new System.Drawing.Point(37, 384);
+            this.groupBox2.Location = new System.Drawing.Point(28, 454);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(322, 259);
             this.groupBox2.TabIndex = 64;
@@ -795,6 +774,287 @@
             this.ClkHltBtn.UseVisualStyleBackColor = true;
             this.ClkHltBtn.Click += new System.EventHandler(this.ClkHltBtn_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Location = new System.Drawing.Point(909, 412);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 223);
+            this.groupBox3.TabIndex = 100;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Instruction Values";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 19);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(188, 198);
+            this.textBox2.TabIndex = 0;
+            this.textBox2.Text = "LDA - > 0x01\r\nADD -> 0x02\r\n\r\n\r\n\r\nOUT -> 0x0E\r\nHLT -> 0x0F";
+            // 
+            // StatusRegLBl
+            // 
+            this.StatusRegLBl.AutoSize = true;
+            this.StatusRegLBl.Location = new System.Drawing.Point(855, 573);
+            this.StatusRegLBl.Name = "StatusRegLBl";
+            this.StatusRegLBl.Size = new System.Drawing.Size(36, 13);
+            this.StatusRegLBl.TabIndex = 101;
+            this.StatusRegLBl.Text = "CSVal";
+            // 
+            // rLabel16
+            // 
+            this.rLabel16.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel16.Location = new System.Drawing.Point(287, 341);
+            this.rLabel16.Name = "rLabel16";
+            this.rLabel16.RotationAngle = 0D;
+            this.rLabel16.Size = new System.Drawing.Size(14, 16);
+            this.rLabel16.TabIndex = 104;
+            this.rLabel16.Text = "T0";
+            this.rLabel16.TopLine = true;
+            // 
+            // CLDecodedLEDDisplay
+            // 
+            this.CLDecodedLEDDisplay.Controls.Add(this.led85);
+            this.CLDecodedLEDDisplay.Controls.Add(this.led86);
+            this.CLDecodedLEDDisplay.Controls.Add(this.led87);
+            this.CLDecodedLEDDisplay.Controls.Add(this.led88);
+            this.CLDecodedLEDDisplay.Controls.Add(this.led89);
+            this.CLDecodedLEDDisplay.LEDs.Add(this.led85);
+            this.CLDecodedLEDDisplay.LEDs.Add(this.led86);
+            this.CLDecodedLEDDisplay.LEDs.Add(this.led87);
+            this.CLDecodedLEDDisplay.LEDs.Add(this.led88);
+            this.CLDecodedLEDDisplay.LEDs.Add(this.led89);
+            this.CLDecodedLEDDisplay.LEDSpacing = 5;
+            this.CLDecodedLEDDisplay.Location = new System.Drawing.Point(287, 353);
+            this.CLDecodedLEDDisplay.Name = "CLDecodedLEDDisplay";
+            this.CLDecodedLEDDisplay.NibbleSpacing = 0;
+            this.CLDecodedLEDDisplay.Size = new System.Drawing.Size(81, 16);
+            this.CLDecodedLEDDisplay.TabIndex = 103;
+            // 
+            // led85
+            // 
+            this.led85.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led85.Location = new System.Drawing.Point(3, 3);
+            this.led85.Name = "led85";
+            this.led85.Size = new System.Drawing.Size(11, 11);
+            this.led85.TabIndex = 0;
+            // 
+            // led86
+            // 
+            this.led86.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led86.Location = new System.Drawing.Point(18, 3);
+            this.led86.Name = "led86";
+            this.led86.Size = new System.Drawing.Size(11, 11);
+            this.led86.TabIndex = 1;
+            // 
+            // led87
+            // 
+            this.led87.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led87.Location = new System.Drawing.Point(33, 3);
+            this.led87.Name = "led87";
+            this.led87.Size = new System.Drawing.Size(11, 11);
+            this.led87.TabIndex = 2;
+            // 
+            // led88
+            // 
+            this.led88.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led88.Location = new System.Drawing.Point(48, 3);
+            this.led88.Name = "led88";
+            this.led88.Size = new System.Drawing.Size(11, 11);
+            this.led88.TabIndex = 3;
+            // 
+            // led89
+            // 
+            this.led89.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led89.Location = new System.Drawing.Point(63, 3);
+            this.led89.Name = "led89";
+            this.led89.Size = new System.Drawing.Size(11, 11);
+            this.led89.TabIndex = 4;
+            // 
+            // MICounterLEDDisplay
+            // 
+            this.MICounterLEDDisplay.Controls.Add(this.led82);
+            this.MICounterLEDDisplay.Controls.Add(this.led83);
+            this.MICounterLEDDisplay.Controls.Add(this.led84);
+            this.MICounterLEDDisplay.LEDs.Add(this.led82);
+            this.MICounterLEDDisplay.LEDs.Add(this.led83);
+            this.MICounterLEDDisplay.LEDs.Add(this.led84);
+            this.MICounterLEDDisplay.LEDSpacing = 2;
+            this.MICounterLEDDisplay.Location = new System.Drawing.Point(217, 353);
+            this.MICounterLEDDisplay.Name = "MICounterLEDDisplay";
+            this.MICounterLEDDisplay.NibbleSpacing = 2;
+            this.MICounterLEDDisplay.Size = new System.Drawing.Size(40, 16);
+            this.MICounterLEDDisplay.TabIndex = 102;
+            // 
+            // led82
+            // 
+            this.led82.LEDColor = System.Drawing.Color.Red;
+            this.led82.Location = new System.Drawing.Point(3, 3);
+            this.led82.Name = "led82";
+            this.led82.Size = new System.Drawing.Size(11, 11);
+            this.led82.TabIndex = 0;
+            // 
+            // led83
+            // 
+            this.led83.LEDColor = System.Drawing.Color.Red;
+            this.led83.Location = new System.Drawing.Point(15, 3);
+            this.led83.Name = "led83";
+            this.led83.Size = new System.Drawing.Size(11, 11);
+            this.led83.TabIndex = 1;
+            // 
+            // led84
+            // 
+            this.led84.LEDColor = System.Drawing.Color.Red;
+            this.led84.Location = new System.Drawing.Point(27, 3);
+            this.led84.Name = "led84";
+            this.led84.Size = new System.Drawing.Size(11, 11);
+            this.led84.TabIndex = 2;
+            // 
+            // rLabel15
+            // 
+            this.rLabel15.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel15.Location = new System.Drawing.Point(815, 542);
+            this.rLabel15.Name = "rLabel15";
+            this.rLabel15.RotationAngle = 90D;
+            this.rLabel15.Size = new System.Drawing.Size(14, 25);
+            this.rLabel15.TabIndex = 99;
+            this.rLabel15.Text = "JMP";
+            this.rLabel15.TopLine = false;
+            // 
+            // rLabel14
+            // 
+            this.rLabel14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel14.Location = new System.Drawing.Point(801, 551);
+            this.rLabel14.Name = "rLabel14";
+            this.rLabel14.RotationAngle = 90D;
+            this.rLabel14.Size = new System.Drawing.Size(14, 16);
+            this.rLabel14.TabIndex = 98;
+            this.rLabel14.Text = "CO";
+            this.rLabel14.TopLine = false;
+            // 
+            // rLabel13
+            // 
+            this.rLabel13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel13.Location = new System.Drawing.Point(787, 552);
+            this.rLabel13.Name = "rLabel13";
+            this.rLabel13.RotationAngle = 90D;
+            this.rLabel13.Size = new System.Drawing.Size(14, 16);
+            this.rLabel13.TabIndex = 97;
+            this.rLabel13.Text = "CE";
+            this.rLabel13.TopLine = false;
+            // 
+            // rLabel11
+            // 
+            this.rLabel11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel11.Location = new System.Drawing.Point(773, 551);
+            this.rLabel11.Name = "rLabel11";
+            this.rLabel11.RotationAngle = 90D;
+            this.rLabel11.Size = new System.Drawing.Size(14, 16);
+            this.rLabel11.TabIndex = 96;
+            this.rLabel11.Text = "OI";
+            this.rLabel11.TopLine = false;
+            // 
+            // rLabel12
+            // 
+            this.rLabel12.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel12.Location = new System.Drawing.Point(759, 551);
+            this.rLabel12.Name = "rLabel12";
+            this.rLabel12.RotationAngle = 90D;
+            this.rLabel12.Size = new System.Drawing.Size(14, 16);
+            this.rLabel12.TabIndex = 95;
+            this.rLabel12.Text = "BI";
+            this.rLabel12.TopLine = false;
+            // 
+            // rLabel10
+            // 
+            this.rLabel10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel10.Location = new System.Drawing.Point(745, 543);
+            this.rLabel10.Name = "rLabel10";
+            this.rLabel10.RotationAngle = 90D;
+            this.rLabel10.Size = new System.Drawing.Size(14, 25);
+            this.rLabel10.TabIndex = 94;
+            this.rLabel10.Text = "SUB";
+            this.rLabel10.TopLine = false;
+            // 
+            // rLabel9
+            // 
+            this.rLabel9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel9.Location = new System.Drawing.Point(731, 551);
+            this.rLabel9.Name = "rLabel9";
+            this.rLabel9.RotationAngle = 90D;
+            this.rLabel9.Size = new System.Drawing.Size(14, 16);
+            this.rLabel9.TabIndex = 93;
+            this.rLabel9.Text = "SO";
+            this.rLabel9.TopLine = false;
+            // 
+            // rLabel8
+            // 
+            this.rLabel8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel8.Location = new System.Drawing.Point(718, 551);
+            this.rLabel8.Name = "rLabel8";
+            this.rLabel8.RotationAngle = 90D;
+            this.rLabel8.Size = new System.Drawing.Size(14, 16);
+            this.rLabel8.TabIndex = 92;
+            this.rLabel8.Text = "AO";
+            this.rLabel8.TopLine = false;
+            // 
+            // rLabel7
+            // 
+            this.rLabel7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel7.Location = new System.Drawing.Point(704, 551);
+            this.rLabel7.Name = "rLabel7";
+            this.rLabel7.RotationAngle = 90D;
+            this.rLabel7.Size = new System.Drawing.Size(14, 16);
+            this.rLabel7.TabIndex = 91;
+            this.rLabel7.Text = "AI";
+            this.rLabel7.TopLine = false;
+            // 
+            // rLabel6
+            // 
+            this.rLabel6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel6.Location = new System.Drawing.Point(689, 551);
+            this.rLabel6.Name = "rLabel6";
+            this.rLabel6.RotationAngle = 90D;
+            this.rLabel6.Size = new System.Drawing.Size(14, 16);
+            this.rLabel6.TabIndex = 90;
+            this.rLabel6.Text = "II";
+            this.rLabel6.TopLine = false;
+            // 
+            // rLabel5
+            // 
+            this.rLabel5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel5.Location = new System.Drawing.Point(675, 551);
+            this.rLabel5.Name = "rLabel5";
+            this.rLabel5.RotationAngle = 90D;
+            this.rLabel5.Size = new System.Drawing.Size(14, 16);
+            this.rLabel5.TabIndex = 89;
+            this.rLabel5.Text = "IO";
+            this.rLabel5.TopLine = false;
+            // 
+            // rLabel4
+            // 
+            this.rLabel4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel4.Location = new System.Drawing.Point(661, 551);
+            this.rLabel4.Name = "rLabel4";
+            this.rLabel4.RotationAngle = 90D;
+            this.rLabel4.Size = new System.Drawing.Size(14, 16);
+            this.rLabel4.TabIndex = 88;
+            this.rLabel4.Text = "RO";
+            this.rLabel4.TopLine = false;
+            // 
+            // rLabel3
+            // 
+            this.rLabel3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel3.Location = new System.Drawing.Point(647, 551);
+            this.rLabel3.Name = "rLabel3";
+            this.rLabel3.RotationAngle = 90D;
+            this.rLabel3.Size = new System.Drawing.Size(14, 16);
+            this.rLabel3.TabIndex = 87;
+            this.rLabel3.Text = "RI";
+            this.rLabel3.TopLine = false;
+            // 
             // rLabel2
             // 
             this.rLabel2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -804,6 +1064,7 @@
             this.rLabel2.Size = new System.Drawing.Size(14, 16);
             this.rLabel2.TabIndex = 86;
             this.rLabel2.Text = "MI";
+            this.rLabel2.TopLine = false;
             // 
             // rLabel1
             // 
@@ -814,6 +1075,7 @@
             this.rLabel1.Size = new System.Drawing.Size(15, 25);
             this.rLabel1.TabIndex = 84;
             this.rLabel1.Text = "HLT";
+            this.rLabel1.TopLine = false;
             // 
             // StatusLEDDsiaply
             // 
@@ -832,6 +1094,7 @@
             this.StatusLEDDsiaply.Controls.Add(this.led79);
             this.StatusLEDDsiaply.Controls.Add(this.led80);
             this.StatusLEDDsiaply.Controls.Add(this.led81);
+            this.StatusLEDDsiaply.Controls.Add(this.led2);
             this.StatusLEDDsiaply.LEDs.Add(this.led67);
             this.StatusLEDDsiaply.LEDs.Add(this.led68);
             this.StatusLEDDsiaply.LEDs.Add(this.led69);
@@ -847,11 +1110,12 @@
             this.StatusLEDDsiaply.LEDs.Add(this.led79);
             this.StatusLEDDsiaply.LEDs.Add(this.led80);
             this.StatusLEDDsiaply.LEDs.Add(this.led81);
+            this.StatusLEDDsiaply.LEDs.Add(this.led2);
             this.StatusLEDDsiaply.LEDSpacing = 4;
             this.StatusLEDDsiaply.Location = new System.Drawing.Point(619, 570);
             this.StatusLEDDsiaply.Name = "StatusLEDDsiaply";
             this.StatusLEDDsiaply.NibbleSpacing = 0;
-            this.StatusLEDDsiaply.Size = new System.Drawing.Size(216, 16);
+            this.StatusLEDDsiaply.Size = new System.Drawing.Size(230, 16);
             this.StatusLEDDsiaply.TabIndex = 83;
             // 
             // led67
@@ -1706,196 +1970,122 @@
             // ledDisplay2
             // 
             this.ledDisplay2.Controls.Add(this.led1);
-            this.ledDisplay2.Controls.Add(this.led2);
             this.ledDisplay2.LEDs.Add(this.led1);
-            this.ledDisplay2.LEDs.Add(this.led2);
             this.ledDisplay2.LEDSpacing = 2;
             this.ledDisplay2.Location = new System.Drawing.Point(651, 57);
             this.ledDisplay2.Name = "ledDisplay2";
             this.ledDisplay2.NibbleSpacing = 2;
-            this.ledDisplay2.Size = new System.Drawing.Size(28, 16);
+            this.ledDisplay2.Size = new System.Drawing.Size(16, 16);
             this.ledDisplay2.TabIndex = 11;
             // 
             // led1
             // 
-            this.led1.LEDColor = System.Drawing.Color.Lime;
+            this.led1.LEDColor = System.Drawing.Color.Fuchsia;
             this.led1.Location = new System.Drawing.Point(3, 3);
             this.led1.Name = "led1";
             this.led1.Size = new System.Drawing.Size(11, 11);
             this.led1.TabIndex = 0;
             // 
+            // rLabel17
+            // 
+            this.rLabel17.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel17.Location = new System.Drawing.Point(303, 341);
+            this.rLabel17.Name = "rLabel17";
+            this.rLabel17.RotationAngle = 0D;
+            this.rLabel17.Size = new System.Drawing.Size(14, 16);
+            this.rLabel17.TabIndex = 105;
+            this.rLabel17.Text = "T1";
+            this.rLabel17.TopLine = true;
+            // 
+            // rLabel18
+            // 
+            this.rLabel18.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel18.Location = new System.Drawing.Point(335, 341);
+            this.rLabel18.Name = "rLabel18";
+            this.rLabel18.RotationAngle = 0D;
+            this.rLabel18.Size = new System.Drawing.Size(14, 16);
+            this.rLabel18.TabIndex = 107;
+            this.rLabel18.Text = "T3";
+            this.rLabel18.TopLine = true;
+            // 
+            // rLabel19
+            // 
+            this.rLabel19.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel19.Location = new System.Drawing.Point(319, 341);
+            this.rLabel19.Name = "rLabel19";
+            this.rLabel19.RotationAngle = 0D;
+            this.rLabel19.Size = new System.Drawing.Size(14, 16);
+            this.rLabel19.TabIndex = 106;
+            this.rLabel19.Text = "T2";
+            this.rLabel19.TopLine = true;
+            // 
+            // rLabel21
+            // 
+            this.rLabel21.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel21.Location = new System.Drawing.Point(351, 341);
+            this.rLabel21.Name = "rLabel21";
+            this.rLabel21.RotationAngle = 0D;
+            this.rLabel21.Size = new System.Drawing.Size(14, 16);
+            this.rLabel21.TabIndex = 108;
+            this.rLabel21.Text = "T4";
+            this.rLabel21.TopLine = true;
+            // 
             // led2
             // 
             this.led2.LEDColor = System.Drawing.Color.Red;
-            this.led2.Location = new System.Drawing.Point(15, 3);
+            this.led2.Location = new System.Drawing.Point(213, 3);
             this.led2.Name = "led2";
             this.led2.Size = new System.Drawing.Size(11, 11);
-            this.led2.TabIndex = 1;
+            this.led2.TabIndex = 15;
+            this.led2.Visible = false;
             // 
-            // rLabel3
+            // textBox1
             // 
-            this.rLabel3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel3.Location = new System.Drawing.Point(647, 551);
-            this.rLabel3.Name = "rLabel3";
-            this.rLabel3.RotationAngle = 90D;
-            this.rLabel3.Size = new System.Drawing.Size(14, 16);
-            this.rLabel3.TabIndex = 87;
-            this.rLabel3.Text = "RI";
+            this.textBox1.Location = new System.Drawing.Point(367, 475);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(149, 194);
+            this.textBox1.TabIndex = 109;
             // 
-            // rLabel4
+            // button1
             // 
-            this.rLabel4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel4.Location = new System.Drawing.Point(661, 551);
-            this.rLabel4.Name = "rLabel4";
-            this.rLabel4.RotationAngle = 90D;
-            this.rLabel4.Size = new System.Drawing.Size(14, 16);
-            this.rLabel4.TabIndex = 88;
-            this.rLabel4.Text = "RO";
+            this.button1.Location = new System.Drawing.Point(371, 674);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 110;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // rLabel5
+            // ResetBtn
             // 
-            this.rLabel5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel5.Location = new System.Drawing.Point(675, 551);
-            this.rLabel5.Name = "rLabel5";
-            this.rLabel5.RotationAngle = 90D;
-            this.rLabel5.Size = new System.Drawing.Size(14, 16);
-            this.rLabel5.TabIndex = 89;
-            this.rLabel5.Text = "IO";
+            this.ResetBtn.Location = new System.Drawing.Point(43, 44);
+            this.ResetBtn.Name = "ResetBtn";
+            this.ResetBtn.Size = new System.Drawing.Size(75, 23);
+            this.ResetBtn.TabIndex = 111;
+            this.ResetBtn.Text = "Reset";
+            this.ResetBtn.UseVisualStyleBackColor = true;
+            this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
             // 
-            // rLabel6
+            // listView1
             // 
-            this.rLabel6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel6.Location = new System.Drawing.Point(689, 551);
-            this.rLabel6.Name = "rLabel6";
-            this.rLabel6.RotationAngle = 90D;
-            this.rLabel6.Size = new System.Drawing.Size(14, 16);
-            this.rLabel6.TabIndex = 90;
-            this.rLabel6.Text = "II";
-            // 
-            // rLabel7
-            // 
-            this.rLabel7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel7.Location = new System.Drawing.Point(704, 551);
-            this.rLabel7.Name = "rLabel7";
-            this.rLabel7.RotationAngle = 90D;
-            this.rLabel7.Size = new System.Drawing.Size(14, 16);
-            this.rLabel7.TabIndex = 91;
-            this.rLabel7.Text = "AI";
-            // 
-            // rLabel8
-            // 
-            this.rLabel8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel8.Location = new System.Drawing.Point(718, 551);
-            this.rLabel8.Name = "rLabel8";
-            this.rLabel8.RotationAngle = 90D;
-            this.rLabel8.Size = new System.Drawing.Size(14, 16);
-            this.rLabel8.TabIndex = 92;
-            this.rLabel8.Text = "AO";
-            // 
-            // rLabel9
-            // 
-            this.rLabel9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel9.Location = new System.Drawing.Point(731, 551);
-            this.rLabel9.Name = "rLabel9";
-            this.rLabel9.RotationAngle = 90D;
-            this.rLabel9.Size = new System.Drawing.Size(14, 16);
-            this.rLabel9.TabIndex = 93;
-            this.rLabel9.Text = "SO";
-            // 
-            // rLabel10
-            // 
-            this.rLabel10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel10.Location = new System.Drawing.Point(745, 543);
-            this.rLabel10.Name = "rLabel10";
-            this.rLabel10.RotationAngle = 90D;
-            this.rLabel10.Size = new System.Drawing.Size(14, 25);
-            this.rLabel10.TabIndex = 94;
-            this.rLabel10.Text = "SUB";
-            // 
-            // rLabel11
-            // 
-            this.rLabel11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel11.Location = new System.Drawing.Point(773, 551);
-            this.rLabel11.Name = "rLabel11";
-            this.rLabel11.RotationAngle = 90D;
-            this.rLabel11.Size = new System.Drawing.Size(14, 16);
-            this.rLabel11.TabIndex = 96;
-            this.rLabel11.Text = "OI";
-            // 
-            // rLabel12
-            // 
-            this.rLabel12.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel12.Location = new System.Drawing.Point(759, 551);
-            this.rLabel12.Name = "rLabel12";
-            this.rLabel12.RotationAngle = 90D;
-            this.rLabel12.Size = new System.Drawing.Size(14, 16);
-            this.rLabel12.TabIndex = 95;
-            this.rLabel12.Text = "BI";
-            // 
-            // rLabel13
-            // 
-            this.rLabel13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel13.Location = new System.Drawing.Point(787, 552);
-            this.rLabel13.Name = "rLabel13";
-            this.rLabel13.RotationAngle = 90D;
-            this.rLabel13.Size = new System.Drawing.Size(14, 16);
-            this.rLabel13.TabIndex = 97;
-            this.rLabel13.Text = "CE";
-            // 
-            // rLabel14
-            // 
-            this.rLabel14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel14.Location = new System.Drawing.Point(801, 551);
-            this.rLabel14.Name = "rLabel14";
-            this.rLabel14.RotationAngle = 90D;
-            this.rLabel14.Size = new System.Drawing.Size(14, 16);
-            this.rLabel14.TabIndex = 98;
-            this.rLabel14.Text = "CO";
-            // 
-            // rLabel15
-            // 
-            this.rLabel15.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel15.Location = new System.Drawing.Point(815, 542);
-            this.rLabel15.Name = "rLabel15";
-            this.rLabel15.RotationAngle = 90D;
-            this.rLabel15.Size = new System.Drawing.Size(14, 25);
-            this.rLabel15.TabIndex = 99;
-            this.rLabel15.Text = "JMP";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Location = new System.Drawing.Point(888, 405);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 223);
-            this.groupBox3.TabIndex = 100;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Instruction Values";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(6, 19);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(188, 198);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "LDA - > 0x01\r\nADD -> 0x02\r\n\r\n\r\n\r\nOUT -> 0x0E\r\n";
-            // 
-            // StatusRegLBl
-            // 
-            this.StatusRegLBl.AutoSize = true;
-            this.StatusRegLBl.Location = new System.Drawing.Point(841, 570);
-            this.StatusRegLBl.Name = "StatusRegLBl";
-            this.StatusRegLBl.Size = new System.Drawing.Size(36, 13);
-            this.StatusRegLBl.TabIndex = 101;
-            this.StatusRegLBl.Text = "CSVal";
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(25, 129);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(121, 97);
+            this.listView1.TabIndex = 64;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 669);
+            this.ClientSize = new System.Drawing.Size(1130, 738);
+            this.Controls.Add(this.ResetBtn);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.CLDecodedLEDDisplay);
+            this.Controls.Add(this.MICounterLEDDisplay);
             this.Controls.Add(this.StatusRegLBl);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rLabel15);
@@ -1950,7 +2140,6 @@
             this.Controls.Add(this.InstInBtn);
             this.Controls.Add(this.InstRegLEDDisplay);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BRegValLbl);
             this.Controls.Add(this.SumRegValLbl);
             this.Controls.Add(this.ARegValLbl);
@@ -1975,14 +2164,21 @@
             this.Controls.Add(this.FreqLbl);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClockModeBtn);
+            this.Controls.Add(this.rLabel21);
+            this.Controls.Add(this.rLabel18);
+            this.Controls.Add(this.rLabel19);
+            this.Controls.Add(this.rLabel17);
+            this.Controls.Add(this.rLabel16);
             this.Name = "MainForm";
             this.Text = "m";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.CLDecodedLEDDisplay.ResumeLayout(false);
+            this.MICounterLEDDisplay.ResumeLayout(false);
             this.StatusLEDDsiaply.ResumeLayout(false);
             this.OutputRegLEDDisplay.ResumeLayout(false);
             this.PCLEDDisplay.ResumeLayout(false);
@@ -1994,8 +2190,6 @@
             this.ARegLEDDisplay.ResumeLayout(false);
             this.BusLEDDisplay.ResumeLayout(false);
             this.ledDisplay2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2011,7 +2205,6 @@
         private System.Windows.Forms.Label label1;
         private AppCode.Visual.LEDDisplay ledDisplay2;
         private AppCode.Visual.LED led1;
-        private AppCode.Visual.LED led2;
         private System.Windows.Forms.Label label3;
         private AppCode.Visual.LEDDisplay BusLEDDisplay;
         private AppCode.Visual.LED led11;
@@ -2062,10 +2255,6 @@
         private System.Windows.Forms.Label ARegValLbl;
         private System.Windows.Forms.Label SumRegValLbl;
         private System.Windows.Forms.Label BRegValLbl;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label InstRegValLbl;
         private System.Windows.Forms.Button InstOutBtn;
         private System.Windows.Forms.Button InstInBtn;
@@ -2174,6 +2363,26 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label StatusRegLBl;
+        private AppCode.Visual.LEDDisplay MICounterLEDDisplay;
+        private AppCode.Visual.LED led82;
+        private AppCode.Visual.LED led83;
+        private AppCode.Visual.LED led84;
+        private AppCode.Visual.LEDDisplay CLDecodedLEDDisplay;
+        private AppCode.Visual.LED led85;
+        private AppCode.Visual.LED led86;
+        private AppCode.Visual.LED led87;
+        private AppCode.Visual.LED led88;
+        private AppCode.Visual.LED led89;
+        private AppCode.Visual.RLabel rLabel16;
+        private AppCode.Visual.RLabel rLabel17;
+        private AppCode.Visual.RLabel rLabel18;
+        private AppCode.Visual.RLabel rLabel19;
+        private AppCode.Visual.RLabel rLabel21;
+        private AppCode.Visual.LED led2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ResetBtn;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

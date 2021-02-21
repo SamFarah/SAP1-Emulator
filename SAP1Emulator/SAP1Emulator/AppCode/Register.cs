@@ -19,6 +19,10 @@ class Register
 
     public virtual void Read(byte data) { if (Load) Data = (byte)(data & Mask); }
     public virtual byte? Write() { if (Enable) return (byte)(Data & Mask); return null; }    
+    public void Reset()
+    {
+        Data = 0x00;
+    }
 }
 
 

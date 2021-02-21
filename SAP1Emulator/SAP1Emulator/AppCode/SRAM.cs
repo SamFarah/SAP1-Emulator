@@ -23,10 +23,13 @@ class SRAM
 
     public SRAM(Register mar)
     {
-        MEM = new byte[16]; //16 Byte memory
+        MEM = new byte[16] { 0x1E,0x2F,0xE0,0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1C,0x0E}; //16 Byte memory
         //randomize memory values (to simulate "garbage memory")
         Random r=new Random((int)DateTime.Now.Ticks );
-        for (int i = 0; i < 16; i++) MEM[i] =(byte) r.Next(0, 0xFF);
+        for (int i = 4; i < 14; i++) MEM[i] =(byte) r.Next(0, 0xFF);
+
+       
+
         MAR = mar;
         Load = false;
         Enable = false;

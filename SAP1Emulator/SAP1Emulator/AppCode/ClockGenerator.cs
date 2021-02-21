@@ -32,6 +32,7 @@ class ClockGenerator
         ClockMode = ClockModes.SignleStep;
         RisingEdge = RisingEdgeHandler;
         FallingEdge = FallingEdgeHandler;
+        Frequency = 1; //Hz
     }
 
 

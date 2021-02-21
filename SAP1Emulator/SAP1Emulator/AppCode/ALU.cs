@@ -26,6 +26,8 @@ class ALU : Register
 
     private UInt16 AluResult;
 
+   // public byte GetData() { return (byte)AluResult; }
+
     public override byte Data
     {
         get
