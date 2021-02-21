@@ -9,29 +9,32 @@ class Bus
 {
 
     private byte mData { get; set; }
-    public byte Data { get { Write (); return mData; } set { mData = value; } } //  output is not linked to clock
-
-    public byte GetData() { return mData; }
-
-
+    public byte Data { get { Write(); return mData; } set { mData = value; } } //  output is not linked to clock   
     //connected modules:
 
     public Register A { get; set; }
     public Register B { get; set; }
-
     public Register Inst { get; set; }
-
     public ALU Sum { get; set; }
-
     public Register MAR { get; set; }
-
     public SRAM RAM { get; set; }
-
     public Counter PC { get; set; }
     public Register Output { get; set; }
 
-
     //funcs
+    public void Reset()
+    {
+        mData = 0x00;
+        Data = 0x00;
+        A.Reset();
+        B.Reset();
+        Inst.Reset();
+        Sum.Reset();
+        MAR.Reset();
+        PC.Reset();
+        Output.Reset();
+
+    }
 
     public Bus()
     {
@@ -51,7 +54,7 @@ class Bus
         B.Read(mData);
         Inst.Read(mData);
         MAR.Read(mData);
-        RAM.Read( mData);
+        RAM.Read(mData);
         PC.Read(mData);
         Output.Read(mData);
 
@@ -87,7 +90,7 @@ class Bus
         temp = Inst.Write();
         if (temp != null)
         {
-            mData = (byte)( temp & 0x0F);
+            mData = (byte)(temp & 0x0F);
             writes++;
         } //instruction register only puts 4 LSB bits on bus
 
@@ -122,17 +125,6 @@ class Bus
         if (writes == 0) mData = 0x00; //if no device putting on bus then zero it out
     }
 
-    public void Reset()
-    {        
-        Data = 0x00;
-        A.Reset();
-        B.Reset ();
-        Inst.Reset();
-        //Sum.Reset();
-        MAR .Reset();        
-        PC.Reset();
-        Output.Reset();
 
-    }
 }
 

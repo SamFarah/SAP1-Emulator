@@ -21,16 +21,21 @@ class SRAM
         }
     }
 
+    public void Radomize()
+    {
+        Random r = new Random((int)DateTime.Now.Ticks);
+        for (int i = 0; i < 16; i++) MEM[i] = (byte)r.Next(0, 0xFF);
+    }
+
     public SRAM(Register mar)
     {
-        MEM = new byte[16] { 0x1E,0x2F,0xE0,0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1C,0x0E}; //16 Byte memory
-        //randomize memory values (to simulate "garbage memory")
-        Random r=new Random((int)DateTime.Now.Ticks );
-        for (int i = 4; i < 14; i++) MEM[i] =(byte) r.Next(0, 0xFF);
+        MEM = new byte[16];// { 0x1F,0x2E,0x3D, 0xE0, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x06,0x05}; //16 Byte memory
+                          
+        Radomize();  //randomize memory values (to simulate "garbage memory")
 
-       
 
-        MAR = mar;
+
+         MAR = mar;
         Load = false;
         Enable = false;
     }

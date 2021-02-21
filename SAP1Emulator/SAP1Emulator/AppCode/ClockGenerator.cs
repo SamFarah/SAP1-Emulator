@@ -35,7 +35,6 @@ class ClockGenerator
         Frequency = 1; //Hz
     }
 
-
     private void Pulse()
     {
         while (true)
@@ -51,21 +50,25 @@ class ClockGenerator
 
         }
     }
-    public void Run()
+    public void Start()
     {
         switch (thread.ThreadState)
         {
             case ThreadState.Running: break;
             case ThreadState.Suspended: thread.Resume(); break;
             case ThreadState.Stopped: thread.Start(); break;
-            case ThreadState.Unstarted: thread.Start(); break;
+            case ThreadState.Unstarted: thread.Start(); break;           
         }
 
     }
 
     public void Stop()
     {
-        if (thread.ThreadState == ThreadState.Running || thread.ThreadState == ThreadState.WaitSleepJoin) thread.Suspend();
+        if (thread.ThreadState == ThreadState.Running || thread.ThreadState == ThreadState.WaitSleepJoin)
+        {
+            thread.Suspend();
+            while ((thread.ThreadState & ThreadState.SuspendRequested ) > 0) ;//wait until it is suspended
+        }
         Output = false;
 
     }

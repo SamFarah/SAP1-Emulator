@@ -67,16 +67,18 @@ class SAP1_8Bit
     }
 
     private void FallingEdge()
-    {
+    {        
         ControlWord = CL.GetControlWord();
-       
+        
     }
 
     public void Reset()
     {
+        Clock.Stop();        
         Clock.Hault = false;
         Bus.Reset();
         CL.Reset();
+        if (Clock.ClockMode == ClockGenerator.ClockModes.Auto) Clock.Start();
     }  
 }
 

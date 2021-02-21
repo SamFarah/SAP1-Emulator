@@ -22,6 +22,8 @@ class Register
     public void Reset()
     {
         Data = 0x00;
+        Load = false;
+        Enable = false;
     }
 }
 
