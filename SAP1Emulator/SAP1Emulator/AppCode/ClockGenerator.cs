@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 class ClockGenerator
 {
-
-
-
     public enum ClockModes
     {
         Auto,
@@ -21,6 +18,7 @@ class ClockGenerator
     public ClockModes ClockMode { get; set; }
     public bool Output { get; set; }
     public bool OutputInverse { get { return !Output; } }
+    public bool Hault { get; set; }
 
     private Thread thread { get; set; }
 
@@ -41,11 +39,14 @@ class ClockGenerator
     {
         while (true)
         {
-            Output = !Output;
-            if (Output) RisingEdge();
-            else FallingEdge();
+            if (!Hault)
+            {
+                Output = !Output;
+                if (Output) RisingEdge();
+                else FallingEdge();
+            }
             Thread.Sleep((int)(1000 / Frequency / 2));
-           
+
 
         }
     }
@@ -69,8 +70,12 @@ class ClockGenerator
     }
     public void Step()
     {
-        Output = !Output;
-        if (Output) RisingEdge();
+        if (!Hault)
+        {
+            Output = !Output;
+            if (Output) RisingEdge();
+            else FallingEdge();
+        }
     }
 }
 

@@ -22,25 +22,32 @@ namespace SAP1Emulator.AppCode.Visual
         {
             InitializeComponent();
             mLEDs = new LEDCollection(this);
+            NibbleSpacing = 2;
+            LEDSpacing = 2;
         }
         [Category("Data"), DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public LEDCollection LEDs { get { return mLEDs; } }
         internal void RefreshLayout() { Invalidate(); }
 
+        [Category("Appearance"), Description("The gap between each 4 LEDs (Nibble)")]
+        public int NibbleSpacing { get; set; }
+
+        [Category("Appearance"), Description("The gap between each LED")]
+        public int LEDSpacing { get; set; }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-            int nibbleSpacing = 2;
 
 
-            for (int i =0;i<LEDs.Count;i++ )
+            for (int i = 0; i < LEDs.Count; i++)
             {
-                LEDs[i].Location = new Point( i==0?3:(LEDs[i-1].Location.X +  (12+ (i%4==0? nibbleSpacing : 0) )) , 3);
+                LEDs[i].Location = new Point(i == 0 ? 3 : (LEDs[i - 1].Location.X + (10 + LEDSpacing + (i % 4 == 0 ? NibbleSpacing : 0))), 3);
                 Controls.Add(LEDs[i]);
-             //   MessageBox.Show(led.Location.X.ToString()); 
+                //   MessageBox.Show(led.Location.X.ToString()); 
             }
 
-            Size = new Size((LEDs.Count == 0 ? 12 : LEDs.Count * 12) + 6 + ((LEDs.Count/4-1)* nibbleSpacing), 16);
+            Size = new Size((LEDs.Count == 0 ? 12 : LEDs.Count * (10 + LEDSpacing)) + 6 + ((LEDs.Count / 4 - 1) * NibbleSpacing), 16);
 
             if (this.DesignMode) ControlPaint.DrawBorder(pe.Graphics, ClientRectangle, Color.Black, ButtonBorderStyle.Dotted);
         }
@@ -56,10 +63,10 @@ namespace SAP1Emulator.AppCode.Visual
         private LEDDisplay MyControl;
         public override void Initialize(IComponent component)
         {
-            base.Initialize(component);            
-            MyControl = (LEDDisplay)component;            
+            base.Initialize(component);
+            MyControl = (LEDDisplay)component;
             IComponentChangeService c = (IComponentChangeService)GetService(typeof(IComponentChangeService));
-            c.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);            
+            c.ComponentRemoving += new ComponentEventHandler(OnComponentRemoving);
         }
 
         private void OnComponentRemoving(object sender, ComponentEventArgs e)

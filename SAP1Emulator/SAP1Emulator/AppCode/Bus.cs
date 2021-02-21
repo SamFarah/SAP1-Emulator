@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 class Bus
 {
-    public byte Data { get; set; }
+
+    private byte mData { get; set; }
+    public byte Data { get { Write (); return mData; } set { mData = value; } } //  output is not linked to clock
 
 
 
@@ -44,13 +46,15 @@ class Bus
     }
     public void Read()//read data from the bus into devices
     {
-        A.Read(Data);
-        B.Read(Data);
-        Inst.Read(Data);
-        MAR.Read(Data);
-        RAM.Read((byte)(MAR.Data & 0x0F), Data);
-        PC.Read(Data);
-        Output.Read(Data);
+        A.Read(mData);
+        B.Read(mData);
+        Inst.Read(mData);
+        MAR.Read(mData);
+        RAM.Read( mData);
+        PC.Read(mData);
+        Output.Read(mData);
+
+        PC.Inc();
         //return Data;
     }
 
@@ -61,60 +65,60 @@ class Bus
         temp = A.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
         temp = B.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
         temp = Sum.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
         temp = Inst.Write();
         if (temp != null)
         {
-            Data = (byte)((Data & 0xF0) | (temp & 0x0F));
+            mData = (byte)((mData & 0xF0) | (temp & 0x0F));
             writes++;
         } //instruction register only puts 4 LSB bits on bus
 
         temp = MAR.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
-        temp = RAM.Write((byte)(MAR.Data & 0x0F));
+        temp = RAM.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
         temp = PC.Write();
         if (temp != null)
         {
-            Data = (byte)((Data & 0xF0) | (temp & 0x0F));
+            mData = (byte)((mData & 0xF0) | (temp & 0x0F));
             writes++;
         }
 
         temp = Output.Write();
         if (temp != null)
         {
-            Data = (byte)temp;
+            mData = (byte)temp;
             writes++;
         }
 
-        if (writes == 0) Data = 0x00; //if no device putting on bus then zero it out
+        if (writes == 0) mData = 0x00; //if no device putting on bus then zero it out
     }
 
 

@@ -8,9 +8,12 @@ class Counter : Register
 {
     public Counter() : base(0x0F) { Data = 0x00; }
 
+    public bool Count { get; set; }
+
+
     public void Inc()
     {
-        Data = (byte)((Data + 1) & 0X0f);
+       if (Count) Data = (byte)((Data + 1) & 0X0f);
     }
 
 

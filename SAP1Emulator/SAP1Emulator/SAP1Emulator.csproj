@@ -53,6 +53,7 @@
     <Compile Include="AppCode\Bus.cs" />
     <Compile Include="AppCode\ClockGenerator.cs" />
     <Compile Include="AppCode\Counter.cs" />
+    <Compile Include="AppCode\SAP1_8Bit.cs" />
     <Compile Include="AppCode\SRAM.cs" />
     <Compile Include="AppCode\Register.cs" />
     <Compile Include="AppCode\Utilities.cs" />
@@ -67,6 +68,9 @@
     </Compile>
     <Compile Include="AppCode\Visual\LEDDisplay.Designer.cs">
       <DependentUpon>LEDDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppCode\Visual\RLabel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

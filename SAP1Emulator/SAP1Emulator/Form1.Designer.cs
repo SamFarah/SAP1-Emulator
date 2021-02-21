@@ -39,12 +39,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.AInBtn = new System.Windows.Forms.Button();
+            this.AOutBtn = new System.Windows.Forms.Button();
+            this.BOutBtn = new System.Windows.Forms.Button();
+            this.BInBtn = new System.Windows.Forms.Button();
+            this.SumOutBtn = new System.Windows.Forms.Button();
+            this.SumSubBtn = new System.Windows.Forms.Button();
             this.BusValLbl = new System.Windows.Forms.Label();
             this.ARegValLbl = new System.Windows.Forms.Label();
             this.SumRegValLbl = new System.Windows.Forms.Label();
@@ -54,17 +54,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.InstRegValLbl = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.InstOutBtn = new System.Windows.Forms.Button();
+            this.InstInBtn = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.RAMRegValLbl = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
+            this.RAMOutBtn = new System.Windows.Forms.Button();
+            this.RAMInBtn = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.MARRegValLbl = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
+            this.MARInBtn = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.RAMView = new System.Windows.Forms.ListBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -76,10 +76,46 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.PCRegValLbl = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
+            this.PCInBtn = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
+            this.PCOutBtn = new System.Windows.Forms.Button();
+            this.PCECBtn = new System.Windows.Forms.Button();
+            this.OutputRegValLbl = new System.Windows.Forms.Label();
+            this.OutputInBtn = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.DisplayLbl = new System.Windows.Forms.Label();
+            this.DisplayShadowLbl = new System.Windows.Forms.Label();
+            this.DisplaySignedCB = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ClkHltBtn = new System.Windows.Forms.Button();
+            this.rLabel2 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel1 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.StatusLEDDsiaply = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led67 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led68 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led69 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led70 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led71 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led72 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led73 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led74 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led75 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led76 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led77 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led78 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led79 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led80 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led81 = new SAP1Emulator.AppCode.Visual.LED();
+            this.OutputRegLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led59 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led60 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led61 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led62 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led63 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led64 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led65 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led66 = new SAP1Emulator.AppCode.Visual.LED();
             this.PCLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led55 = new SAP1Emulator.AppCode.Visual.LED();
             this.led56 = new SAP1Emulator.AppCode.Visual.LED();
@@ -148,24 +184,27 @@
             this.ledDisplay2 = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led1 = new SAP1Emulator.AppCode.Visual.LED();
             this.led2 = new SAP1Emulator.AppCode.Visual.LED();
-            this.OutputRegValLbl = new System.Windows.Forms.Label();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.OutputRegLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
-            this.led59 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led60 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led61 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led62 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led63 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led64 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led65 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led66 = new SAP1Emulator.AppCode.Visual.LED();
-            this.label8 = new System.Windows.Forms.Label();
-            this.DisplayLbl = new System.Windows.Forms.Label();
-            this.DisplayShadowLbl = new System.Windows.Forms.Label();
+            this.rLabel3 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel4 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel5 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel6 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel7 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel8 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel9 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel10 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel11 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel12 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel13 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel14 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel15 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.StatusRegLBl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.StatusLEDDsiaply.SuspendLayout();
+            this.OutputRegLEDDisplay.SuspendLayout();
             this.PCLEDDisplay.SuspendLayout();
             this.MARLEDDisplay.SuspendLayout();
             this.RAMLEDDisplay.SuspendLayout();
@@ -175,7 +214,7 @@
             this.ARegLEDDisplay.SuspendLayout();
             this.BusLEDDisplay.SuspendLayout();
             this.ledDisplay2.SuspendLayout();
-            this.OutputRegLEDDisplay.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // ClockModeBtn
@@ -201,13 +240,12 @@
             // 
             // StepClockBtn
             // 
-            this.StepClockBtn.Location = new System.Drawing.Point(340, 86);
+            this.StepClockBtn.Location = new System.Drawing.Point(255, 57);
             this.StepClockBtn.Name = "StepClockBtn";
             this.StepClockBtn.Size = new System.Drawing.Size(75, 23);
             this.StepClockBtn.TabIndex = 5;
             this.StepClockBtn.Text = "Step";
             this.StepClockBtn.UseVisualStyleBackColor = true;
-            this.StepClockBtn.Click += new System.EventHandler(this.StepClockBtn_Click);
             this.StepClockBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StepClockBtn_MouseDown);
             this.StepClockBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.StepClockBtn_MouseUp);
             // 
@@ -273,65 +311,66 @@
             this.label6.TabIndex = 18;
             this.label6.Text = "Sum Reg:";
             // 
-            // button1
+            // AInBtn
             // 
-            this.button1.Location = new System.Drawing.Point(758, 231);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Load Test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AInBtn.Location = new System.Drawing.Point(758, 231);
+            this.AInBtn.Name = "AInBtn";
+            this.AInBtn.Size = new System.Drawing.Size(75, 23);
+            this.AInBtn.TabIndex = 20;
+            this.AInBtn.Text = "Load Test";
+            this.AInBtn.UseVisualStyleBackColor = true;
+            this.AInBtn.Click += new System.EventHandler(this.AInBtn_Click);
             // 
-            // button2
+            // AOutBtn
             // 
-            this.button2.Location = new System.Drawing.Point(849, 231);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "Enable Test";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.AOutBtn.Location = new System.Drawing.Point(849, 231);
+            this.AOutBtn.Name = "AOutBtn";
+            this.AOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.AOutBtn.TabIndex = 21;
+            this.AOutBtn.Text = "Enable Test";
+            this.AOutBtn.UseVisualStyleBackColor = true;
+            this.AOutBtn.Click += new System.EventHandler(this.AOutBtn_Click);
             // 
-            // button3
+            // BOutBtn
             // 
-            this.button3.Location = new System.Drawing.Point(849, 331);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 23;
-            this.button3.Text = "Enable Test";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.BOutBtn.Enabled = false;
+            this.BOutBtn.Location = new System.Drawing.Point(849, 331);
+            this.BOutBtn.Name = "BOutBtn";
+            this.BOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.BOutBtn.TabIndex = 23;
+            this.BOutBtn.Text = "Enable Test";
+            this.BOutBtn.UseVisualStyleBackColor = true;
+            this.BOutBtn.Click += new System.EventHandler(this.BOutBtn_Click);
             // 
-            // button4
+            // BInBtn
             // 
-            this.button4.Location = new System.Drawing.Point(758, 331);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 22;
-            this.button4.Text = "Load Test";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.BInBtn.Location = new System.Drawing.Point(758, 331);
+            this.BInBtn.Name = "BInBtn";
+            this.BInBtn.Size = new System.Drawing.Size(75, 23);
+            this.BInBtn.TabIndex = 22;
+            this.BInBtn.Text = "Load Test";
+            this.BInBtn.UseVisualStyleBackColor = true;
+            this.BInBtn.Click += new System.EventHandler(this.BInBtn_Click);
             // 
-            // button5
+            // SumOutBtn
             // 
-            this.button5.Location = new System.Drawing.Point(849, 278);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 25;
-            this.button5.Text = "Enable Test";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.SumOutBtn.Location = new System.Drawing.Point(849, 278);
+            this.SumOutBtn.Name = "SumOutBtn";
+            this.SumOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.SumOutBtn.TabIndex = 25;
+            this.SumOutBtn.Text = "Enable Test";
+            this.SumOutBtn.UseVisualStyleBackColor = true;
+            this.SumOutBtn.Click += new System.EventHandler(this.SumOutBtn_Click);
             // 
-            // button7
+            // SumSubBtn
             // 
-            this.button7.Location = new System.Drawing.Point(939, 278);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 28;
-            this.button7.Text = "Adding";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.SumSubBtn.Location = new System.Drawing.Point(939, 278);
+            this.SumSubBtn.Name = "SumSubBtn";
+            this.SumSubBtn.Size = new System.Drawing.Size(75, 23);
+            this.SumSubBtn.TabIndex = 28;
+            this.SumSubBtn.Text = "Adding";
+            this.SumSubBtn.UseVisualStyleBackColor = true;
+            this.SumSubBtn.Click += new System.EventHandler(this.SumSubBtn_Click);
             // 
             // BusValLbl
             // 
@@ -417,25 +456,25 @@
             this.InstRegValLbl.TabIndex = 38;
             this.InstRegValLbl.Text = "Ival";
             // 
-            // button6
+            // InstOutBtn
             // 
-            this.button6.Location = new System.Drawing.Point(240, 294);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 37;
-            this.button6.Text = "Enable Test";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.InstOutBtn.Location = new System.Drawing.Point(240, 294);
+            this.InstOutBtn.Name = "InstOutBtn";
+            this.InstOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.InstOutBtn.TabIndex = 37;
+            this.InstOutBtn.Text = "Enable Test";
+            this.InstOutBtn.UseVisualStyleBackColor = true;
+            this.InstOutBtn.Click += new System.EventHandler(this.InstOutBtn_Click);
             // 
-            // button9
+            // InstInBtn
             // 
-            this.button9.Location = new System.Drawing.Point(152, 293);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 36;
-            this.button9.Text = "Load Test";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.InstInBtn.Location = new System.Drawing.Point(152, 293);
+            this.InstInBtn.Name = "InstInBtn";
+            this.InstInBtn.Size = new System.Drawing.Size(75, 23);
+            this.InstInBtn.TabIndex = 36;
+            this.InstInBtn.Text = "Load Test";
+            this.InstInBtn.UseVisualStyleBackColor = true;
+            this.InstInBtn.Click += new System.EventHandler(this.InstInBtn_Click);
             // 
             // label10
             // 
@@ -475,25 +514,25 @@
             this.RAMRegValLbl.TabIndex = 48;
             this.RAMRegValLbl.Text = "Rval";
             // 
-            // button10
+            // RAMOutBtn
             // 
-            this.button10.Location = new System.Drawing.Point(240, 241);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 47;
-            this.button10.Text = "Enable Test";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.RAMOutBtn.Location = new System.Drawing.Point(240, 241);
+            this.RAMOutBtn.Name = "RAMOutBtn";
+            this.RAMOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.RAMOutBtn.TabIndex = 47;
+            this.RAMOutBtn.Text = "Enable Test";
+            this.RAMOutBtn.UseVisualStyleBackColor = true;
+            this.RAMOutBtn.Click += new System.EventHandler(this.RAMOutBtn_Click);
             // 
-            // button11
+            // RAMInBtn
             // 
-            this.button11.Location = new System.Drawing.Point(152, 240);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 46;
-            this.button11.Text = "Load Test";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.RAMInBtn.Location = new System.Drawing.Point(152, 240);
+            this.RAMInBtn.Name = "RAMInBtn";
+            this.RAMInBtn.Size = new System.Drawing.Size(75, 23);
+            this.RAMInBtn.TabIndex = 46;
+            this.RAMInBtn.Text = "Load Test";
+            this.RAMInBtn.UseVisualStyleBackColor = true;
+            this.RAMInBtn.Click += new System.EventHandler(this.RAMInBtn_Click);
             // 
             // label16
             // 
@@ -513,15 +552,15 @@
             this.MARRegValLbl.TabIndex = 55;
             this.MARRegValLbl.Text = "Mval";
             // 
-            // button13
+            // MARInBtn
             // 
-            this.button13.Location = new System.Drawing.Point(155, 182);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(75, 23);
-            this.button13.TabIndex = 53;
-            this.button13.Text = "Load Test";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.MARInBtn.Location = new System.Drawing.Point(155, 182);
+            this.MARInBtn.Name = "MARInBtn";
+            this.MARInBtn.Size = new System.Drawing.Size(75, 23);
+            this.MARInBtn.TabIndex = 53;
+            this.MARInBtn.Text = "Load Test";
+            this.MARInBtn.UseVisualStyleBackColor = true;
+            this.MARInBtn.Click += new System.EventHandler(this.MARInBtn_Click);
             // 
             // label19
             // 
@@ -564,7 +603,7 @@
             this.ProgRAMAddrTB.Name = "ProgRAMAddrTB";
             this.ProgRAMAddrTB.Size = new System.Drawing.Size(100, 20);
             this.ProgRAMAddrTB.TabIndex = 61;
-            this.ProgRAMAddrTB.Text = "0x";
+            this.ProgRAMAddrTB.Text = "0x00";
             // 
             // ProgRamDataTB
             // 
@@ -626,15 +665,15 @@
             this.PCRegValLbl.TabIndex = 68;
             this.PCRegValLbl.Text = "PCval";
             // 
-            // button12
+            // PCInBtn
             // 
-            this.button12.Location = new System.Drawing.Point(761, 168);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 23);
-            this.button12.TabIndex = 67;
-            this.button12.Text = "Load Test";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.PCInBtn.Location = new System.Drawing.Point(761, 168);
+            this.PCInBtn.Name = "PCInBtn";
+            this.PCInBtn.Size = new System.Drawing.Size(75, 23);
+            this.PCInBtn.TabIndex = 67;
+            this.PCInBtn.Text = "Load Test";
+            this.PCInBtn.UseVisualStyleBackColor = true;
+            this.PCInBtn.Click += new System.EventHandler(this.PCInBtn_Click);
             // 
             // label14
             // 
@@ -645,25 +684,384 @@
             this.label14.TabIndex = 65;
             this.label14.Text = "PC:";
             // 
-            // button14
+            // PCOutBtn
             // 
-            this.button14.Location = new System.Drawing.Point(849, 168);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
-            this.button14.TabIndex = 71;
-            this.button14.Text = "Enable Test";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.PCOutBtn.Location = new System.Drawing.Point(849, 168);
+            this.PCOutBtn.Name = "PCOutBtn";
+            this.PCOutBtn.Size = new System.Drawing.Size(75, 23);
+            this.PCOutBtn.TabIndex = 71;
+            this.PCOutBtn.Text = "Enable Test";
+            this.PCOutBtn.UseVisualStyleBackColor = true;
+            this.PCOutBtn.Click += new System.EventHandler(this.PCOutBtn_Click);
             // 
-            // button15
+            // PCECBtn
             // 
-            this.button15.Location = new System.Drawing.Point(939, 168);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(75, 23);
-            this.button15.TabIndex = 72;
-            this.button15.Text = "Increment";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
+            this.PCECBtn.Location = new System.Drawing.Point(939, 168);
+            this.PCECBtn.Name = "PCECBtn";
+            this.PCECBtn.Size = new System.Drawing.Size(75, 23);
+            this.PCECBtn.TabIndex = 72;
+            this.PCECBtn.Text = "Increment";
+            this.PCECBtn.UseVisualStyleBackColor = true;
+            this.PCECBtn.Click += new System.EventHandler(this.PCECBtn_Click);
+            // 
+            // OutputRegValLbl
+            // 
+            this.OutputRegValLbl.AutoSize = true;
+            this.OutputRegValLbl.Location = new System.Drawing.Point(689, 392);
+            this.OutputRegValLbl.Name = "OutputRegValLbl";
+            this.OutputRegValLbl.Size = new System.Drawing.Size(54, 13);
+            this.OutputRegValLbl.TabIndex = 77;
+            this.OutputRegValLbl.Text = "OutputVal";
+            // 
+            // OutputInBtn
+            // 
+            this.OutputInBtn.Location = new System.Drawing.Point(758, 384);
+            this.OutputInBtn.Name = "OutputInBtn";
+            this.OutputInBtn.Size = new System.Drawing.Size(75, 23);
+            this.OutputInBtn.TabIndex = 75;
+            this.OutputInBtn.Text = "Load Test";
+            this.OutputInBtn.UseVisualStyleBackColor = true;
+            this.OutputInBtn.Click += new System.EventHandler(this.OutputInBtn_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(580, 375);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 13);
+            this.label8.TabIndex = 73;
+            this.label8.Text = "Output Reg:";
+            // 
+            // DisplayLbl
+            // 
+            this.DisplayLbl.AutoSize = true;
+            this.DisplayLbl.BackColor = System.Drawing.Color.Transparent;
+            this.DisplayLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DisplayLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayLbl.ForeColor = System.Drawing.Color.Red;
+            this.DisplayLbl.Location = new System.Drawing.Point(580, 431);
+            this.DisplayLbl.Name = "DisplayLbl";
+            this.DisplayLbl.Size = new System.Drawing.Size(151, 69);
+            this.DisplayLbl.TabIndex = 78;
+            this.DisplayLbl.Text = "0000";
+            // 
+            // DisplayShadowLbl
+            // 
+            this.DisplayShadowLbl.AutoSize = true;
+            this.DisplayShadowLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.DisplayShadowLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayShadowLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.DisplayShadowLbl.Location = new System.Drawing.Point(581, 431);
+            this.DisplayShadowLbl.Name = "DisplayShadowLbl";
+            this.DisplayShadowLbl.Size = new System.Drawing.Size(149, 67);
+            this.DisplayShadowLbl.TabIndex = 79;
+            this.DisplayShadowLbl.Text = "8888";
+            // 
+            // DisplaySignedCB
+            // 
+            this.DisplaySignedCB.AutoSize = true;
+            this.DisplaySignedCB.Location = new System.Drawing.Point(780, 454);
+            this.DisplaySignedCB.Name = "DisplaySignedCB";
+            this.DisplaySignedCB.Size = new System.Drawing.Size(59, 17);
+            this.DisplaySignedCB.TabIndex = 80;
+            this.DisplaySignedCB.Text = "Signed";
+            this.DisplaySignedCB.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(252, 156);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 13);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Put on Bus";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(152, 155);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(81, 13);
+            this.label13.TabIndex = 81;
+            this.label13.Text = "Read from BUS";
+            // 
+            // ClkHltBtn
+            // 
+            this.ClkHltBtn.Location = new System.Drawing.Point(174, 57);
+            this.ClkHltBtn.Name = "ClkHltBtn";
+            this.ClkHltBtn.Size = new System.Drawing.Size(75, 23);
+            this.ClkHltBtn.TabIndex = 85;
+            this.ClkHltBtn.Text = "HLT";
+            this.ClkHltBtn.UseVisualStyleBackColor = true;
+            this.ClkHltBtn.Click += new System.EventHandler(this.ClkHltBtn_Click);
+            // 
+            // rLabel2
+            // 
+            this.rLabel2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel2.Location = new System.Drawing.Point(633, 551);
+            this.rLabel2.Name = "rLabel2";
+            this.rLabel2.RotationAngle = 90D;
+            this.rLabel2.Size = new System.Drawing.Size(14, 16);
+            this.rLabel2.TabIndex = 86;
+            this.rLabel2.Text = "MI";
+            // 
+            // rLabel1
+            // 
+            this.rLabel1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel1.Location = new System.Drawing.Point(619, 542);
+            this.rLabel1.Name = "rLabel1";
+            this.rLabel1.RotationAngle = 90D;
+            this.rLabel1.Size = new System.Drawing.Size(15, 25);
+            this.rLabel1.TabIndex = 84;
+            this.rLabel1.Text = "HLT";
+            // 
+            // StatusLEDDsiaply
+            // 
+            this.StatusLEDDsiaply.Controls.Add(this.led67);
+            this.StatusLEDDsiaply.Controls.Add(this.led68);
+            this.StatusLEDDsiaply.Controls.Add(this.led69);
+            this.StatusLEDDsiaply.Controls.Add(this.led70);
+            this.StatusLEDDsiaply.Controls.Add(this.led71);
+            this.StatusLEDDsiaply.Controls.Add(this.led72);
+            this.StatusLEDDsiaply.Controls.Add(this.led73);
+            this.StatusLEDDsiaply.Controls.Add(this.led74);
+            this.StatusLEDDsiaply.Controls.Add(this.led75);
+            this.StatusLEDDsiaply.Controls.Add(this.led76);
+            this.StatusLEDDsiaply.Controls.Add(this.led77);
+            this.StatusLEDDsiaply.Controls.Add(this.led78);
+            this.StatusLEDDsiaply.Controls.Add(this.led79);
+            this.StatusLEDDsiaply.Controls.Add(this.led80);
+            this.StatusLEDDsiaply.Controls.Add(this.led81);
+            this.StatusLEDDsiaply.LEDs.Add(this.led67);
+            this.StatusLEDDsiaply.LEDs.Add(this.led68);
+            this.StatusLEDDsiaply.LEDs.Add(this.led69);
+            this.StatusLEDDsiaply.LEDs.Add(this.led70);
+            this.StatusLEDDsiaply.LEDs.Add(this.led71);
+            this.StatusLEDDsiaply.LEDs.Add(this.led72);
+            this.StatusLEDDsiaply.LEDs.Add(this.led73);
+            this.StatusLEDDsiaply.LEDs.Add(this.led74);
+            this.StatusLEDDsiaply.LEDs.Add(this.led75);
+            this.StatusLEDDsiaply.LEDs.Add(this.led76);
+            this.StatusLEDDsiaply.LEDs.Add(this.led77);
+            this.StatusLEDDsiaply.LEDs.Add(this.led78);
+            this.StatusLEDDsiaply.LEDs.Add(this.led79);
+            this.StatusLEDDsiaply.LEDs.Add(this.led80);
+            this.StatusLEDDsiaply.LEDs.Add(this.led81);
+            this.StatusLEDDsiaply.LEDSpacing = 4;
+            this.StatusLEDDsiaply.Location = new System.Drawing.Point(619, 570);
+            this.StatusLEDDsiaply.Name = "StatusLEDDsiaply";
+            this.StatusLEDDsiaply.NibbleSpacing = 0;
+            this.StatusLEDDsiaply.Size = new System.Drawing.Size(216, 16);
+            this.StatusLEDDsiaply.TabIndex = 83;
+            // 
+            // led67
+            // 
+            this.led67.LEDColor = System.Drawing.Color.Blue;
+            this.led67.Location = new System.Drawing.Point(3, 3);
+            this.led67.Name = "led67";
+            this.led67.Size = new System.Drawing.Size(11, 11);
+            this.led67.TabIndex = 0;
+            // 
+            // led68
+            // 
+            this.led68.LEDColor = System.Drawing.Color.Blue;
+            this.led68.Location = new System.Drawing.Point(17, 3);
+            this.led68.Name = "led68";
+            this.led68.Size = new System.Drawing.Size(11, 11);
+            this.led68.TabIndex = 1;
+            // 
+            // led69
+            // 
+            this.led69.LEDColor = System.Drawing.Color.Blue;
+            this.led69.Location = new System.Drawing.Point(31, 3);
+            this.led69.Name = "led69";
+            this.led69.Size = new System.Drawing.Size(11, 11);
+            this.led69.TabIndex = 2;
+            // 
+            // led70
+            // 
+            this.led70.LEDColor = System.Drawing.Color.Blue;
+            this.led70.Location = new System.Drawing.Point(45, 3);
+            this.led70.Name = "led70";
+            this.led70.Size = new System.Drawing.Size(11, 11);
+            this.led70.TabIndex = 3;
+            // 
+            // led71
+            // 
+            this.led71.LEDColor = System.Drawing.Color.Blue;
+            this.led71.Location = new System.Drawing.Point(59, 3);
+            this.led71.Name = "led71";
+            this.led71.Size = new System.Drawing.Size(11, 11);
+            this.led71.TabIndex = 4;
+            // 
+            // led72
+            // 
+            this.led72.LEDColor = System.Drawing.Color.Blue;
+            this.led72.Location = new System.Drawing.Point(73, 3);
+            this.led72.Name = "led72";
+            this.led72.Size = new System.Drawing.Size(11, 11);
+            this.led72.TabIndex = 5;
+            // 
+            // led73
+            // 
+            this.led73.LEDColor = System.Drawing.Color.Blue;
+            this.led73.Location = new System.Drawing.Point(87, 3);
+            this.led73.Name = "led73";
+            this.led73.Size = new System.Drawing.Size(11, 11);
+            this.led73.TabIndex = 6;
+            // 
+            // led74
+            // 
+            this.led74.LEDColor = System.Drawing.Color.Blue;
+            this.led74.Location = new System.Drawing.Point(101, 3);
+            this.led74.Name = "led74";
+            this.led74.Size = new System.Drawing.Size(11, 11);
+            this.led74.TabIndex = 7;
+            // 
+            // led75
+            // 
+            this.led75.LEDColor = System.Drawing.Color.Blue;
+            this.led75.Location = new System.Drawing.Point(115, 3);
+            this.led75.Name = "led75";
+            this.led75.Size = new System.Drawing.Size(11, 11);
+            this.led75.TabIndex = 8;
+            // 
+            // led76
+            // 
+            this.led76.LEDColor = System.Drawing.Color.Blue;
+            this.led76.Location = new System.Drawing.Point(129, 3);
+            this.led76.Name = "led76";
+            this.led76.Size = new System.Drawing.Size(11, 11);
+            this.led76.TabIndex = 9;
+            // 
+            // led77
+            // 
+            this.led77.LEDColor = System.Drawing.Color.Blue;
+            this.led77.Location = new System.Drawing.Point(143, 3);
+            this.led77.Name = "led77";
+            this.led77.Size = new System.Drawing.Size(11, 11);
+            this.led77.TabIndex = 10;
+            // 
+            // led78
+            // 
+            this.led78.LEDColor = System.Drawing.Color.Blue;
+            this.led78.Location = new System.Drawing.Point(157, 3);
+            this.led78.Name = "led78";
+            this.led78.Size = new System.Drawing.Size(11, 11);
+            this.led78.TabIndex = 11;
+            // 
+            // led79
+            // 
+            this.led79.LEDColor = System.Drawing.Color.Blue;
+            this.led79.Location = new System.Drawing.Point(171, 3);
+            this.led79.Name = "led79";
+            this.led79.Size = new System.Drawing.Size(11, 11);
+            this.led79.TabIndex = 12;
+            // 
+            // led80
+            // 
+            this.led80.LEDColor = System.Drawing.Color.Blue;
+            this.led80.Location = new System.Drawing.Point(185, 3);
+            this.led80.Name = "led80";
+            this.led80.Size = new System.Drawing.Size(11, 11);
+            this.led80.TabIndex = 13;
+            // 
+            // led81
+            // 
+            this.led81.LEDColor = System.Drawing.Color.Blue;
+            this.led81.Location = new System.Drawing.Point(199, 3);
+            this.led81.Name = "led81";
+            this.led81.Size = new System.Drawing.Size(11, 11);
+            this.led81.TabIndex = 14;
+            // 
+            // OutputRegLEDDisplay
+            // 
+            this.OutputRegLEDDisplay.Controls.Add(this.led59);
+            this.OutputRegLEDDisplay.Controls.Add(this.led60);
+            this.OutputRegLEDDisplay.Controls.Add(this.led61);
+            this.OutputRegLEDDisplay.Controls.Add(this.led62);
+            this.OutputRegLEDDisplay.Controls.Add(this.led63);
+            this.OutputRegLEDDisplay.Controls.Add(this.led64);
+            this.OutputRegLEDDisplay.Controls.Add(this.led65);
+            this.OutputRegLEDDisplay.Controls.Add(this.led66);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led59);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led60);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led61);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led62);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led63);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led64);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led65);
+            this.OutputRegLEDDisplay.LEDs.Add(this.led66);
+            this.OutputRegLEDDisplay.LEDSpacing = 2;
+            this.OutputRegLEDDisplay.Location = new System.Drawing.Point(580, 391);
+            this.OutputRegLEDDisplay.Name = "OutputRegLEDDisplay";
+            this.OutputRegLEDDisplay.NibbleSpacing = 2;
+            this.OutputRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
+            this.OutputRegLEDDisplay.TabIndex = 74;
+            // 
+            // led59
+            // 
+            this.led59.LEDColor = System.Drawing.Color.Red;
+            this.led59.Location = new System.Drawing.Point(3, 3);
+            this.led59.Name = "led59";
+            this.led59.Size = new System.Drawing.Size(11, 11);
+            this.led59.TabIndex = 0;
+            // 
+            // led60
+            // 
+            this.led60.LEDColor = System.Drawing.Color.Red;
+            this.led60.Location = new System.Drawing.Point(15, 3);
+            this.led60.Name = "led60";
+            this.led60.Size = new System.Drawing.Size(11, 11);
+            this.led60.TabIndex = 1;
+            // 
+            // led61
+            // 
+            this.led61.LEDColor = System.Drawing.Color.Red;
+            this.led61.Location = new System.Drawing.Point(27, 3);
+            this.led61.Name = "led61";
+            this.led61.Size = new System.Drawing.Size(11, 11);
+            this.led61.TabIndex = 2;
+            // 
+            // led62
+            // 
+            this.led62.LEDColor = System.Drawing.Color.Red;
+            this.led62.Location = new System.Drawing.Point(39, 3);
+            this.led62.Name = "led62";
+            this.led62.Size = new System.Drawing.Size(11, 11);
+            this.led62.TabIndex = 3;
+            // 
+            // led63
+            // 
+            this.led63.LEDColor = System.Drawing.Color.Red;
+            this.led63.Location = new System.Drawing.Point(53, 3);
+            this.led63.Name = "led63";
+            this.led63.Size = new System.Drawing.Size(11, 11);
+            this.led63.TabIndex = 4;
+            // 
+            // led64
+            // 
+            this.led64.LEDColor = System.Drawing.Color.Red;
+            this.led64.Location = new System.Drawing.Point(65, 3);
+            this.led64.Name = "led64";
+            this.led64.Size = new System.Drawing.Size(11, 11);
+            this.led64.TabIndex = 5;
+            // 
+            // led65
+            // 
+            this.led65.LEDColor = System.Drawing.Color.Red;
+            this.led65.Location = new System.Drawing.Point(77, 3);
+            this.led65.Name = "led65";
+            this.led65.Size = new System.Drawing.Size(11, 11);
+            this.led65.TabIndex = 6;
+            // 
+            // led66
+            // 
+            this.led66.LEDColor = System.Drawing.Color.Red;
+            this.led66.Location = new System.Drawing.Point(89, 3);
+            this.led66.Name = "led66";
+            this.led66.Size = new System.Drawing.Size(11, 11);
+            this.led66.TabIndex = 7;
             // 
             // PCLEDDisplay
             // 
@@ -675,14 +1073,16 @@
             this.PCLEDDisplay.LEDs.Add(this.led56);
             this.PCLEDDisplay.LEDs.Add(this.led57);
             this.PCLEDDisplay.LEDs.Add(this.led58);
+            this.PCLEDDisplay.LEDSpacing = 2;
             this.PCLEDDisplay.Location = new System.Drawing.Point(581, 171);
             this.PCLEDDisplay.Name = "PCLEDDisplay";
+            this.PCLEDDisplay.NibbleSpacing = 2;
             this.PCLEDDisplay.Size = new System.Drawing.Size(54, 16);
             this.PCLEDDisplay.TabIndex = 66;
             // 
             // led55
             // 
-            this.led55.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led55.LEDColor = System.Drawing.Color.LimeGreen;
             this.led55.Location = new System.Drawing.Point(3, 3);
             this.led55.Name = "led55";
             this.led55.Size = new System.Drawing.Size(11, 11);
@@ -690,7 +1090,7 @@
             // 
             // led56
             // 
-            this.led56.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led56.LEDColor = System.Drawing.Color.LimeGreen;
             this.led56.Location = new System.Drawing.Point(15, 3);
             this.led56.Name = "led56";
             this.led56.Size = new System.Drawing.Size(11, 11);
@@ -698,7 +1098,7 @@
             // 
             // led57
             // 
-            this.led57.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led57.LEDColor = System.Drawing.Color.LimeGreen;
             this.led57.Location = new System.Drawing.Point(27, 3);
             this.led57.Name = "led57";
             this.led57.Size = new System.Drawing.Size(11, 11);
@@ -706,7 +1106,7 @@
             // 
             // led58
             // 
-            this.led58.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.led58.LEDColor = System.Drawing.Color.LimeGreen;
             this.led58.Location = new System.Drawing.Point(39, 3);
             this.led58.Name = "led58";
             this.led58.Size = new System.Drawing.Size(11, 11);
@@ -722,8 +1122,10 @@
             this.MARLEDDisplay.LEDs.Add(this.led52);
             this.MARLEDDisplay.LEDs.Add(this.led53);
             this.MARLEDDisplay.LEDs.Add(this.led54);
+            this.MARLEDDisplay.LEDSpacing = 2;
             this.MARLEDDisplay.Location = new System.Drawing.Point(352, 184);
             this.MARLEDDisplay.Name = "MARLEDDisplay";
+            this.MARLEDDisplay.NibbleSpacing = 2;
             this.MARLEDDisplay.Size = new System.Drawing.Size(54, 16);
             this.MARLEDDisplay.TabIndex = 52;
             // 
@@ -777,8 +1179,10 @@
             this.RAMLEDDisplay.LEDs.Add(this.led48);
             this.RAMLEDDisplay.LEDs.Add(this.led49);
             this.RAMLEDDisplay.LEDs.Add(this.led50);
+            this.RAMLEDDisplay.LEDSpacing = 2;
             this.RAMLEDDisplay.Location = new System.Drawing.Point(356, 242);
             this.RAMLEDDisplay.Name = "RAMLEDDisplay";
+            this.RAMLEDDisplay.NibbleSpacing = 2;
             this.RAMLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.RAMLEDDisplay.TabIndex = 45;
             // 
@@ -872,8 +1276,10 @@
             this.InstRegLEDDisplay.LEDs.Add(this.led8);
             this.InstRegLEDDisplay.LEDs.Add(this.led9);
             this.InstRegLEDDisplay.LEDs.Add(this.led10);
+            this.InstRegLEDDisplay.LEDSpacing = 2;
             this.InstRegLEDDisplay.Location = new System.Drawing.Point(356, 295);
             this.InstRegLEDDisplay.Name = "InstRegLEDDisplay";
+            this.InstRegLEDDisplay.NibbleSpacing = 2;
             this.InstRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.InstRegLEDDisplay.TabIndex = 35;
             // 
@@ -959,8 +1365,10 @@
             this.SumRegLEDDisplay.LEDs.Add(this.led40);
             this.SumRegLEDDisplay.LEDs.Add(this.led41);
             this.SumRegLEDDisplay.LEDs.Add(this.led42);
+            this.SumRegLEDDisplay.LEDSpacing = 2;
             this.SumRegLEDDisplay.Location = new System.Drawing.Point(580, 277);
             this.SumRegLEDDisplay.Name = "SumRegLEDDisplay";
+            this.SumRegLEDDisplay.NibbleSpacing = 2;
             this.SumRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.SumRegLEDDisplay.TabIndex = 19;
             // 
@@ -1046,8 +1454,10 @@
             this.BRegLEDDisplay.LEDs.Add(this.led32);
             this.BRegLEDDisplay.LEDs.Add(this.led33);
             this.BRegLEDDisplay.LEDs.Add(this.led34);
+            this.BRegLEDDisplay.LEDSpacing = 2;
             this.BRegLEDDisplay.Location = new System.Drawing.Point(580, 327);
             this.BRegLEDDisplay.Name = "BRegLEDDisplay";
+            this.BRegLEDDisplay.NibbleSpacing = 2;
             this.BRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.BRegLEDDisplay.TabIndex = 17;
             // 
@@ -1133,8 +1543,10 @@
             this.ARegLEDDisplay.LEDs.Add(this.led24);
             this.ARegLEDDisplay.LEDs.Add(this.led25);
             this.ARegLEDDisplay.LEDs.Add(this.led26);
+            this.ARegLEDDisplay.LEDSpacing = 2;
             this.ARegLEDDisplay.Location = new System.Drawing.Point(580, 232);
             this.ARegLEDDisplay.Name = "ARegLEDDisplay";
+            this.ARegLEDDisplay.NibbleSpacing = 2;
             this.ARegLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.ARegLEDDisplay.TabIndex = 15;
             // 
@@ -1220,8 +1632,10 @@
             this.BusLEDDisplay.LEDs.Add(this.led16);
             this.BusLEDDisplay.LEDs.Add(this.led17);
             this.BusLEDDisplay.LEDs.Add(this.led18);
+            this.BusLEDDisplay.LEDSpacing = 2;
             this.BusLEDDisplay.Location = new System.Drawing.Point(469, 126);
             this.BusLEDDisplay.Name = "BusLEDDisplay";
+            this.BusLEDDisplay.NibbleSpacing = 2;
             this.BusLEDDisplay.Size = new System.Drawing.Size(104, 16);
             this.BusLEDDisplay.TabIndex = 13;
             // 
@@ -1295,8 +1709,10 @@
             this.ledDisplay2.Controls.Add(this.led2);
             this.ledDisplay2.LEDs.Add(this.led1);
             this.ledDisplay2.LEDs.Add(this.led2);
+            this.ledDisplay2.LEDSpacing = 2;
             this.ledDisplay2.Location = new System.Drawing.Point(651, 57);
             this.ledDisplay2.Name = "ledDisplay2";
+            this.ledDisplay2.NibbleSpacing = 2;
             this.ledDisplay2.Size = new System.Drawing.Size(28, 16);
             this.ledDisplay2.TabIndex = 11;
             // 
@@ -1316,192 +1732,222 @@
             this.led2.Size = new System.Drawing.Size(11, 11);
             this.led2.TabIndex = 1;
             // 
-            // OutputRegValLbl
+            // rLabel3
             // 
-            this.OutputRegValLbl.AutoSize = true;
-            this.OutputRegValLbl.Location = new System.Drawing.Point(689, 392);
-            this.OutputRegValLbl.Name = "OutputRegValLbl";
-            this.OutputRegValLbl.Size = new System.Drawing.Size(54, 13);
-            this.OutputRegValLbl.TabIndex = 77;
-            this.OutputRegValLbl.Text = "OutputVal";
+            this.rLabel3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel3.Location = new System.Drawing.Point(647, 551);
+            this.rLabel3.Name = "rLabel3";
+            this.rLabel3.RotationAngle = 90D;
+            this.rLabel3.Size = new System.Drawing.Size(14, 16);
+            this.rLabel3.TabIndex = 87;
+            this.rLabel3.Text = "RI";
             // 
-            // button16
+            // rLabel4
             // 
-            this.button16.Location = new System.Drawing.Point(849, 384);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(75, 23);
-            this.button16.TabIndex = 76;
-            this.button16.Text = "Enable Test";
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
+            this.rLabel4.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel4.Location = new System.Drawing.Point(661, 551);
+            this.rLabel4.Name = "rLabel4";
+            this.rLabel4.RotationAngle = 90D;
+            this.rLabel4.Size = new System.Drawing.Size(14, 16);
+            this.rLabel4.TabIndex = 88;
+            this.rLabel4.Text = "RO";
             // 
-            // button17
+            // rLabel5
             // 
-            this.button17.Location = new System.Drawing.Point(758, 384);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(75, 23);
-            this.button17.TabIndex = 75;
-            this.button17.Text = "Load Test";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
+            this.rLabel5.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel5.Location = new System.Drawing.Point(675, 551);
+            this.rLabel5.Name = "rLabel5";
+            this.rLabel5.RotationAngle = 90D;
+            this.rLabel5.Size = new System.Drawing.Size(14, 16);
+            this.rLabel5.TabIndex = 89;
+            this.rLabel5.Text = "IO";
             // 
-            // OutputRegLEDDisplay
+            // rLabel6
             // 
-            this.OutputRegLEDDisplay.Controls.Add(this.led59);
-            this.OutputRegLEDDisplay.Controls.Add(this.led60);
-            this.OutputRegLEDDisplay.Controls.Add(this.led61);
-            this.OutputRegLEDDisplay.Controls.Add(this.led62);
-            this.OutputRegLEDDisplay.Controls.Add(this.led63);
-            this.OutputRegLEDDisplay.Controls.Add(this.led64);
-            this.OutputRegLEDDisplay.Controls.Add(this.led65);
-            this.OutputRegLEDDisplay.Controls.Add(this.led66);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led59);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led60);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led61);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led62);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led63);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led64);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led65);
-            this.OutputRegLEDDisplay.LEDs.Add(this.led66);
-            this.OutputRegLEDDisplay.Location = new System.Drawing.Point(580, 391);
-            this.OutputRegLEDDisplay.Name = "OutputRegLEDDisplay";
-            this.OutputRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
-            this.OutputRegLEDDisplay.TabIndex = 74;
+            this.rLabel6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel6.Location = new System.Drawing.Point(689, 551);
+            this.rLabel6.Name = "rLabel6";
+            this.rLabel6.RotationAngle = 90D;
+            this.rLabel6.Size = new System.Drawing.Size(14, 16);
+            this.rLabel6.TabIndex = 90;
+            this.rLabel6.Text = "II";
             // 
-            // led59
+            // rLabel7
             // 
-            this.led59.LEDColor = System.Drawing.Color.Red;
-            this.led59.Location = new System.Drawing.Point(3, 3);
-            this.led59.Name = "led59";
-            this.led59.Size = new System.Drawing.Size(11, 11);
-            this.led59.TabIndex = 0;
+            this.rLabel7.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel7.Location = new System.Drawing.Point(704, 551);
+            this.rLabel7.Name = "rLabel7";
+            this.rLabel7.RotationAngle = 90D;
+            this.rLabel7.Size = new System.Drawing.Size(14, 16);
+            this.rLabel7.TabIndex = 91;
+            this.rLabel7.Text = "AI";
             // 
-            // led60
+            // rLabel8
             // 
-            this.led60.LEDColor = System.Drawing.Color.Red;
-            this.led60.Location = new System.Drawing.Point(15, 3);
-            this.led60.Name = "led60";
-            this.led60.Size = new System.Drawing.Size(11, 11);
-            this.led60.TabIndex = 1;
+            this.rLabel8.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel8.Location = new System.Drawing.Point(718, 551);
+            this.rLabel8.Name = "rLabel8";
+            this.rLabel8.RotationAngle = 90D;
+            this.rLabel8.Size = new System.Drawing.Size(14, 16);
+            this.rLabel8.TabIndex = 92;
+            this.rLabel8.Text = "AO";
             // 
-            // led61
+            // rLabel9
             // 
-            this.led61.LEDColor = System.Drawing.Color.Red;
-            this.led61.Location = new System.Drawing.Point(27, 3);
-            this.led61.Name = "led61";
-            this.led61.Size = new System.Drawing.Size(11, 11);
-            this.led61.TabIndex = 2;
+            this.rLabel9.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel9.Location = new System.Drawing.Point(731, 551);
+            this.rLabel9.Name = "rLabel9";
+            this.rLabel9.RotationAngle = 90D;
+            this.rLabel9.Size = new System.Drawing.Size(14, 16);
+            this.rLabel9.TabIndex = 93;
+            this.rLabel9.Text = "SO";
             // 
-            // led62
+            // rLabel10
             // 
-            this.led62.LEDColor = System.Drawing.Color.Red;
-            this.led62.Location = new System.Drawing.Point(39, 3);
-            this.led62.Name = "led62";
-            this.led62.Size = new System.Drawing.Size(11, 11);
-            this.led62.TabIndex = 3;
+            this.rLabel10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel10.Location = new System.Drawing.Point(745, 543);
+            this.rLabel10.Name = "rLabel10";
+            this.rLabel10.RotationAngle = 90D;
+            this.rLabel10.Size = new System.Drawing.Size(14, 25);
+            this.rLabel10.TabIndex = 94;
+            this.rLabel10.Text = "SUB";
             // 
-            // led63
+            // rLabel11
             // 
-            this.led63.LEDColor = System.Drawing.Color.Red;
-            this.led63.Location = new System.Drawing.Point(53, 3);
-            this.led63.Name = "led63";
-            this.led63.Size = new System.Drawing.Size(11, 11);
-            this.led63.TabIndex = 4;
+            this.rLabel11.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel11.Location = new System.Drawing.Point(773, 551);
+            this.rLabel11.Name = "rLabel11";
+            this.rLabel11.RotationAngle = 90D;
+            this.rLabel11.Size = new System.Drawing.Size(14, 16);
+            this.rLabel11.TabIndex = 96;
+            this.rLabel11.Text = "OI";
             // 
-            // led64
+            // rLabel12
             // 
-            this.led64.LEDColor = System.Drawing.Color.Red;
-            this.led64.Location = new System.Drawing.Point(65, 3);
-            this.led64.Name = "led64";
-            this.led64.Size = new System.Drawing.Size(11, 11);
-            this.led64.TabIndex = 5;
+            this.rLabel12.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel12.Location = new System.Drawing.Point(759, 551);
+            this.rLabel12.Name = "rLabel12";
+            this.rLabel12.RotationAngle = 90D;
+            this.rLabel12.Size = new System.Drawing.Size(14, 16);
+            this.rLabel12.TabIndex = 95;
+            this.rLabel12.Text = "BI";
             // 
-            // led65
+            // rLabel13
             // 
-            this.led65.LEDColor = System.Drawing.Color.Red;
-            this.led65.Location = new System.Drawing.Point(77, 3);
-            this.led65.Name = "led65";
-            this.led65.Size = new System.Drawing.Size(11, 11);
-            this.led65.TabIndex = 6;
+            this.rLabel13.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel13.Location = new System.Drawing.Point(787, 552);
+            this.rLabel13.Name = "rLabel13";
+            this.rLabel13.RotationAngle = 90D;
+            this.rLabel13.Size = new System.Drawing.Size(14, 16);
+            this.rLabel13.TabIndex = 97;
+            this.rLabel13.Text = "CE";
             // 
-            // led66
+            // rLabel14
             // 
-            this.led66.LEDColor = System.Drawing.Color.Red;
-            this.led66.Location = new System.Drawing.Point(89, 3);
-            this.led66.Name = "led66";
-            this.led66.Size = new System.Drawing.Size(11, 11);
-            this.led66.TabIndex = 7;
+            this.rLabel14.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel14.Location = new System.Drawing.Point(801, 551);
+            this.rLabel14.Name = "rLabel14";
+            this.rLabel14.RotationAngle = 90D;
+            this.rLabel14.Size = new System.Drawing.Size(14, 16);
+            this.rLabel14.TabIndex = 98;
+            this.rLabel14.Text = "CO";
             // 
-            // label8
+            // rLabel15
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(580, 375);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 13);
-            this.label8.TabIndex = 73;
-            this.label8.Text = "Output Reg:";
+            this.rLabel15.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel15.Location = new System.Drawing.Point(815, 542);
+            this.rLabel15.Name = "rLabel15";
+            this.rLabel15.RotationAngle = 90D;
+            this.rLabel15.Size = new System.Drawing.Size(14, 25);
+            this.rLabel15.TabIndex = 99;
+            this.rLabel15.Text = "JMP";
             // 
-            // DisplayLbl
+            // groupBox3
             // 
-            this.DisplayLbl.AutoSize = true;
-            this.DisplayLbl.BackColor = System.Drawing.Color.Transparent;
-            this.DisplayLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DisplayLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisplayLbl.ForeColor = System.Drawing.Color.Red;
-            this.DisplayLbl.Location = new System.Drawing.Point(580, 431);
-            this.DisplayLbl.Name = "DisplayLbl";
-            this.DisplayLbl.Size = new System.Drawing.Size(151, 69);
-            this.DisplayLbl.TabIndex = 78;
-            this.DisplayLbl.Text = "0000";
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Location = new System.Drawing.Point(888, 405);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 223);
+            this.groupBox3.TabIndex = 100;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Instruction Values";
             // 
-            // DisplayShadowLbl
+            // textBox2
             // 
-            this.DisplayShadowLbl.AutoSize = true;
-            this.DisplayShadowLbl.BackColor = System.Drawing.Color.Gainsboro;
-            this.DisplayShadowLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisplayShadowLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
-            this.DisplayShadowLbl.Location = new System.Drawing.Point(583, 431);
-            this.DisplayShadowLbl.Name = "DisplayShadowLbl";
-            this.DisplayShadowLbl.Size = new System.Drawing.Size(149, 67);
-            this.DisplayShadowLbl.TabIndex = 79;
-            this.DisplayShadowLbl.Text = "8888";
+            this.textBox2.Location = new System.Drawing.Point(6, 19);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(188, 198);
+            this.textBox2.TabIndex = 0;
+            this.textBox2.Text = "LDA - > 0x01\r\nADD -> 0x02\r\n\r\n\r\n\r\nOUT -> 0x0E\r\n";
+            // 
+            // StatusRegLBl
+            // 
+            this.StatusRegLBl.AutoSize = true;
+            this.StatusRegLBl.Location = new System.Drawing.Point(841, 570);
+            this.StatusRegLBl.Name = "StatusRegLBl";
+            this.StatusRegLBl.Size = new System.Drawing.Size(36, 13);
+            this.StatusRegLBl.TabIndex = 101;
+            this.StatusRegLBl.Text = "CSVal";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1130, 669);
+            this.Controls.Add(this.StatusRegLBl);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.rLabel15);
+            this.Controls.Add(this.rLabel14);
+            this.Controls.Add(this.rLabel13);
+            this.Controls.Add(this.rLabel11);
+            this.Controls.Add(this.rLabel12);
+            this.Controls.Add(this.rLabel10);
+            this.Controls.Add(this.rLabel9);
+            this.Controls.Add(this.rLabel8);
+            this.Controls.Add(this.rLabel7);
+            this.Controls.Add(this.rLabel6);
+            this.Controls.Add(this.rLabel5);
+            this.Controls.Add(this.rLabel4);
+            this.Controls.Add(this.rLabel3);
+            this.Controls.Add(this.rLabel2);
+            this.Controls.Add(this.ClkHltBtn);
+            this.Controls.Add(this.rLabel1);
+            this.Controls.Add(this.StatusLEDDsiaply);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.DisplaySignedCB);
             this.Controls.Add(this.DisplayShadowLbl);
             this.Controls.Add(this.DisplayLbl);
             this.Controls.Add(this.OutputRegValLbl);
-            this.Controls.Add(this.button16);
-            this.Controls.Add(this.button17);
+            this.Controls.Add(this.OutputInBtn);
             this.Controls.Add(this.OutputRegLEDDisplay);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.button15);
-            this.Controls.Add(this.button14);
+            this.Controls.Add(this.PCECBtn);
+            this.Controls.Add(this.PCOutBtn);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.PCRegValLbl);
-            this.Controls.Add(this.button12);
+            this.Controls.Add(this.PCInBtn);
             this.Controls.Add(this.PCLEDDisplay);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.MARRegValLbl);
-            this.Controls.Add(this.button13);
+            this.Controls.Add(this.MARInBtn);
             this.Controls.Add(this.MARLEDDisplay);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.RAMRegValLbl);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button11);
+            this.Controls.Add(this.RAMOutBtn);
+            this.Controls.Add(this.RAMInBtn);
             this.Controls.Add(this.RAMLEDDisplay);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.CarryOutLED);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.InstRegValLbl);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button9);
+            this.Controls.Add(this.InstOutBtn);
+            this.Controls.Add(this.InstInBtn);
             this.Controls.Add(this.InstRegLEDDisplay);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.groupBox1);
@@ -1509,12 +1955,12 @@
             this.Controls.Add(this.SumRegValLbl);
             this.Controls.Add(this.ARegValLbl);
             this.Controls.Add(this.BusValLbl);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SumSubBtn);
+            this.Controls.Add(this.SumOutBtn);
+            this.Controls.Add(this.BOutBtn);
+            this.Controls.Add(this.BInBtn);
+            this.Controls.Add(this.AOutBtn);
+            this.Controls.Add(this.AInBtn);
             this.Controls.Add(this.SumRegLEDDisplay);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.BRegLEDDisplay);
@@ -1530,13 +1976,15 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClockModeBtn);
             this.Name = "MainForm";
-            this.Text = "Main Form";
+            this.Text = "m";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.StatusLEDDsiaply.ResumeLayout(false);
+            this.OutputRegLEDDisplay.ResumeLayout(false);
             this.PCLEDDisplay.ResumeLayout(false);
             this.MARLEDDisplay.ResumeLayout(false);
             this.RAMLEDDisplay.ResumeLayout(false);
@@ -1546,7 +1994,8 @@
             this.ARegLEDDisplay.ResumeLayout(false);
             this.BusLEDDisplay.ResumeLayout(false);
             this.ledDisplay2.ResumeLayout(false);
-            this.OutputRegLEDDisplay.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1603,12 +2052,12 @@
         private AppCode.Visual.LED led41;
         private AppCode.Visual.LED led42;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button AInBtn;
+        private System.Windows.Forms.Button AOutBtn;
+        private System.Windows.Forms.Button BOutBtn;
+        private System.Windows.Forms.Button BInBtn;
+        private System.Windows.Forms.Button SumOutBtn;
+        private System.Windows.Forms.Button SumSubBtn;
         private System.Windows.Forms.Label BusValLbl;
         private System.Windows.Forms.Label ARegValLbl;
         private System.Windows.Forms.Label SumRegValLbl;
@@ -1618,8 +2067,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label InstRegValLbl;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button InstOutBtn;
+        private System.Windows.Forms.Button InstInBtn;
         private AppCode.Visual.LEDDisplay InstRegLEDDisplay;
         private AppCode.Visual.LED led3;
         private AppCode.Visual.LED led4;
@@ -1634,8 +2083,8 @@
         private AppCode.Visual.LED CarryOutLED;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label RAMRegValLbl;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button RAMOutBtn;
+        private System.Windows.Forms.Button RAMInBtn;
         private AppCode.Visual.LEDDisplay RAMLEDDisplay;
         private AppCode.Visual.LED led43;
         private AppCode.Visual.LED led44;
@@ -1647,7 +2096,7 @@
         private AppCode.Visual.LED led50;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label MARRegValLbl;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button MARInBtn;
         private AppCode.Visual.LEDDisplay MARLEDDisplay;
         private AppCode.Visual.LED led51;
         private AppCode.Visual.LED led52;
@@ -1664,18 +2113,17 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label PCRegValLbl;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button PCInBtn;
         private AppCode.Visual.LEDDisplay PCLEDDisplay;
         private AppCode.Visual.LED led55;
         private AppCode.Visual.LED led56;
         private AppCode.Visual.LED led57;
         private AppCode.Visual.LED led58;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button PCOutBtn;
+        private System.Windows.Forms.Button PCECBtn;
         private System.Windows.Forms.Label OutputRegValLbl;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button OutputInBtn;
         private AppCode.Visual.LEDDisplay OutputRegLEDDisplay;
         private AppCode.Visual.LED led59;
         private AppCode.Visual.LED led60;
@@ -1688,6 +2136,44 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label DisplayLbl;
         private System.Windows.Forms.Label DisplayShadowLbl;
+        private System.Windows.Forms.CheckBox DisplaySignedCB;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label13;
+        private AppCode.Visual.LEDDisplay StatusLEDDsiaply;
+        private AppCode.Visual.LED led67;
+        private AppCode.Visual.LED led68;
+        private AppCode.Visual.LED led69;
+        private AppCode.Visual.LED led70;
+        private AppCode.Visual.RLabel rLabel1;
+        private AppCode.Visual.LED led71;
+        private AppCode.Visual.LED led72;
+        private AppCode.Visual.LED led73;
+        private AppCode.Visual.LED led74;
+        private AppCode.Visual.LED led75;
+        private AppCode.Visual.LED led76;
+        private AppCode.Visual.LED led77;
+        private System.Windows.Forms.Button ClkHltBtn;
+        private AppCode.Visual.RLabel rLabel2;
+        private AppCode.Visual.RLabel rLabel3;
+        private AppCode.Visual.RLabel rLabel4;
+        private AppCode.Visual.LED led78;
+        private AppCode.Visual.LED led79;
+        private AppCode.Visual.LED led80;
+        private AppCode.Visual.LED led81;
+        private AppCode.Visual.RLabel rLabel5;
+        private AppCode.Visual.RLabel rLabel6;
+        private AppCode.Visual.RLabel rLabel7;
+        private AppCode.Visual.RLabel rLabel8;
+        private AppCode.Visual.RLabel rLabel9;
+        private AppCode.Visual.RLabel rLabel10;
+        private AppCode.Visual.RLabel rLabel11;
+        private AppCode.Visual.RLabel rLabel12;
+        private AppCode.Visual.RLabel rLabel13;
+        private AppCode.Visual.RLabel rLabel14;
+        private AppCode.Visual.RLabel rLabel15;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label StatusRegLBl;
     }
 }
 

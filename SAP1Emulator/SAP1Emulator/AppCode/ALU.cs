@@ -16,7 +16,7 @@ class ALU : Register
 
     private Register Op1 { get; set; }
     private Register Op2 { get; set; }
-    public bool Subtract { get; set; } //if active will will Subtract
+    public bool Subtract { get; set; } //if active will will Subtract (Active HIGH)
     public bool CarryIn { get; set; }
     public bool CarryOut { get
         {

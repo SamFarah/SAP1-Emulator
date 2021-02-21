@@ -21,11 +21,12 @@ namespace SAP1Emulator
         {
             //do all the things at each positive clock pulse 
             SAP1Bus.Read();
-            SAP1Bus.Write();
+            //SAP1Bus.Write();
         }
 
         void TestFallingPulseFunction()
         {
+
         }
 
         public MainForm()
@@ -36,12 +37,50 @@ namespace SAP1Emulator
             clock.Frequency = trackBar1.Value;
         }
 
+
+        private class ButtonInfo
+        {
+            public Button Btn { get; set; }
+            public bool Signal { get; set; }
+            public bool ActiveState { get { return false; } }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             MainTimer.Start(); // for visual effects
             UpdateRamView();
             DisplayLbl.Parent = DisplayShadowLbl;
             DisplayLbl.Location = new Point(0, 0);
+
+            List<ButtonInfo> ControlButtons = new List<ButtonInfo>
+            {
+                new ButtonInfo { Btn= AInBtn,       Signal= SAP1Bus.A.Load         },
+                new ButtonInfo { Btn= BInBtn,       Signal= SAP1Bus.B.Load         },
+                new ButtonInfo { Btn= AOutBtn,      Signal= SAP1Bus.A.Enable       },
+                new ButtonInfo { Btn= BOutBtn,      Signal= SAP1Bus.B.Enable,      },
+                new ButtonInfo { Btn= SumOutBtn,    Signal= SAP1Bus.Sum.Enable     },
+                new ButtonInfo { Btn= SumSubBtn,    Signal= SAP1Bus.Sum.Subtract   },
+                new ButtonInfo { Btn= InstOutBtn,   Signal= SAP1Bus.Inst.Enable    },
+                new ButtonInfo { Btn= InstInBtn,    Signal= SAP1Bus.Inst.Load      },
+                new ButtonInfo { Btn= MARInBtn,     Signal= SAP1Bus.MAR.Load       },
+                new ButtonInfo { Btn= RAMInBtn,     Signal= SAP1Bus.RAM.Load       },
+                new ButtonInfo { Btn= RAMOutBtn,    Signal= SAP1Bus.RAM.Enable     },
+                new ButtonInfo { Btn= PCInBtn,      Signal= SAP1Bus.PC.Load        },
+                new ButtonInfo { Btn= PCOutBtn,     Signal= SAP1Bus.PC.Enable      },
+                new ButtonInfo { Btn= OutputInBtn,  Signal= SAP1Bus.Output.Load    },
+                new ButtonInfo { Btn= ClkHltBtn,    Signal= clock.Hault            },
+                new ButtonInfo { Btn= PCECBtn,      Signal= SAP1Bus.PC.Count       }
+            };
+
+            for (int i = 0; i < 15; i++)
+            {
+
+                if (ControlButtons[i].Signal != ControlButtons[i].ActiveState) ControlButtons[i].Btn.BackColor = Color.Red;
+                else ControlButtons[i].Btn.BackColor = SystemColors.Control;
+
+                // BtnClick(ControlButtons[i], ControlSignals[i], ActiveState[i]);
+            }
+
 
         }
 
@@ -94,15 +133,44 @@ namespace SAP1Emulator
             PCRegValLbl.Text = $"0x{SAP1Bus.PC.Data.ToString("X2")}";
             OutputRegValLbl.Text = $"0x{SAP1Bus.Output.Data.ToString("X2")}";
 
-            sbyte outputSigned = (sbyte)SAP1Bus.Output.Data;
-            DisplayLbl.Text = $"{(outputSigned >= 0 ? " " :  "") }{outputSigned.ToString("000")}";
+            if (DisplaySignedCB.Checked)
+            {
+                sbyte outputSigned = (sbyte)SAP1Bus.Output.Data;
+                DisplayLbl.Text = $"{(outputSigned >= 0 ? " " : "") }{outputSigned.ToString("000")}";
+            }
+            else
+            {
+
+                DisplayLbl.Text = SAP1Bus.Output.Data.ToString(" 000");
+            }
+
+
+
+
 
 
             if (clock.Output) //slow down the refresh rate of memory view
             {
                 UpdateRamView();
             }
-
+            UInt16 StatusBar = (UInt16)(((clock.Hault ? 1 : 0) << 14) |
+                                        ((SAP1Bus.MAR.Load ? 1 : 0) << 13) |
+                                        ((SAP1Bus.RAM.Load ? 1 : 0) << 12) |
+                                        ((SAP1Bus.RAM.Enable ? 1 : 0) << 11) |
+                                        ((SAP1Bus.Inst.Enable ? 1 : 0) << 10) |
+                                        ((SAP1Bus.Inst.Load ? 1 : 0) << 9) |
+                                        ((SAP1Bus.A.Load ? 1 : 0) << 8) |
+                                        ((SAP1Bus.A.Enable ? 1 : 0) << 7) |
+                                        ((SAP1Bus.Sum.Enable ? 1 : 0) << 6) |
+                                        ((SAP1Bus.Sum.Subtract ? 1 : 0) << 5) |
+                                        ((SAP1Bus.B.Load ? 1 : 0) << 4) |
+                                        ((SAP1Bus.Output.Load ? 1 : 0) << 3) |
+                                        ((SAP1Bus.PC.Count ? 1 : 0) << 2) |
+                                        ((SAP1Bus.PC.Enable ? 1 : 0) << 1) |
+                                        ((SAP1Bus.PC.Load ? 1 : 0) << 0)
+                                        );
+            StatusLEDDsiaply.DisplayData(StatusBar);
+            StatusRegLBl.Text = $"0x{StatusBar.ToString("X4")}";
 
         }
         private void UpdateRamView()
@@ -117,11 +185,6 @@ namespace SAP1Emulator
             }
             RAMView.SelectedIndex = SAP1Bus.MAR.Data;
         }
-        private void StepClockBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             clock.Frequency = trackBar1.Value;
@@ -138,78 +201,48 @@ namespace SAP1Emulator
             clock.Step();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private bool BtnClick(object sender, bool StateFlag, bool activeLow = false)
         {
-            SAP1Bus.A.Load = !SAP1Bus.A.Load;
-            if (SAP1Bus.A.Load) button1.BackColor = Color.Red;
-            else button1.BackColor = SystemColors.Control;
+            StateFlag = !StateFlag;
+            Button btn = (Button)sender;
+            if (StateFlag != activeLow) btn.BackColor = Color.Red;
+            else btn.BackColor = SystemColors.Control;
+            return StateFlag;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private bool BtnClick(object sender, bool StateFlag, string OnText, string OffText, bool activeLow = false)
         {
-            SAP1Bus.B.Load = !SAP1Bus.B.Load;
-            if (SAP1Bus.B.Load) button4.BackColor = Color.Red;
-            else button4.BackColor = SystemColors.Control;
+            StateFlag = !StateFlag;
+            Button btn = (Button)sender;
+            if (StateFlag != activeLow) btn.Text = OnText;
+            else btn.Text = OffText;
+            return StateFlag;
         }
 
+        private void AInBtn_Click(object sender, EventArgs e) { SAP1Bus.A.Load = BtnClick(sender, SAP1Bus.A.Load); }
+        private void AOutBtn_Click(object sender, EventArgs e) { SAP1Bus.A.Enable = BtnClick(sender, SAP1Bus.A.Enable); }
+        private void BInBtn_Click(object sender, EventArgs e) { SAP1Bus.B.Load = BtnClick(sender, SAP1Bus.B.Load); }
+        private void BOutBtn_Click(object sender, EventArgs e) { SAP1Bus.B.Enable = BtnClick(sender, SAP1Bus.B.Enable); }
+        private void SumOutBtn_Click(object sender, EventArgs e) { SAP1Bus.Sum.Enable = BtnClick(sender, SAP1Bus.Sum.Enable); }
+        private void SumSubBtn_Click(object sender, EventArgs e) { SAP1Bus.Sum.Subtract = BtnClick(sender, SAP1Bus.Sum.Subtract, "Adding", "Subtracting",true); }
+        private void InstInBtn_Click(object sender, EventArgs e) { SAP1Bus.Inst.Load = BtnClick(sender, SAP1Bus.Inst.Load); }
+        private void InstOutBtn_Click(object sender, EventArgs e) { SAP1Bus.Inst.Enable = BtnClick(sender, SAP1Bus.Inst.Enable); }
+        private void MARInBtn_Click(object sender, EventArgs e) { SAP1Bus.MAR.Load = BtnClick(sender, SAP1Bus.MAR.Load); }
+        private void RAMInBtn_Click(object sender, EventArgs e) { SAP1Bus.RAM.Load = BtnClick(sender, SAP1Bus.RAM.Load); }
+        private void RAMOutBtn_Click(object sender, EventArgs e) { SAP1Bus.RAM.Enable = BtnClick(sender, SAP1Bus.RAM.Enable); }
+        private void PCInBtn_Click(object sender, EventArgs e) { SAP1Bus.PC.Load = BtnClick(sender, SAP1Bus.PC.Load); }
+        private void PCOutBtn_Click(object sender, EventArgs e) { SAP1Bus.PC.Enable = BtnClick(sender, SAP1Bus.PC.Enable); }
+        private void OutputInBtn_Click(object sender, EventArgs e) { SAP1Bus.Output.Load = BtnClick(sender, SAP1Bus.Output.Load); }
+        private void ClkHltBtn_Click(object sender, EventArgs e) { clock.Hault = BtnClick(sender, clock.Hault); }
+        private void PCECBtn_Click(object sender, EventArgs e) { SAP1Bus.PC.Count = BtnClick(sender, SAP1Bus.PC.Count); }
 
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.A.Enable = !SAP1Bus.A.Enable;
-            if (SAP1Bus.A.Enable) button2.BackColor = Color.Red;
-            else button2.BackColor = SystemColors.Control;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.B.Enable = !SAP1Bus.B.Enable;
-            if (SAP1Bus.B.Enable) button3.BackColor = Color.Red;
-            else button3.BackColor = SystemColors.Control;
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Sum.Enable = !SAP1Bus.Sum.Enable;
-            if (SAP1Bus.Sum.Enable) button5.BackColor = Color.Red;
-            else button5.BackColor = SystemColors.Control;
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Sum.Subtract = !SAP1Bus.Sum.Subtract;
-            if (SAP1Bus.Sum.Subtract) button7.Text = "Subtracting";
-            else button7.Text = "Adding";
-        }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SAP1Bus.Data = (byte)Convert.ToInt64(textBox1.Text, 16);
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-
+            try { SAP1Bus.Data = (byte)Convert.ToInt64(textBox1.Text, 16); }
+            catch (Exception) { }
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Inst.Enable = !SAP1Bus.Inst.Enable;
-            if (SAP1Bus.Inst.Enable) button6.BackColor = Color.Red;
-            else button6.BackColor = SystemColors.Control;
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Inst.Load = !SAP1Bus.Inst.Load;
-            if (SAP1Bus.Inst.Load) button9.BackColor = Color.Red;
-            else button9.BackColor = SystemColors.Control;
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -218,69 +251,28 @@ namespace SAP1Emulator
 
 
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.MAR.Load = !SAP1Bus.MAR.Load;
-            if (SAP1Bus.MAR.Load) button13.BackColor = Color.Red;
-            else button13.BackColor = SystemColors.Control;
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.RAM.Load = !SAP1Bus.RAM.Load;
-            if (SAP1Bus.RAM.Load) button11.BackColor = Color.Red;
-            else button11.BackColor = SystemColors.Control;
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.RAM.Enable = !SAP1Bus.RAM.Enable;
-            if (SAP1Bus.RAM.Enable) button10.BackColor = Color.Red;
-            else button10.BackColor = SystemColors.Control;
-        }
-
         private void ProGramBtn_Click(object sender, EventArgs e)
         {
-            byte Address = (byte)Convert.ToInt64(ProgRAMAddrTB.Text.Trim(), 16);
-            byte Data = (byte)Convert.ToInt64(ProgRamDataTB.Text.Trim(), 16);
-            SAP1Bus.RAM.MEM[Address] = Data;
-            UpdateRamView();
-            ProgRAMAddrTB.Text = "0x";
-            ProgRamDataTB.Text = "0x";
-            ProgRAMAddrTB.Focus();
+            try
+            {
+                byte Address = (byte)Convert.ToInt64(ProgRAMAddrTB.Text.Trim(), 16);
+                byte Data = (byte)Convert.ToInt64(ProgRamDataTB.Text.Trim(), 16);
+                SAP1Bus.RAM.MEM[Address] = Data;
+                UpdateRamView();
+                ProgRAMAddrTB.Text = $"0x{((Address + 1) & 0x0F).ToString("X2")}";
+                ProgRamDataTB.Text = "0x";
+                ProgRamDataTB.Focus();
+                ProgRamDataTB.Select(ProgRamDataTB.Text.Length, 0);
+
+            }
+            catch (Exception)
+            {
+                
+            }
+
+           
         }
 
-        private void button12_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.PC.Load = !SAP1Bus.PC.Load;
-            if (SAP1Bus.PC.Load) button12.BackColor = Color.Red;
-            else button12.BackColor = SystemColors.Control;
-        }
 
-        private void button14_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.PC.Enable = !SAP1Bus.PC.Enable;
-            if (SAP1Bus.PC.Enable) button14.BackColor = Color.Red;
-            else button14.BackColor = SystemColors.Control;
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.PC.Inc();
-        }
-
-        private void button17_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Output.Load = !SAP1Bus.Output.Load;
-            if (SAP1Bus.Output.Load) button17.BackColor = Color.Red;
-            else button17.BackColor = SystemColors.Control;
-        }
-
-        private void button16_Click(object sender, EventArgs e)
-        {
-            SAP1Bus.Output.Enable = !SAP1Bus.Output.Enable;
-            if (SAP1Bus.Output.Enable) button16.BackColor = Color.Red;
-            else button16.BackColor = SystemColors.Control;
-        }
     }
 }

@@ -8,8 +8,8 @@ class SRAM
 {
     public byte[] MEM { get; set; }
 
-    public bool Load { get; set; } //if active will read from bus (active high)
-    public bool Enable { get; set; } //if active will write to bus (active high)
+    public bool Load { get; set; } //if active will read from bus (active HIGH)
+    public bool Enable { get; set; } //if active will write to bus (active HIGH)
 
     private Register MAR { get; set; }
 
@@ -28,10 +28,12 @@ class SRAM
         Random r=new Random((int)DateTime.Now.Ticks );
         for (int i = 0; i < 16; i++) MEM[i] =(byte) r.Next(0, 0xFF);
         MAR = mar;
+        Load = false;
+        Enable = false;
     }
 
 
-    public void Read(byte address,byte data) { if (Load) MEM[address] = data; }
-    public virtual byte? Write(byte address) { if (Enable) return MEM[address]; return null; }
+    public void Read(byte data) { if (Load) MEM[MAR.Data & 0x0F] = data; }
+    public virtual byte? Write() { if (Enable) return MEM[MAR.Data & 0x0F]; return null; }
 }
 
