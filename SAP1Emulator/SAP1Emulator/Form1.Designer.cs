@@ -617,7 +617,7 @@
             this.groupBox7.Size = new System.Drawing.Size(157, 45);
             this.groupBox7.TabIndex = 126;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "A Register";
+            this.groupBox7.Text = "\"A\" Register";
             // 
             // groupBox8
             // 
@@ -667,7 +667,7 @@
             this.groupBox10.Size = new System.Drawing.Size(157, 45);
             this.groupBox10.TabIndex = 129;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "B Register";
+            this.groupBox10.Text = "\"B\" Register";
             // 
             // groupBox11
             // 
@@ -777,8 +777,8 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(236, 60);
             this.textBox3.TabIndex = 137;
-            this.textBox3.Text = "8 Bit SAP1 architecture. Best on Ben Eater\'s breadboard build.\r\n\r\nSam Farah - 202" +
-    "1-02-01";
+            this.textBox3.Text = "8 Bit SAP1 architecture. Based on Ben Eater\'s breadboard build.\r\n\r\nSam Farah - 20" +
+    "21-02-01";
             // 
             // CLDecodedLEDDisplay
             // 
@@ -2153,6 +2153,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SAP1 CPU";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
