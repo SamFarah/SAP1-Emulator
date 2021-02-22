@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace SAP1Emulator
 
         SAP1_8Bit CPU1;
         uint Frames = 0;
+        bool updateRAMViewFlag = false, NotPrevCPUOutput=false;
         public MainForm()
         {
             InitializeComponent();
@@ -23,13 +25,26 @@ namespace SAP1Emulator
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             DoubleBuffered = true;
+            Application.Idle += HandleApplicationIdle;
 
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
+        
+        bool IsApplicationIdle()
         {
-            MainTimer.Start(); // for visual effects
-            UpdateRamView();
+            Utilities.NativeMessage result;
+            return Utilities.PeekMessage(out result, IntPtr.Zero, (uint)0, (uint)0, (uint)0) == 0;
+        }
+        void HandleApplicationIdle(object sender, EventArgs e)
+        {
+            while (IsApplicationIdle())
+            {
+
+                updateDisplay(); //label9.Text = DateTime.Now.ToString();
+            }
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {            
+            
             DisplayLbl.Parent = DisplayShadowLbl;
             DisplayLbl.Location = new Point(0, 0);
         }
@@ -52,13 +67,7 @@ namespace SAP1Emulator
                 CPU1.Clock.Start();
                 StepClockBtn.Enabled = false;
             }
-        }
-        private void MainTimer_Tick(object sender, EventArgs e)
-        {
-
-            updateDisplay();
-        }
-
+        }        
         void updateDisplay()
         {
             //update LEDS and visual stuff
@@ -90,6 +99,8 @@ namespace SAP1Emulator
             OutputRegValLbl.Text = $"0x{CPU1.Bus.Output.Data.ToString("X2")}";
             FlagsValLbl.Text = $"0x{CPU1.Flags.Data.ToString("X2")}";
 
+            
+
             if (DisplaySignedCB.Checked)
             {
                 sbyte outputSigned = (sbyte)CPU1.Bus.Output.Data;
@@ -100,9 +111,17 @@ namespace SAP1Emulator
                 DisplayLbl.Text = CPU1.Bus.Output.Data.ToString(" 000");
             }
 
-            if (CPU1.Clock.Output || Frames % 20 == 0) UpdateRamView(); //update memory view every clock cycle or every 20 frames
+            if (updateRAMViewFlag || Frames % 10000 == 0)
+            {
+                UpdateRamView();
+                updateRAMViewFlag = false;
+            }
 
-
+            if (CPU1.Clock.Output != NotPrevCPUOutput)
+            {
+                updateRAMViewFlag = true;
+                NotPrevCPUOutput = CPU1.Clock.Output;
+            }          
             Frames++;
             StatusLEDDsiaply.DisplayData(CPU1.ControlWord);
             StatusRegLBl.Text = $"0x{CPU1.ControlWord.ToString("X4")}";
@@ -192,15 +211,30 @@ namespace SAP1Emulator
         private void button2_Click(object sender, EventArgs e)
         {
             CPU1.Bus.RAM.Radomize();
-            CPU1.Bus.RAM.MEM[0x00] = 0xE0;
-            CPU1.Bus.RAM.MEM[0x01] = 0x2F;
-            CPU1.Bus.RAM.MEM[0x02] = 0x74;
-            CPU1.Bus.RAM.MEM[0x03] = 0x60;
-            CPU1.Bus.RAM.MEM[0x04] = 0x3F;
-            CPU1.Bus.RAM.MEM[0x05] = 0xE0;
-            CPU1.Bus.RAM.MEM[0x06] = 0x80;
-            CPU1.Bus.RAM.MEM[0x07] = 0x64;
-            CPU1.Bus.RAM.MEM[0x0F] = 0x01;
+            CPU1.Bus.RAM.MEM[0x00] = 0b00011110;
+            CPU1.Bus.RAM.MEM[0x01] = 0b00111100;
+            CPU1.Bus.RAM.MEM[0x02] = 0b01110110;
+            CPU1.Bus.RAM.MEM[0x03] = 0b00011101;
+            CPU1.Bus.RAM.MEM[0x04] = 0b11100000;
+            CPU1.Bus.RAM.MEM[0x05] = 0b11110000;
+            CPU1.Bus.RAM.MEM[0x06] = 0b01001110;
+            CPU1.Bus.RAM.MEM[0x07] = 0b00011101;
+            CPU1.Bus.RAM.MEM[0x08] = 0b00101111;
+            CPU1.Bus.RAM.MEM[0x09] = 0b01001101;
+            CPU1.Bus.RAM.MEM[0x0A] = 0b01100000;
+            CPU1.Bus.RAM.MEM[0x0B] = 0b11111111;
+            CPU1.Bus.RAM.MEM[0x0C] = 0b00000001;
+            CPU1.Bus.RAM.MEM[0x0D] = 0b00000000;
+            CPU1.Bus.RAM.MEM[0x0E] = 0x0E;
+            CPU1.Bus.RAM.MEM[0x0F] = 0x0F;
+
+                
+                
+                
+                
+                
+                
+                
         }
     }
 }

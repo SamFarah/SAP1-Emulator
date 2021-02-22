@@ -14,14 +14,14 @@ class ClockGenerator
         SignleStep
     }
 
-    public decimal Frequency { get; set; }
+    public double Frequency { get; set; }
     public ClockModes ClockMode { get; set; }
     public bool Output { get; set; }
     public bool OutputInverse { get { return !Output; } }
     public bool Hault { get; set; }
 
     private Thread thread { get; set; }
-
+    
     public delegate void PulseFunctionDel();
     public PulseFunctionDel RisingEdge;
     public PulseFunctionDel FallingEdge;
@@ -45,8 +45,7 @@ class ClockGenerator
                 if (Output) RisingEdge();
                 else FallingEdge();
             }
-            Thread.Sleep((int)(1000 / Frequency / 2));
-
+            Utilities.NOP(1.0 / Frequency / 2.0);
 
         }
     }
@@ -57,7 +56,7 @@ class ClockGenerator
             case ThreadState.Running: break;
             case ThreadState.Suspended: thread.Resume(); break;
             case ThreadState.Stopped: thread.Start(); break;
-            case ThreadState.Unstarted: thread.Start(); break;           
+            case ThreadState.Unstarted: thread.Start(); break;
         }
 
     }
@@ -67,7 +66,7 @@ class ClockGenerator
         if (thread.ThreadState == ThreadState.Running || thread.ThreadState == ThreadState.WaitSleepJoin)
         {
             thread.Suspend();
-            while ((thread.ThreadState & ThreadState.SuspendRequested ) > 0) ;//wait until it is suspended
+            while ((thread.ThreadState & ThreadState.SuspendRequested) > 0) ;//wait until it is suspended
         }
         Output = false;
 

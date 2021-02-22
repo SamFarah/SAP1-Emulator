@@ -21,7 +21,7 @@ class ALU : Register
     public bool CarryOut { get { return AluResult > 255; } }
     public bool IsZero { get { return (AluResult&0xFF) == 0; } }
 
-    private UInt16 AluResult;
+    public UInt16 AluResult;
 
     // public byte GetData() { return (byte)AluResult; }
 
@@ -30,7 +30,7 @@ class ALU : Register
         get
         {
             if (Subtract)
-                AluResult = (UInt16)(Op1.Data + (~Op2.Data + 0x01) + (CarryIn ? 1 : 0));
+                AluResult = (UInt16)(Op1.Data + (byte)(~Op2.Data + 0x01) + (CarryIn ? 1 : 0));
             else
                 AluResult = (UInt16)(Op1.Data + Op2.Data + (CarryIn ? 1 : 0));
 

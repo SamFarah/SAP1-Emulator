@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.ClockModeBtn = new System.Windows.Forms.Button();
             this.FreqLbl = new System.Windows.Forms.Label();
             this.StepClockBtn = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.MainTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,11 +69,11 @@
             this.StatusRegLBl = new System.Windows.Forms.Label();
             this.ResetBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.FlagsValLbl = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.rLabel25 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel23 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel24 = new SAP1Emulator.AppCode.Visual.RLabel();
@@ -268,23 +266,18 @@
             // 
             this.trackBar1.LargeChange = 10;
             this.trackBar1.Location = new System.Drawing.Point(262, 25);
-            this.trackBar1.Maximum = 500;
+            this.trackBar1.Maximum = 1000;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(151, 45);
+            this.trackBar1.Size = new System.Drawing.Size(397, 45);
             this.trackBar1.TabIndex = 7;
             this.trackBar1.Value = 1;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
-            // MainTimer
-            // 
-            this.MainTimer.Interval = 1;
-            this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(419, 23);
+            this.label1.Location = new System.Drawing.Point(78, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 1;
@@ -639,6 +632,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sample Program";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(34, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Load Into RAM";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -678,16 +681,6 @@
             this.FlagsValLbl.Size = new System.Drawing.Size(46, 13);
             this.FlagsValLbl.TabIndex = 122;
             this.FlagsValLbl.Text = "Flagsval";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(34, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Load Into RAM";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // rLabel25
             // 
@@ -1960,7 +1953,7 @@
             this.ledDisplay2.Controls.Add(this.led1);
             this.ledDisplay2.LEDs.Add(this.led1);
             this.ledDisplay2.LEDSpacing = 2;
-            this.ledDisplay2.Location = new System.Drawing.Point(492, 22);
+            this.ledDisplay2.Location = new System.Drawing.Point(151, 66);
             this.ledDisplay2.Name = "ledDisplay2";
             this.ledDisplay2.NibbleSpacing = 2;
             this.ledDisplay2.Size = new System.Drawing.Size(16, 16);
@@ -2154,7 +2147,6 @@
         private System.Windows.Forms.Label FreqLbl;
         private System.Windows.Forms.Button StepClockBtn;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Timer MainTimer;
         private System.Windows.Forms.Label label1;
         private AppCode.Visual.LEDDisplay ledDisplay2;
         private AppCode.Visual.LED led1;
