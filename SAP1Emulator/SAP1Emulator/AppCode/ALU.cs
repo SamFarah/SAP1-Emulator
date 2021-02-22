@@ -18,30 +18,27 @@ class ALU : Register
     private Register Op2 { get; set; }
     public bool Subtract { get; set; } //if active will will Subtract (Active HIGH)
     public bool CarryIn { get; set; }
-    public bool CarryOut { get
-        {
-            return AluResult>255;
-        }
-    }
+    public bool CarryOut { get { return AluResult > 255; } }
+    public bool IsZero { get { return (AluResult&0xFF) == 0; } }
 
     private UInt16 AluResult;
 
-   // public byte GetData() { return (byte)AluResult; }
+    // public byte GetData() { return (byte)AluResult; }
 
     public override byte Data
     {
         get
         {
             if (Subtract)
-                AluResult=(UInt16)(Op1.Data + (~Op2.Data + 0x01) + (CarryIn?1:0));
+                AluResult = (UInt16)(Op1.Data + (~Op2.Data + 0x01) + (CarryIn ? 1 : 0));
             else
-                AluResult=(UInt16)(Op1.Data + Op2.Data + (CarryIn ? 1 : 0));
+                AluResult = (UInt16)(Op1.Data + Op2.Data + (CarryIn ? 1 : 0));
 
             return (byte)AluResult;
 
         }
     }
 
-    
+
 }
 

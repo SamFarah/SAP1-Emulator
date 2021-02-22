@@ -10,13 +10,16 @@ class SAP1_8Bit
     {
         Clock = new ClockGenerator(RisingEdge, FallingEdge);
         Bus = new Bus();
-        CL = new ControlLogic(Bus.Inst);
-        ControlWord = CL.GetControlWord(true);        
+        Flags = new Register(0x03) { Enable = true };//always enabled 
+        CL = new ControlLogic(Bus.Inst, Flags);
+        ControlWord = CL.GetControlWord(true);
     }
 
     public ClockGenerator Clock { get; set; }
     public Bus Bus { get; set; }
     public ControlLogic CL { get; set; }
+
+    public Register Flags { get; set; }
 
     public UInt16 ControlWord
     {
@@ -36,7 +39,9 @@ class SAP1_8Bit
                             ((Bus.Output.Load ? 1 : 0) << 4) |
                             ((Bus.PC.Count ? 1 : 0) << 3) |
                             ((Bus.PC.Enable ? 1 : 0) << 2) |
-                            ((Bus.PC.Load ? 1 : 0) << 1));
+                            ((Bus.PC.Load ? 1 : 0) << 1) |
+                            ((Flags.Load ? 1 : 0) << 0)) ;
+
         }
         set
         {
@@ -55,6 +60,7 @@ class SAP1_8Bit
             Bus.PC.Count = (value & 0x0008) > 0;
             Bus.PC.Enable = (value & 0x0004) > 0;
             Bus.PC.Load = (value & 0x0002) > 0;
+            Flags.Load = (value & 0x0001) > 0;
         }
     }
 
@@ -63,6 +69,9 @@ class SAP1_8Bit
     {
         Bus.Write();
         Bus.Read();
+
+        //update flags;
+        Flags.Read((byte)(((Bus.Sum.CarryOut ? 1 : 0) << 1) | ((Bus.Sum.IsZero ? 1 : 0) << 0))); //>LOAD CF ZF
                
     }
 
@@ -77,6 +86,7 @@ class SAP1_8Bit
         Clock.Stop();        
         Clock.Hault = false;
         Bus.Reset();
+        Flags.Reset();
         CL.Reset();
         if (Clock.ClockMode == ClockGenerator.ClockModes.Auto) Clock.Start();
     }  

@@ -21,6 +21,8 @@ class Bus
     public Counter PC { get; set; }
     public Register Output { get; set; }
 
+    
+
     //funcs
     public void Reset()
     {
@@ -46,6 +48,7 @@ class Bus
         RAM = new SRAM(MAR);
         PC = new Counter();
         Output = new Register();
+        
 
     }
     public void Read()//read data from the bus into devices
@@ -56,8 +59,7 @@ class Bus
         MAR.Read(mData);
         RAM.Read(mData);
         PC.Read(mData);
-        Output.Read(mData);
-
+        Output.Read(mData);       
         PC.Inc();
         //return Data;
     }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 class Register
 {
-    public Register(byte mask = 0xFF) {
+    public Register(byte mask = 0xFF)
+    {
         Mask = mask;
-        Load = false ;
+        Load = false;
         Enable = false;
     }
     public virtual bool Load { get; set; } //if active will read from bus (active HIHG)
@@ -18,7 +19,7 @@ class Register
     public virtual byte Data { get; set; }
 
     public virtual void Read(byte data) { if (Load) Data = (byte)(data & Mask); }
-    public virtual byte? Write() { if (Enable) return (byte)(Data & Mask); return null; }    
+    public virtual byte? Write() { if (Enable) return (byte)(Data & Mask); return null; }
     public void Reset()
     {
         Data = 0x00;
@@ -26,6 +27,5 @@ class Register
         Enable = false;
     }
 }
-
 
 

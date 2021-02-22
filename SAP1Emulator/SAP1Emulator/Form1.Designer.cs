@@ -46,7 +46,6 @@
             this.InstRegValLbl = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.RAMRegValLbl = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.MARRegValLbl = new System.Windows.Forms.Label();
@@ -58,6 +57,8 @@
             this.ProgRamDataTB = new System.Windows.Forms.TextBox();
             this.ProGramBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.WipeRAMBtn = new System.Windows.Forms.Button();
             this.PCRegValLbl = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.OutputRegValLbl = new System.Windows.Forms.Label();
@@ -68,7 +69,24 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.StatusRegLBl = new System.Windows.Forms.Label();
-            this.rLabel16 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.ResetBtn = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.FlagsValLbl = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.rLabel25 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel23 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel24 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.FlagRegLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led92 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led93 = new SAP1Emulator.AppCode.Visual.LED();
+            this.rLabel22 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel20 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.SumFlagsLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
+            this.led90 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led91 = new SAP1Emulator.AppCode.Visual.LED();
             this.CLDecodedLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led85 = new SAP1Emulator.AppCode.Visual.LED();
             this.led86 = new SAP1Emulator.AppCode.Visual.LED();
@@ -110,7 +128,7 @@
             this.led79 = new SAP1Emulator.AppCode.Visual.LED();
             this.led80 = new SAP1Emulator.AppCode.Visual.LED();
             this.led81 = new SAP1Emulator.AppCode.Visual.LED();
-            this.led2 = new SAP1Emulator.AppCode.Visual.LED();
+            this.led94 = new SAP1Emulator.AppCode.Visual.LED();
             this.OutputRegLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led59 = new SAP1Emulator.AppCode.Visual.LED();
             this.led60 = new SAP1Emulator.AppCode.Visual.LED();
@@ -139,7 +157,6 @@
             this.led48 = new SAP1Emulator.AppCode.Visual.LED();
             this.led49 = new SAP1Emulator.AppCode.Visual.LED();
             this.led50 = new SAP1Emulator.AppCode.Visual.LED();
-            this.CarryOutLED = new SAP1Emulator.AppCode.Visual.LED();
             this.InstRegLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led3 = new SAP1Emulator.AppCode.Visual.LED();
             this.led4 = new SAP1Emulator.AppCode.Visual.LED();
@@ -187,19 +204,18 @@
             this.led18 = new SAP1Emulator.AppCode.Visual.LED();
             this.ledDisplay2 = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led1 = new SAP1Emulator.AppCode.Visual.LED();
-            this.rLabel17 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel21 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel18 = new SAP1Emulator.AppCode.Visual.RLabel();
             this.rLabel19 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.rLabel21 = new SAP1Emulator.AppCode.Visual.RLabel();
-            this.ResetBtn = new System.Windows.Forms.Button();
-            this.WipeRAMBtn = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rLabel17 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.rLabel16 = new SAP1Emulator.AppCode.Visual.RLabel();
+            this.led2 = new SAP1Emulator.AppCode.Visual.LED();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.FlagRegLEDDisplay.SuspendLayout();
+            this.SumFlagsLEDDisplay.SuspendLayout();
             this.CLDecodedLEDDisplay.SuspendLayout();
             this.MICounterLEDDisplay.SuspendLayout();
             this.StatusLEDDsiaply.SuspendLayout();
@@ -213,7 +229,6 @@
             this.ARegLEDDisplay.SuspendLayout();
             this.BusLEDDisplay.SuspendLayout();
             this.ledDisplay2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ClockModeBtn
@@ -253,7 +268,7 @@
             // 
             this.trackBar1.LargeChange = 10;
             this.trackBar1.Location = new System.Drawing.Point(262, 25);
-            this.trackBar1.Maximum = 350;
+            this.trackBar1.Maximum = 500;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(151, 45);
@@ -368,22 +383,13 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(593, 264);
+            this.checkBox1.Location = new System.Drawing.Point(573, 278);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(59, 17);
             this.checkBox1.TabIndex = 41;
             this.checkBox1.Text = "CarryIn";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(600, 226);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(52, 13);
-            this.label12.TabIndex = 43;
-            this.label12.Text = "OverFlow";
             // 
             // RAMRegValLbl
             // 
@@ -490,10 +496,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Debug";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(38, 194);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 65;
+            this.button1.Text = "Randomize";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // WipeRAMBtn
+            // 
+            this.WipeRAMBtn.Location = new System.Drawing.Point(38, 224);
+            this.WipeRAMBtn.Name = "WipeRAMBtn";
+            this.WipeRAMBtn.Size = new System.Drawing.Size(75, 23);
+            this.WipeRAMBtn.TabIndex = 64;
+            this.WipeRAMBtn.Text = "Wipe RAM";
+            this.WipeRAMBtn.UseVisualStyleBackColor = true;
+            this.WipeRAMBtn.Click += new System.EventHandler(this.WipeRAMBtn_Click);
+            // 
             // PCRegValLbl
             // 
             this.PCRegValLbl.AutoSize = true;
-            this.PCRegValLbl.Location = new System.Drawing.Point(530, 138);
+            this.PCRegValLbl.Location = new System.Drawing.Point(479, 139);
             this.PCRegValLbl.Name = "PCRegValLbl";
             this.PCRegValLbl.Size = new System.Drawing.Size(35, 13);
             this.PCRegValLbl.TabIndex = 68;
@@ -580,28 +606,201 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(93, 198);
             this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "LDA -> 0x01\r\nADD -> 0x02\r\nSUB -> 0x03\r\nSTA -> 0x04\r\nLDI -> 0x05\r\nJMP -> 0x06\r\n\r\n\r" +
-    "\nOUT -> 0x0E\r\nHLT -> 0x0F";
+            this.textBox2.Text = "LDA -> 0x01\r\nADD -> 0x02\r\nSUB -> 0x03\r\nSTA -> 0x04\r\nLDI -> 0x05\r\nJMP -> 0x06\r\nJC " +
+    " -> 0x07\r\nJZ  -> 0x08\r\n\r\nOUT -> 0x0E\r\nHLT -> 0x0F";
             // 
             // StatusRegLBl
             // 
             this.StatusRegLBl.AutoSize = true;
-            this.StatusRegLBl.Location = new System.Drawing.Point(616, 590);
+            this.StatusRegLBl.Location = new System.Drawing.Point(623, 590);
             this.StatusRegLBl.Name = "StatusRegLBl";
             this.StatusRegLBl.Size = new System.Drawing.Size(36, 13);
             this.StatusRegLBl.TabIndex = 101;
             this.StatusRegLBl.Text = "CSVal";
             // 
-            // rLabel16
+            // ResetBtn
             // 
-            this.rLabel16.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel16.Location = new System.Drawing.Point(260, 329);
-            this.rLabel16.Name = "rLabel16";
-            this.rLabel16.RotationAngle = 0D;
-            this.rLabel16.Size = new System.Drawing.Size(14, 16);
-            this.rLabel16.TabIndex = 104;
-            this.rLabel16.Text = "T0";
-            this.rLabel16.TopLine = true;
+            this.ResetBtn.Location = new System.Drawing.Point(12, 23);
+            this.ResetBtn.Name = "ResetBtn";
+            this.ResetBtn.Size = new System.Drawing.Size(75, 23);
+            this.ResetBtn.TabIndex = 111;
+            this.ResetBtn.Text = "Reset";
+            this.ResetBtn.UseVisualStyleBackColor = true;
+            this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Location = new System.Drawing.Point(25, 130);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(151, 223);
+            this.groupBox1.TabIndex = 101;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sample Program";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(6, 19);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(139, 171);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "0: LDI 3   ; 0x53\r\n1: STA 15  ; 0x4F\r\n2: LDI 0   ; 0x50\r\n3: ADD 15  ; 0x2F\r\n4: OU" +
+    "T     ; 0xE0\r\n5: JMP 3   ; 0x63\r\n\r\nStore 3 in RAM 0x0F\r\nKeep adding that value t" +
+    "o RegA";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(188, 307);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.TabIndex = 112;
+            this.label2.Text = "Micro Instructions:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(548, 94);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 119;
+            this.label7.Text = "Flag Reg:";
+            // 
+            // FlagsValLbl
+            // 
+            this.FlagsValLbl.AutoSize = true;
+            this.FlagsValLbl.Location = new System.Drawing.Point(597, 137);
+            this.FlagsValLbl.Name = "FlagsValLbl";
+            this.FlagsValLbl.Size = new System.Drawing.Size(46, 13);
+            this.FlagsValLbl.TabIndex = 122;
+            this.FlagsValLbl.Text = "Flagsval";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(34, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Load Into RAM";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // rLabel25
+            // 
+            this.rLabel25.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel25.Location = new System.Drawing.Point(590, 568);
+            this.rLabel25.Name = "rLabel25";
+            this.rLabel25.RotationAngle = 90D;
+            this.rLabel25.Size = new System.Drawing.Size(14, 16);
+            this.rLabel25.TabIndex = 121;
+            this.rLabel25.Text = "FI";
+            this.rLabel25.TopLine = false;
+            // 
+            // rLabel23
+            // 
+            this.rLabel23.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel23.Location = new System.Drawing.Point(570, 120);
+            this.rLabel23.Name = "rLabel23";
+            this.rLabel23.RotationAngle = 90D;
+            this.rLabel23.Size = new System.Drawing.Size(14, 16);
+            this.rLabel23.TabIndex = 118;
+            this.rLabel23.Text = "ZF";
+            this.rLabel23.TopLine = false;
+            // 
+            // rLabel24
+            // 
+            this.rLabel24.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel24.Location = new System.Drawing.Point(558, 120);
+            this.rLabel24.Name = "rLabel24";
+            this.rLabel24.RotationAngle = 90D;
+            this.rLabel24.Size = new System.Drawing.Size(14, 16);
+            this.rLabel24.TabIndex = 117;
+            this.rLabel24.Text = "CF";
+            this.rLabel24.TopLine = false;
+            // 
+            // FlagRegLEDDisplay
+            // 
+            this.FlagRegLEDDisplay.Controls.Add(this.led92);
+            this.FlagRegLEDDisplay.Controls.Add(this.led93);
+            this.FlagRegLEDDisplay.LEDs.Add(this.led92);
+            this.FlagRegLEDDisplay.LEDs.Add(this.led93);
+            this.FlagRegLEDDisplay.LEDSpacing = 4;
+            this.FlagRegLEDDisplay.Location = new System.Drawing.Point(555, 136);
+            this.FlagRegLEDDisplay.Name = "FlagRegLEDDisplay";
+            this.FlagRegLEDDisplay.NibbleSpacing = 0;
+            this.FlagRegLEDDisplay.Size = new System.Drawing.Size(34, 16);
+            this.FlagRegLEDDisplay.TabIndex = 116;
+            // 
+            // led92
+            // 
+            this.led92.LEDColor = System.Drawing.Color.Red;
+            this.led92.Location = new System.Drawing.Point(3, 3);
+            this.led92.Name = "led92";
+            this.led92.Size = new System.Drawing.Size(11, 11);
+            this.led92.TabIndex = 0;
+            // 
+            // led93
+            // 
+            this.led93.LEDColor = System.Drawing.Color.Red;
+            this.led93.Location = new System.Drawing.Point(17, 3);
+            this.led93.Name = "led93";
+            this.led93.Size = new System.Drawing.Size(11, 11);
+            this.led93.TabIndex = 1;
+            // 
+            // rLabel22
+            // 
+            this.rLabel22.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel22.Location = new System.Drawing.Point(600, 200);
+            this.rLabel22.Name = "rLabel22";
+            this.rLabel22.RotationAngle = 90D;
+            this.rLabel22.Size = new System.Drawing.Size(10, 27);
+            this.rLabel22.TabIndex = 115;
+            this.rLabel22.Text = "Zero";
+            this.rLabel22.TopLine = false;
+            // 
+            // rLabel20
+            // 
+            this.rLabel20.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel20.Location = new System.Drawing.Point(585, 194);
+            this.rLabel20.Name = "rLabel20";
+            this.rLabel20.RotationAngle = 90D;
+            this.rLabel20.Size = new System.Drawing.Size(10, 33);
+            this.rLabel20.TabIndex = 114;
+            this.rLabel20.Text = "Carry";
+            this.rLabel20.TopLine = false;
+            // 
+            // SumFlagsLEDDisplay
+            // 
+            this.SumFlagsLEDDisplay.Controls.Add(this.led90);
+            this.SumFlagsLEDDisplay.Controls.Add(this.led91);
+            this.SumFlagsLEDDisplay.LEDs.Add(this.led90);
+            this.SumFlagsLEDDisplay.LEDs.Add(this.led91);
+            this.SumFlagsLEDDisplay.LEDSpacing = 2;
+            this.SumFlagsLEDDisplay.Location = new System.Drawing.Point(588, 232);
+            this.SumFlagsLEDDisplay.Name = "SumFlagsLEDDisplay";
+            this.SumFlagsLEDDisplay.NibbleSpacing = 2;
+            this.SumFlagsLEDDisplay.Size = new System.Drawing.Size(28, 16);
+            this.SumFlagsLEDDisplay.TabIndex = 113;
+            // 
+            // led90
+            // 
+            this.led90.LEDColor = System.Drawing.Color.Red;
+            this.led90.Location = new System.Drawing.Point(3, 3);
+            this.led90.Name = "led90";
+            this.led90.Size = new System.Drawing.Size(11, 11);
+            this.led90.TabIndex = 0;
+            // 
+            // led91
+            // 
+            this.led91.LEDColor = System.Drawing.Color.Red;
+            this.led91.Location = new System.Drawing.Point(15, 3);
+            this.led91.Name = "led91";
+            this.led91.Size = new System.Drawing.Size(11, 11);
+            this.led91.TabIndex = 1;
             // 
             // CLDecodedLEDDisplay
             // 
@@ -883,7 +1082,7 @@
             this.StatusLEDDsiaply.Controls.Add(this.led79);
             this.StatusLEDDsiaply.Controls.Add(this.led80);
             this.StatusLEDDsiaply.Controls.Add(this.led81);
-            this.StatusLEDDsiaply.Controls.Add(this.led2);
+            this.StatusLEDDsiaply.Controls.Add(this.led94);
             this.StatusLEDDsiaply.LEDs.Add(this.led67);
             this.StatusLEDDsiaply.LEDs.Add(this.led68);
             this.StatusLEDDsiaply.LEDs.Add(this.led69);
@@ -899,7 +1098,7 @@
             this.StatusLEDDsiaply.LEDs.Add(this.led79);
             this.StatusLEDDsiaply.LEDs.Add(this.led80);
             this.StatusLEDDsiaply.LEDs.Add(this.led81);
-            this.StatusLEDDsiaply.LEDs.Add(this.led2);
+            this.StatusLEDDsiaply.LEDs.Add(this.led94);
             this.StatusLEDDsiaply.LEDSpacing = 4;
             this.StatusLEDDsiaply.Location = new System.Drawing.Point(380, 587);
             this.StatusLEDDsiaply.Name = "StatusLEDDsiaply";
@@ -1027,14 +1226,13 @@
             this.led81.Size = new System.Drawing.Size(11, 11);
             this.led81.TabIndex = 14;
             // 
-            // led2
+            // led94
             // 
-            this.led2.LEDColor = System.Drawing.Color.Red;
-            this.led2.Location = new System.Drawing.Point(213, 3);
-            this.led2.Name = "led2";
-            this.led2.Size = new System.Drawing.Size(11, 11);
-            this.led2.TabIndex = 15;
-            this.led2.Visible = false;
+            this.led94.LEDColor = System.Drawing.Color.Blue;
+            this.led94.Location = new System.Drawing.Point(213, 3);
+            this.led94.Name = "led94";
+            this.led94.Size = new System.Drawing.Size(11, 11);
+            this.led94.TabIndex = 15;
             // 
             // OutputRegLEDDisplay
             // 
@@ -1311,14 +1509,6 @@
             this.led50.Name = "led50";
             this.led50.Size = new System.Drawing.Size(11, 11);
             this.led50.TabIndex = 7;
-            // 
-            // CarryOutLED
-            // 
-            this.CarryOutLED.LEDColor = System.Drawing.Color.Red;
-            this.CarryOutLED.Location = new System.Drawing.Point(619, 247);
-            this.CarryOutLED.Name = "CarryOutLED";
-            this.CarryOutLED.Size = new System.Drawing.Size(11, 11);
-            this.CarryOutLED.TabIndex = 42;
             // 
             // InstRegLEDDisplay
             // 
@@ -1784,16 +1974,16 @@
             this.led1.Size = new System.Drawing.Size(11, 11);
             this.led1.TabIndex = 0;
             // 
-            // rLabel17
+            // rLabel21
             // 
-            this.rLabel17.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel17.Location = new System.Drawing.Point(276, 329);
-            this.rLabel17.Name = "rLabel17";
-            this.rLabel17.RotationAngle = 0D;
-            this.rLabel17.Size = new System.Drawing.Size(14, 16);
-            this.rLabel17.TabIndex = 105;
-            this.rLabel17.Text = "T1";
-            this.rLabel17.TopLine = true;
+            this.rLabel21.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel21.Location = new System.Drawing.Point(324, 329);
+            this.rLabel21.Name = "rLabel21";
+            this.rLabel21.RotationAngle = 0D;
+            this.rLabel21.Size = new System.Drawing.Size(14, 16);
+            this.rLabel21.TabIndex = 108;
+            this.rLabel21.Text = "T4";
+            this.rLabel21.TopLine = true;
             // 
             // rLabel18
             // 
@@ -1817,84 +2007,51 @@
             this.rLabel19.Text = "T2";
             this.rLabel19.TopLine = true;
             // 
-            // rLabel21
+            // rLabel17
             // 
-            this.rLabel21.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel21.Location = new System.Drawing.Point(324, 329);
-            this.rLabel21.Name = "rLabel21";
-            this.rLabel21.RotationAngle = 0D;
-            this.rLabel21.Size = new System.Drawing.Size(14, 16);
-            this.rLabel21.TabIndex = 108;
-            this.rLabel21.Text = "T4";
-            this.rLabel21.TopLine = true;
+            this.rLabel17.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel17.Location = new System.Drawing.Point(276, 329);
+            this.rLabel17.Name = "rLabel17";
+            this.rLabel17.RotationAngle = 0D;
+            this.rLabel17.Size = new System.Drawing.Size(14, 16);
+            this.rLabel17.TabIndex = 105;
+            this.rLabel17.Text = "T1";
+            this.rLabel17.TopLine = true;
             // 
-            // ResetBtn
+            // rLabel16
             // 
-            this.ResetBtn.Location = new System.Drawing.Point(12, 23);
-            this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(75, 23);
-            this.ResetBtn.TabIndex = 111;
-            this.ResetBtn.Text = "Reset";
-            this.ResetBtn.UseVisualStyleBackColor = true;
-            this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
+            this.rLabel16.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel16.Location = new System.Drawing.Point(260, 329);
+            this.rLabel16.Name = "rLabel16";
+            this.rLabel16.RotationAngle = 0D;
+            this.rLabel16.Size = new System.Drawing.Size(14, 16);
+            this.rLabel16.TabIndex = 104;
+            this.rLabel16.Text = "T0";
+            this.rLabel16.TopLine = true;
             // 
-            // WipeRAMBtn
+            // led2
             // 
-            this.WipeRAMBtn.Location = new System.Drawing.Point(38, 224);
-            this.WipeRAMBtn.Name = "WipeRAMBtn";
-            this.WipeRAMBtn.Size = new System.Drawing.Size(75, 23);
-            this.WipeRAMBtn.TabIndex = 64;
-            this.WipeRAMBtn.Text = "Wipe RAM";
-            this.WipeRAMBtn.UseVisualStyleBackColor = true;
-            this.WipeRAMBtn.Click += new System.EventHandler(this.WipeRAMBtn_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(25, 130);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(151, 223);
-            this.groupBox1.TabIndex = 101;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sample Program";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(139, 198);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "0: LDI 3   ; 0x53\r\n1: STA 15  ; 0x4F\r\n2: LDI 0   ; 0x50\r\n3: ADD 15  ; 0x2F\r\n4: OU" +
-    "T     ; 0xE0\r\n5: JMP 3   ; 0x63\r\n\r\nStore 3 in RAM 0x0F\r\nKeep adding that value t" +
-    "o RegA";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(188, 307);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 13);
-            this.label2.TabIndex = 112;
-            this.label2.Text = "Micro Instructions:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(38, 194);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 65;
-            this.button1.Text = "Randomize";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.led2.LEDColor = System.Drawing.Color.Red;
+            this.led2.Location = new System.Drawing.Point(213, 3);
+            this.led2.Name = "led2";
+            this.led2.Size = new System.Drawing.Size(11, 11);
+            this.led2.TabIndex = 15;
+            this.led2.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 665);
+            this.Controls.Add(this.FlagsValLbl);
+            this.Controls.Add(this.rLabel25);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.rLabel23);
+            this.Controls.Add(this.rLabel24);
+            this.Controls.Add(this.FlagRegLEDDisplay);
+            this.Controls.Add(this.rLabel22);
+            this.Controls.Add(this.rLabel20);
+            this.Controls.Add(this.SumFlagsLEDDisplay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ResetBtn);
@@ -1934,8 +2091,6 @@
             this.Controls.Add(this.RAMRegValLbl);
             this.Controls.Add(this.RAMLEDDisplay);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.CarryOutLED);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.InstRegValLbl);
             this.Controls.Add(this.InstRegLEDDisplay);
@@ -1964,13 +2119,17 @@
             this.Controls.Add(this.rLabel17);
             this.Controls.Add(this.rLabel16);
             this.Name = "MainForm";
-            this.Text = "m";
+            this.Text = "SAP1 CPU";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.FlagRegLEDDisplay.ResumeLayout(false);
+            this.SumFlagsLEDDisplay.ResumeLayout(false);
             this.CLDecodedLEDDisplay.ResumeLayout(false);
             this.MICounterLEDDisplay.ResumeLayout(false);
             this.StatusLEDDsiaply.ResumeLayout(false);
@@ -1984,8 +2143,6 @@
             this.ARegLEDDisplay.ResumeLayout(false);
             this.BusLEDDisplay.ResumeLayout(false);
             this.ledDisplay2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2057,8 +2214,6 @@
         private AppCode.Visual.LED led10;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkBox1;
-        private AppCode.Visual.LED CarryOutLED;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label RAMRegValLbl;
         private AppCode.Visual.LEDDisplay RAMLEDDisplay;
         private AppCode.Visual.LED led43;
@@ -2154,13 +2309,28 @@
         private AppCode.Visual.RLabel rLabel18;
         private AppCode.Visual.RLabel rLabel19;
         private AppCode.Visual.RLabel rLabel21;
-        private AppCode.Visual.LED led2;
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Button WipeRAMBtn;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private AppCode.Visual.LEDDisplay SumFlagsLEDDisplay;
+        private AppCode.Visual.LED led90;
+        private AppCode.Visual.LED led91;
+        private AppCode.Visual.RLabel rLabel20;
+        private AppCode.Visual.RLabel rLabel22;
+        private AppCode.Visual.LEDDisplay FlagRegLEDDisplay;
+        private AppCode.Visual.LED led92;
+        private AppCode.Visual.LED led93;
+        private AppCode.Visual.RLabel rLabel23;
+        private AppCode.Visual.RLabel rLabel24;
+        private System.Windows.Forms.Label label7;
+        private AppCode.Visual.LED led94;
+        private AppCode.Visual.LED led2;
+        private AppCode.Visual.RLabel rLabel25;
+        private System.Windows.Forms.Label FlagsValLbl;
+        private System.Windows.Forms.Button button2;
     }
 }
 
