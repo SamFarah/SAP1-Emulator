@@ -112,6 +112,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\LEDIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\BlockDiagram.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

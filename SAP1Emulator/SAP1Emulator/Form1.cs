@@ -16,7 +16,7 @@ namespace SAP1Emulator
 
         SAP1_8Bit CPU1;
         uint Frames = 0;
-        bool updateRAMViewFlag = false, NotPrevCPUOutput=false;
+        bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
         public MainForm()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace SAP1Emulator
             Application.Idle += HandleApplicationIdle;
 
         }
-        
+
         bool IsApplicationIdle()
         {
             Utilities.NativeMessage result;
@@ -43,8 +43,8 @@ namespace SAP1Emulator
             }
         }
         private void MainForm_Load(object sender, EventArgs e)
-        {            
-            
+        {
+
             DisplayLbl.Parent = DisplayShadowLbl;
             DisplayLbl.Location = new Point(0, 0);
         }
@@ -67,7 +67,7 @@ namespace SAP1Emulator
                 CPU1.Clock.Start();
                 StepClockBtn.Enabled = false;
             }
-        }        
+        }
         void updateDisplay()
         {
             //update LEDS and visual stuff
@@ -99,7 +99,7 @@ namespace SAP1Emulator
             OutputRegValLbl.Text = $"0x{CPU1.Bus.Output.Data.ToString("X2")}";
             FlagsValLbl.Text = $"0x{CPU1.Flags.Data.ToString("X2")}";
 
-            
+
 
             if (DisplaySignedCB.Checked)
             {
@@ -121,10 +121,9 @@ namespace SAP1Emulator
             {
                 updateRAMViewFlag = true;
                 NotPrevCPUOutput = CPU1.Clock.Output;
-            }          
+            }
             Frames++;
             StatusLEDDsiaply.DisplayData(CPU1.ControlWord);
-            StatusRegLBl.Text = $"0x{CPU1.ControlWord.ToString("X4")}";
         }
         private void UpdateRamView()
         {
@@ -145,26 +144,9 @@ namespace SAP1Emulator
             FreqLbl.Text = "Frequency: " + CPU1.Clock.Frequency.ToString() + "Hz";
         }
 
-        private void StepClockBtn_MouseDown(object sender, MouseEventArgs e)
-        {
-            CPU1.Clock.Step();
-        }
-
-        private void StepClockBtn_MouseUp(object sender, MouseEventArgs e)
-        {
-            CPU1.Clock.Step();
-        }
-
-
-
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            CPU1.Bus.Sum.CarryIn = checkBox1.Checked;
-        }
-
-
-
+        private void StepClockBtn_MouseDown(object sender, MouseEventArgs e) { CPU1.Clock.Step(); }
+        private void StepClockBtn_MouseUp(object sender, MouseEventArgs e) { CPU1.Clock.Step(); }
+        private void CarryInCB_CheckedChanged(object sender, EventArgs e) { CPU1.Bus.Sum.CarryIn = CarryInCB.Checked; }
         private void ProGramBtn_Click(object sender, EventArgs e)
         {
             try
@@ -179,62 +161,30 @@ namespace SAP1Emulator
                 ProgRamDataTB.Select(ProgRamDataTB.Text.Length, 0);
 
             }
-            catch (Exception)
-            {
-
-            }
-
-
+            catch (Exception) { }
         }
-
-        private void ResetBtn_Click(object sender, EventArgs e)
+        private void ResetBtn_Click(object sender, EventArgs e) { CPU1.Reset(); }
+        private void StepClockBtn_Click(object sender, EventArgs e) { UpdateRamView(); }
+        private void WipeRAMBtn_Click(object sender, EventArgs e) { for (int i = 0; i < 16; i++) CPU1.Bus.RAM.MEM[i] = 0xFF; }
+        private void RandomizeRAMBtn_Click(object sender, EventArgs e) { CPU1.Bus.RAM.Radomize(); }
+        private void LoadExampleIntoRAMBtn_Click(object sender, EventArgs e)
         {
-            CPU1.Reset();
-        }
-
-        private void StepClockBtn_Click(object sender, EventArgs e)
-        {
-            UpdateRamView();
-        }
-
-        private void WipeRAMBtn_Click(object sender, EventArgs e)
-        {
-
-            for (int i = 0; i < 16; i++) CPU1.Bus.RAM.MEM[i] = 0xFF;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CPU1.Bus.RAM.Radomize();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CPU1.Bus.RAM.Radomize();
-            CPU1.Bus.RAM.MEM[0x00] = 0b00011110;
-            CPU1.Bus.RAM.MEM[0x01] = 0b00111100;
-            CPU1.Bus.RAM.MEM[0x02] = 0b01110110;
-            CPU1.Bus.RAM.MEM[0x03] = 0b00011101;
-            CPU1.Bus.RAM.MEM[0x04] = 0b11100000;
-            CPU1.Bus.RAM.MEM[0x05] = 0b11110000;
-            CPU1.Bus.RAM.MEM[0x06] = 0b01001110;
-            CPU1.Bus.RAM.MEM[0x07] = 0b00011101;
-            CPU1.Bus.RAM.MEM[0x08] = 0b00101111;
-            CPU1.Bus.RAM.MEM[0x09] = 0b01001101;
-            CPU1.Bus.RAM.MEM[0x0A] = 0b01100000;
-            CPU1.Bus.RAM.MEM[0x0B] = 0b11111111;
-            CPU1.Bus.RAM.MEM[0x0C] = 0b00000001;
-            CPU1.Bus.RAM.MEM[0x0D] = 0b00000000;
-            CPU1.Bus.RAM.MEM[0x0E] = 0x0E;
-            CPU1.Bus.RAM.MEM[0x0F] = 0x0F;
-
-                
-                
-                
-                
-                
-                
-                
+            CPU1.Bus.RAM.MEM[0x00] = 0x1e;
+            CPU1.Bus.RAM.MEM[0x01] = 0x3c;
+            CPU1.Bus.RAM.MEM[0x02] = 0x76;
+            CPU1.Bus.RAM.MEM[0x03] = 0x1d;
+            CPU1.Bus.RAM.MEM[0x04] = 0xe0;
+            CPU1.Bus.RAM.MEM[0x05] = 0xf0;
+            CPU1.Bus.RAM.MEM[0x06] = 0x4e;
+            CPU1.Bus.RAM.MEM[0x07] = 0x1d;
+            CPU1.Bus.RAM.MEM[0x08] = 0x2f;
+            CPU1.Bus.RAM.MEM[0x09] = 0x4d;
+            CPU1.Bus.RAM.MEM[0x0A] = 0x60;
+            CPU1.Bus.RAM.MEM[0x0B] = 0x00;
+            CPU1.Bus.RAM.MEM[0x0C] = 0x01;
+            CPU1.Bus.RAM.MEM[0x0D] = 0x00;
+            CPU1.Bus.RAM.MEM[0x0E] = 0x03;
+            CPU1.Bus.RAM.MEM[0x0F] = 0x05;
         }
     }
 }
