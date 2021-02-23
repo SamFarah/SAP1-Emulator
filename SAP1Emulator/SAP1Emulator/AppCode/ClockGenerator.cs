@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
+﻿using System.Threading;
 
 class ClockGenerator
 {
@@ -14,41 +8,45 @@ class ClockGenerator
         SignleStep
     }
 
-    public double Frequency { get; set; }
+    public int Frequency { get; set; }
     public ClockModes ClockMode { get; set; }
     public bool Output { get; set; }
-    public bool OutputInverse { get { return !Output; } }
     public bool Hault { get; set; }
 
     private Thread thread { get; set; }
-    
+
     public delegate void PulseFunctionDel();
     public PulseFunctionDel RisingEdge;
     public PulseFunctionDel FallingEdge;
 
-    public ClockGenerator(PulseFunctionDel RisingEdgeHandler, PulseFunctionDel FallingEdgeHandler)
+    public ClockGenerator(int frequency, PulseFunctionDel RisingEdgeHandler, PulseFunctionDel FallingEdgeHandler,ClockModes clockMode)
     {
         thread = new Thread(Pulse);
-        ClockMode = ClockModes.SignleStep;
+        ClockMode = clockMode;
         RisingEdge = RisingEdgeHandler;
         FallingEdge = FallingEdgeHandler;
-        Frequency = 1; //Hz
+        Frequency = frequency; //Hz
+    }
+
+    public void Step()
+    {
+        if (!Hault)
+        {
+            Output = !Output;
+            if (Output) RisingEdge();
+            else FallingEdge();
+        }
     }
 
     private void Pulse()
     {
         while (true)
         {
-            if (!Hault)
-            {
-                Output = !Output;
-                if (Output) RisingEdge();
-                else FallingEdge();
-            }
-            Utilities.NOP(1.0 / Frequency / 2.0);
-
+            Step();
+            Utilities.NOP(1.0 / Frequency / 2.0); //delay half the frequency cycle
         }
     }
+
     public void Start()
     {
         switch (thread.ThreadState)
@@ -69,14 +67,6 @@ class ClockGenerator
         }
         Output = false;
     }
-    public void Step()
-    {
-        if (!Hault)
-        {
-            Output = !Output;
-            if (Output) RisingEdge();
-            else FallingEdge();
-        }
-    }
+
 }
 

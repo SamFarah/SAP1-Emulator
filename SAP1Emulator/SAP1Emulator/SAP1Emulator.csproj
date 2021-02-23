@@ -49,14 +49,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCode\ALU.cs" />
-    <Compile Include="AppCode\Bus.cs" />
+    <Compile Include="AppCode\Assembler.cs" />
+    <Compile Include="AppCode\SAP1_Modules\ALU.cs" />
+    <Compile Include="AppCode\BitField\BitFieldAttributes.cs" />
+    <Compile Include="AppCode\BitField\BitFieldExtensions.cs" />
+    <Compile Include="AppCode\SAP1_Modules\Bus.cs" />
     <Compile Include="AppCode\ClockGenerator.cs" />
-    <Compile Include="AppCode\ControlLogic.cs" />
-    <Compile Include="AppCode\Counter.cs" />
-    <Compile Include="AppCode\SAP1_8Bit.cs" />
-    <Compile Include="AppCode\SRAM.cs" />
-    <Compile Include="AppCode\Register.cs" />
+    <Compile Include="AppCode\SAP1_Modules\ControlSequencer.cs" />
+    <Compile Include="AppCode\SAP1_Modules\Counter.cs" />
+    <Compile Include="AppCode\SAP1_Modules\FlagsRegister.cs" />
+    <Compile Include="AppCode\SAP1_Modules\SAP1_8Bit.cs" />
+    <Compile Include="AppCode\SAP1_Modules\SRAM.cs" />
+    <Compile Include="AppCode\SAP1_Modules\Register.cs" />
     <Compile Include="AppCode\Utilities.cs" />
     <Compile Include="AppCode\Visual\Arrow.cs">
       <SubType>UserControl</SubType>
@@ -79,19 +83,19 @@
     <Compile Include="AppCode\Visual\RLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="SumulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SumulationForm.Designer.cs">
+      <DependentUpon>SumulationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AppCode\Visual\LEDDisplay.resx">
       <DependentUpon>LEDDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="SumulationForm.resx">
+      <DependentUpon>SumulationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

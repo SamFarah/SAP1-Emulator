@@ -18,7 +18,7 @@ namespace SAP1Emulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
-            Application.Run(new MainForm());
+            Application.Run(new SimulationForm());
         }
         static void OnApplicationExit(object sender, EventArgs e)
         {
