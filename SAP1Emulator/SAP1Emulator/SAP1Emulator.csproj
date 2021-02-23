@@ -58,6 +58,12 @@
     <Compile Include="AppCode\SRAM.cs" />
     <Compile Include="AppCode\Register.cs" />
     <Compile Include="AppCode\Utilities.cs" />
+    <Compile Include="AppCode\Visual\Arrow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AppCode\Visual\Arrow.Designer.cs">
+      <DependentUpon>Arrow.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppCode\Visual\LED.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -110,10 +116,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\LEDIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\BlockDiagram.png" />
+    <Content Include="Images\BusBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

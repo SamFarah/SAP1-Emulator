@@ -60,23 +60,23 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LoadExampleIntoRAMBtn = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.FlagsValLbl = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.PCGroup = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.ARegGroup = new System.Windows.Forms.GroupBox();
+            this.SumGroup = new System.Windows.Forms.GroupBox();
             this.CarryInCB = new System.Windows.Forms.CheckBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.FlagsGroup = new System.Windows.Forms.GroupBox();
+            this.BRegGroup = new System.Windows.Forms.GroupBox();
+            this.OutputGroup = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.MARGroup = new System.Windows.Forms.GroupBox();
+            this.RAMGroup = new System.Windows.Forms.GroupBox();
+            this.InstGroup = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.BRegArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
             this.CLDecodedLEDDisplay = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led85 = new SAP1Emulator.AppCode.Visual.LED();
             this.led86 = new SAP1Emulator.AppCode.Visual.LED();
@@ -211,22 +211,33 @@
             this.ledDisplay2 = new SAP1Emulator.AppCode.Visual.LEDDisplay();
             this.led1 = new SAP1Emulator.AppCode.Visual.LED();
             this.led2 = new SAP1Emulator.AppCode.Visual.LED();
+            this.OutputRegArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.ARegArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.PCArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.PCArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.ARegArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.SUMArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.MARArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.RAMArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.InstArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.RAMArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
+            this.InstArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.PCGroup.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.ARegGroup.SuspendLayout();
+            this.SumGroup.SuspendLayout();
+            this.FlagsGroup.SuspendLayout();
+            this.BRegGroup.SuspendLayout();
+            this.OutputGroup.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            this.groupBox13.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            this.groupBox15.SuspendLayout();
+            this.MARGroup.SuspendLayout();
+            this.RAMGroup.SuspendLayout();
+            this.InstGroup.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.CLDecodedLEDDisplay.SuspendLayout();
@@ -250,7 +261,7 @@
             // 
             this.ClockModeBtn.BackColor = System.Drawing.Color.Red;
             this.ClockModeBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ClockModeBtn.Location = new System.Drawing.Point(6, 28);
+            this.ClockModeBtn.Location = new System.Drawing.Point(8, 68);
             this.ClockModeBtn.Name = "ClockModeBtn";
             this.ClockModeBtn.Size = new System.Drawing.Size(65, 23);
             this.ClockModeBtn.TabIndex = 0;
@@ -261,7 +272,7 @@
             // FreqLbl
             // 
             this.FreqLbl.AutoSize = true;
-            this.FreqLbl.Location = new System.Drawing.Point(90, 16);
+            this.FreqLbl.Location = new System.Drawing.Point(15, 16);
             this.FreqLbl.Name = "FreqLbl";
             this.FreqLbl.Size = new System.Drawing.Size(82, 13);
             this.FreqLbl.TabIndex = 4;
@@ -269,11 +280,11 @@
             // 
             // StepClockBtn
             // 
-            this.StepClockBtn.Location = new System.Drawing.Point(6, 57);
+            this.StepClockBtn.Location = new System.Drawing.Point(79, 68);
             this.StepClockBtn.Name = "StepClockBtn";
             this.StepClockBtn.Size = new System.Drawing.Size(65, 23);
             this.StepClockBtn.TabIndex = 5;
-            this.StepClockBtn.Text = "Step";
+            this.StepClockBtn.Text = "Signle";
             this.StepClockBtn.UseVisualStyleBackColor = true;
             this.StepClockBtn.Click += new System.EventHandler(this.StepClockBtn_Click);
             this.StepClockBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StepClockBtn_MouseDown);
@@ -283,7 +294,7 @@
             // 
             this.trackBar1.AutoSize = false;
             this.trackBar1.LargeChange = 10;
-            this.trackBar1.Location = new System.Drawing.Point(74, 31);
+            this.trackBar1.Location = new System.Drawing.Point(2, 31);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
@@ -350,7 +361,7 @@
             // MARRegValLbl
             // 
             this.MARRegValLbl.AutoSize = true;
-            this.MARRegValLbl.Location = new System.Drawing.Point(66, 22);
+            this.MARRegValLbl.Location = new System.Drawing.Point(116, 23);
             this.MARRegValLbl.Name = "MARRegValLbl";
             this.MARRegValLbl.Size = new System.Drawing.Size(30, 13);
             this.MARRegValLbl.TabIndex = 55;
@@ -358,16 +369,17 @@
             // 
             // RAMView
             // 
+            this.RAMView.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RAMView.FormattingEnabled = true;
-            this.RAMView.Location = new System.Drawing.Point(119, 22);
+            this.RAMView.Location = new System.Drawing.Point(120, 19);
             this.RAMView.Name = "RAMView";
-            this.RAMView.Size = new System.Drawing.Size(102, 225);
+            this.RAMView.Size = new System.Drawing.Size(102, 212);
             this.RAMView.TabIndex = 58;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(10, 24);
+            this.label18.Location = new System.Drawing.Point(11, 21);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(75, 13);
             this.label18.TabIndex = 59;
@@ -376,7 +388,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(10, 73);
+            this.label20.Location = new System.Drawing.Point(11, 70);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(33, 13);
             this.label20.TabIndex = 60;
@@ -384,7 +396,7 @@
             // 
             // ProgRAMAddrTB
             // 
-            this.ProgRAMAddrTB.Location = new System.Drawing.Point(13, 40);
+            this.ProgRAMAddrTB.Location = new System.Drawing.Point(14, 37);
             this.ProgRAMAddrTB.Name = "ProgRAMAddrTB";
             this.ProgRAMAddrTB.Size = new System.Drawing.Size(100, 20);
             this.ProgRAMAddrTB.TabIndex = 61;
@@ -392,7 +404,7 @@
             // 
             // ProgRamDataTB
             // 
-            this.ProgRamDataTB.Location = new System.Drawing.Point(13, 89);
+            this.ProgRamDataTB.Location = new System.Drawing.Point(14, 86);
             this.ProgRamDataTB.Name = "ProgRamDataTB";
             this.ProgRamDataTB.Size = new System.Drawing.Size(100, 20);
             this.ProgRamDataTB.TabIndex = 62;
@@ -400,7 +412,7 @@
             // 
             // ProGramBtn
             // 
-            this.ProGramBtn.Location = new System.Drawing.Point(38, 115);
+            this.ProGramBtn.Location = new System.Drawing.Point(39, 112);
             this.ProGramBtn.Name = "ProGramBtn";
             this.ProGramBtn.Size = new System.Drawing.Size(75, 23);
             this.ProGramBtn.TabIndex = 63;
@@ -418,16 +430,16 @@
             this.groupBox2.Controls.Add(this.ProgRamDataTB);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.ProgRAMAddrTB);
-            this.groupBox2.Location = new System.Drawing.Point(11, 361);
+            this.groupBox2.Location = new System.Drawing.Point(9, 342);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(238, 259);
+            this.groupBox2.Size = new System.Drawing.Size(230, 241);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Debug";
             // 
             // RandomizeRAMBtn
             // 
-            this.RandomizeRAMBtn.Location = new System.Drawing.Point(38, 194);
+            this.RandomizeRAMBtn.Location = new System.Drawing.Point(39, 175);
             this.RandomizeRAMBtn.Name = "RandomizeRAMBtn";
             this.RandomizeRAMBtn.Size = new System.Drawing.Size(75, 23);
             this.RandomizeRAMBtn.TabIndex = 65;
@@ -437,7 +449,7 @@
             // 
             // WipeRAMBtn
             // 
-            this.WipeRAMBtn.Location = new System.Drawing.Point(38, 224);
+            this.WipeRAMBtn.Location = new System.Drawing.Point(39, 205);
             this.WipeRAMBtn.Name = "WipeRAMBtn";
             this.WipeRAMBtn.Size = new System.Drawing.Size(75, 23);
             this.WipeRAMBtn.TabIndex = 64;
@@ -459,20 +471,20 @@
             this.OutputRegValLbl.AutoSize = true;
             this.OutputRegValLbl.Location = new System.Drawing.Point(116, 20);
             this.OutputRegValLbl.Name = "OutputRegValLbl";
-            this.OutputRegValLbl.Size = new System.Drawing.Size(54, 13);
+            this.OutputRegValLbl.Size = new System.Drawing.Size(42, 13);
             this.OutputRegValLbl.TabIndex = 77;
-            this.OutputRegValLbl.Text = "OutputVal";
+            this.OutputRegValLbl.Text = "OtptVal";
             // 
             // DisplayLbl
             // 
             this.DisplayLbl.AutoSize = true;
             this.DisplayLbl.BackColor = System.Drawing.Color.Transparent;
             this.DisplayLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DisplayLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayLbl.Font = new System.Drawing.Font("Digital-7 Mono", 45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DisplayLbl.ForeColor = System.Drawing.Color.Red;
-            this.DisplayLbl.Location = new System.Drawing.Point(20, 67);
+            this.DisplayLbl.Location = new System.Drawing.Point(10, 67);
             this.DisplayLbl.Name = "DisplayLbl";
-            this.DisplayLbl.Size = new System.Drawing.Size(151, 69);
+            this.DisplayLbl.Size = new System.Drawing.Size(137, 63);
             this.DisplayLbl.TabIndex = 78;
             this.DisplayLbl.Text = "0000";
             // 
@@ -480,11 +492,11 @@
             // 
             this.DisplayShadowLbl.AutoSize = true;
             this.DisplayShadowLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.DisplayShadowLbl.Font = new System.Drawing.Font("Digital-7 Mono", 50.24999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayShadowLbl.Font = new System.Drawing.Font("Digital-7 Mono", 45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DisplayShadowLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(98)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.DisplayShadowLbl.Location = new System.Drawing.Point(21, 67);
+            this.DisplayShadowLbl.Location = new System.Drawing.Point(11, 67);
             this.DisplayShadowLbl.Name = "DisplayShadowLbl";
-            this.DisplayShadowLbl.Size = new System.Drawing.Size(149, 67);
+            this.DisplayShadowLbl.Size = new System.Drawing.Size(135, 61);
             this.DisplayShadowLbl.TabIndex = 79;
             this.DisplayShadowLbl.Text = "8888";
             // 
@@ -501,30 +513,31 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Location = new System.Drawing.Point(24, 151);
+            this.groupBox3.Location = new System.Drawing.Point(9, 171);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(114, 178);
+            this.groupBox3.Size = new System.Drawing.Size(149, 165);
             this.groupBox3.TabIndex = 100;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Instruction Values";
             // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(6, 19);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(93, 147);
+            this.textBox2.Size = new System.Drawing.Size(137, 136);
             this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "LDA -> 0x1\r\nADD -> 0x2\r\nSUB -> 0x3\r\nSTA -> 0x4\r\nLDI -> 0x5\r\nJMP -> 0x6\r\nJC  -> 0x" +
-    "7\r\nJZ  -> 0x8\r\nOUT -> 0xE\r\nHLT -> 0xF";
+            this.textBox2.Text = "LDA: 0x1; MEM->A\r\nADD: 0x2; (A+B)->A \r\nSUB: 0x3; (A-B)->A\r\nSTA: 0x4; A->MEM\r\nLDI:" +
+    " 0x5; {val}->A\r\nJMP: 0x6; Jump\r\n JC: 0x7; Jmp if CF=1\r\n JZ: 0x8; Jmp if ZF=1\r\nOU" +
+    "T: 0xE; A->Output\r\nHLT: 0xF; Stop Clock";
             // 
             // ResetBtn
             // 
-            this.ResetBtn.Location = new System.Drawing.Point(225, 65);
+            this.ResetBtn.Location = new System.Drawing.Point(149, 68);
             this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(43, 28);
+            this.ResetBtn.Size = new System.Drawing.Size(43, 23);
             this.ResetBtn.TabIndex = 111;
             this.ResetBtn.Text = "Reset";
             this.ResetBtn.UseVisualStyleBackColor = true;
@@ -534,16 +547,16 @@
             // 
             this.groupBox1.Controls.Add(this.LoadExampleIntoRAMBtn);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(265, 361);
+            this.groupBox1.Location = new System.Drawing.Point(245, 342);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 259);
+            this.groupBox1.Size = new System.Drawing.Size(251, 241);
             this.groupBox1.TabIndex = 101;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sample Program";
             // 
             // LoadExampleIntoRAMBtn
             // 
-            this.LoadExampleIntoRAMBtn.Location = new System.Drawing.Point(136, 24);
+            this.LoadExampleIntoRAMBtn.Location = new System.Drawing.Point(156, 26);
             this.LoadExampleIntoRAMBtn.Name = "LoadExampleIntoRAMBtn";
             this.LoadExampleIntoRAMBtn.Size = new System.Drawing.Size(83, 51);
             this.LoadExampleIntoRAMBtn.TabIndex = 1;
@@ -558,18 +571,9 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(218, 235);
+            this.textBox1.Size = new System.Drawing.Size(239, 216);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = resources.GetString("textBox1.Text");
-            // 
-            // FlagsValLbl
-            // 
-            this.FlagsValLbl.AutoSize = true;
-            this.FlagsValLbl.Location = new System.Drawing.Point(49, 32);
-            this.FlagsValLbl.Name = "FlagsValLbl";
-            this.FlagsValLbl.Size = new System.Drawing.Size(46, 13);
-            this.FlagsValLbl.TabIndex = 122;
-            this.FlagsValLbl.Text = "Flagsval";
             // 
             // groupBox4
             // 
@@ -579,60 +583,60 @@
             this.groupBox4.Controls.Add(this.StepClockBtn);
             this.groupBox4.Controls.Add(this.ledDisplay2);
             this.groupBox4.Controls.Add(this.ResetBtn);
-            this.groupBox4.Location = new System.Drawing.Point(39, 20);
+            this.groupBox4.Location = new System.Drawing.Point(112, 9);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(280, 101);
+            this.groupBox4.Size = new System.Drawing.Size(204, 104);
             this.groupBox4.TabIndex = 123;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Clock";
             // 
-            // groupBox5
+            // PCGroup
             // 
-            this.groupBox5.Controls.Add(this.PCRegValLbl);
-            this.groupBox5.Controls.Add(this.PCLEDDisplay);
-            this.groupBox5.Location = new System.Drawing.Point(505, 78);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(117, 43);
-            this.groupBox5.TabIndex = 124;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Program Counter";
+            this.PCGroup.Controls.Add(this.PCRegValLbl);
+            this.PCGroup.Controls.Add(this.PCLEDDisplay);
+            this.PCGroup.Location = new System.Drawing.Point(502, 70);
+            this.PCGroup.Name = "PCGroup";
+            this.PCGroup.Size = new System.Drawing.Size(158, 43);
+            this.PCGroup.TabIndex = 124;
+            this.PCGroup.TabStop = false;
+            this.PCGroup.Text = "Program Counter";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.BusLEDDisplay);
             this.groupBox6.Controls.Add(this.BusValLbl);
-            this.groupBox6.Location = new System.Drawing.Point(333, 17);
+            this.groupBox6.Location = new System.Drawing.Point(330, 9);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(166, 51);
             this.groupBox6.TabIndex = 125;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "BUS";
             // 
-            // groupBox7
+            // ARegGroup
             // 
-            this.groupBox7.Controls.Add(this.ARegLEDDisplay);
-            this.groupBox7.Controls.Add(this.ARegValLbl);
-            this.groupBox7.Location = new System.Drawing.Point(505, 127);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(157, 45);
-            this.groupBox7.TabIndex = 126;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "\"A\" Register";
+            this.ARegGroup.Controls.Add(this.ARegLEDDisplay);
+            this.ARegGroup.Controls.Add(this.ARegValLbl);
+            this.ARegGroup.Location = new System.Drawing.Point(502, 119);
+            this.ARegGroup.Name = "ARegGroup";
+            this.ARegGroup.Size = new System.Drawing.Size(157, 45);
+            this.ARegGroup.TabIndex = 126;
+            this.ARegGroup.TabStop = false;
+            this.ARegGroup.Text = "\"A\" Register";
             // 
-            // groupBox8
+            // SumGroup
             // 
-            this.groupBox8.Controls.Add(this.CarryInCB);
-            this.groupBox8.Controls.Add(this.SumRegLEDDisplay);
-            this.groupBox8.Controls.Add(this.SumRegValLbl);
-            this.groupBox8.Controls.Add(this.rLabel22);
-            this.groupBox8.Controls.Add(this.SumFlagsLEDDisplay);
-            this.groupBox8.Controls.Add(this.rLabel20);
-            this.groupBox8.Location = new System.Drawing.Point(505, 178);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(157, 77);
-            this.groupBox8.TabIndex = 127;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Sum Register";
+            this.SumGroup.Controls.Add(this.CarryInCB);
+            this.SumGroup.Controls.Add(this.SumRegLEDDisplay);
+            this.SumGroup.Controls.Add(this.SumRegValLbl);
+            this.SumGroup.Controls.Add(this.rLabel22);
+            this.SumGroup.Controls.Add(this.SumFlagsLEDDisplay);
+            this.SumGroup.Controls.Add(this.rLabel20);
+            this.SumGroup.Location = new System.Drawing.Point(502, 170);
+            this.SumGroup.Name = "SumGroup";
+            this.SumGroup.Size = new System.Drawing.Size(157, 77);
+            this.SumGroup.TabIndex = 127;
+            this.SumGroup.TabStop = false;
+            this.SumGroup.Text = "Sum Register";
             // 
             // CarryInCB
             // 
@@ -645,43 +649,42 @@
             this.CarryInCB.UseVisualStyleBackColor = true;
             this.CarryInCB.CheckedChanged += new System.EventHandler(this.CarryInCB_CheckedChanged);
             // 
-            // groupBox9
+            // FlagsGroup
             // 
-            this.groupBox9.Controls.Add(this.FlagsValLbl);
-            this.groupBox9.Controls.Add(this.FlagRegLEDDisplay);
-            this.groupBox9.Controls.Add(this.rLabel24);
-            this.groupBox9.Controls.Add(this.rLabel23);
-            this.groupBox9.Location = new System.Drawing.Point(668, 117);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(110, 55);
-            this.groupBox9.TabIndex = 128;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Flags Register";
+            this.FlagsGroup.Controls.Add(this.FlagRegLEDDisplay);
+            this.FlagsGroup.Controls.Add(this.rLabel24);
+            this.FlagsGroup.Controls.Add(this.rLabel23);
+            this.FlagsGroup.Location = new System.Drawing.Point(665, 109);
+            this.FlagsGroup.Name = "FlagsGroup";
+            this.FlagsGroup.Size = new System.Drawing.Size(53, 55);
+            this.FlagsGroup.TabIndex = 128;
+            this.FlagsGroup.TabStop = false;
+            this.FlagsGroup.Text = "Flags";
             // 
-            // groupBox10
+            // BRegGroup
             // 
-            this.groupBox10.Controls.Add(this.BRegValLbl);
-            this.groupBox10.Controls.Add(this.BRegLEDDisplay);
-            this.groupBox10.Location = new System.Drawing.Point(505, 262);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(157, 45);
-            this.groupBox10.TabIndex = 129;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "\"B\" Register";
+            this.BRegGroup.Controls.Add(this.BRegValLbl);
+            this.BRegGroup.Controls.Add(this.BRegLEDDisplay);
+            this.BRegGroup.Location = new System.Drawing.Point(502, 254);
+            this.BRegGroup.Name = "BRegGroup";
+            this.BRegGroup.Size = new System.Drawing.Size(157, 45);
+            this.BRegGroup.TabIndex = 129;
+            this.BRegGroup.TabStop = false;
+            this.BRegGroup.Text = "\"B\" Register";
             // 
-            // groupBox11
+            // OutputGroup
             // 
-            this.groupBox11.Controls.Add(this.DisplayShadowLbl);
-            this.groupBox11.Controls.Add(this.DisplayLbl);
-            this.groupBox11.Controls.Add(this.DisplaySignedCB);
-            this.groupBox11.Controls.Add(this.OutputRegValLbl);
-            this.groupBox11.Controls.Add(this.OutputRegLEDDisplay);
-            this.groupBox11.Location = new System.Drawing.Point(505, 313);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(191, 146);
-            this.groupBox11.TabIndex = 130;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Output";
+            this.OutputGroup.Controls.Add(this.DisplayShadowLbl);
+            this.OutputGroup.Controls.Add(this.DisplayLbl);
+            this.OutputGroup.Controls.Add(this.DisplaySignedCB);
+            this.OutputGroup.Controls.Add(this.OutputRegValLbl);
+            this.OutputGroup.Controls.Add(this.OutputRegLEDDisplay);
+            this.OutputGroup.Location = new System.Drawing.Point(502, 305);
+            this.OutputGroup.Name = "OutputGroup";
+            this.OutputGroup.Size = new System.Drawing.Size(157, 134);
+            this.OutputGroup.TabIndex = 130;
+            this.OutputGroup.TabStop = false;
+            this.OutputGroup.Text = "Output";
             // 
             // groupBox12
             // 
@@ -702,45 +705,45 @@
             this.groupBox12.Controls.Add(this.rLabel13);
             this.groupBox12.Controls.Add(this.rLabel14);
             this.groupBox12.Controls.Add(this.rLabel15);
-            this.groupBox12.Location = new System.Drawing.Point(505, 465);
+            this.groupBox12.Location = new System.Drawing.Point(502, 445);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(273, 74);
+            this.groupBox12.Size = new System.Drawing.Size(240, 74);
             this.groupBox12.TabIndex = 131;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Control Word";
             // 
-            // groupBox13
+            // MARGroup
             // 
-            this.groupBox13.Controls.Add(this.MARLEDDisplay);
-            this.groupBox13.Controls.Add(this.MARRegValLbl);
-            this.groupBox13.Location = new System.Drawing.Point(209, 127);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(110, 48);
-            this.groupBox13.TabIndex = 132;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Memory Address";
+            this.MARGroup.Controls.Add(this.MARLEDDisplay);
+            this.MARGroup.Controls.Add(this.MARRegValLbl);
+            this.MARGroup.Location = new System.Drawing.Point(164, 119);
+            this.MARGroup.Name = "MARGroup";
+            this.MARGroup.Size = new System.Drawing.Size(152, 48);
+            this.MARGroup.TabIndex = 132;
+            this.MARGroup.TabStop = false;
+            this.MARGroup.Text = "Memory Address";
             // 
-            // groupBox14
+            // RAMGroup
             // 
-            this.groupBox14.Controls.Add(this.RAMLEDDisplay);
-            this.groupBox14.Controls.Add(this.RAMRegValLbl);
-            this.groupBox14.Location = new System.Drawing.Point(167, 181);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(152, 44);
-            this.groupBox14.TabIndex = 133;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Memory Contents";
+            this.RAMGroup.Controls.Add(this.RAMLEDDisplay);
+            this.RAMGroup.Controls.Add(this.RAMRegValLbl);
+            this.RAMGroup.Location = new System.Drawing.Point(164, 173);
+            this.RAMGroup.Name = "RAMGroup";
+            this.RAMGroup.Size = new System.Drawing.Size(152, 44);
+            this.RAMGroup.TabIndex = 133;
+            this.RAMGroup.TabStop = false;
+            this.RAMGroup.Text = "Memory Contents";
             // 
-            // groupBox15
+            // InstGroup
             // 
-            this.groupBox15.Controls.Add(this.InstRegLEDDisplay);
-            this.groupBox15.Controls.Add(this.InstRegValLbl);
-            this.groupBox15.Location = new System.Drawing.Point(167, 231);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(152, 47);
-            this.groupBox15.TabIndex = 134;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Instruction Register";
+            this.InstGroup.Controls.Add(this.InstRegLEDDisplay);
+            this.InstGroup.Controls.Add(this.InstRegValLbl);
+            this.InstGroup.Location = new System.Drawing.Point(164, 223);
+            this.InstGroup.Name = "InstGroup";
+            this.InstGroup.Size = new System.Drawing.Size(152, 47);
+            this.InstGroup.TabIndex = 134;
+            this.InstGroup.TabStop = false;
+            this.InstGroup.Text = "Instruction Register";
             // 
             // groupBox16
             // 
@@ -751,7 +754,7 @@
             this.groupBox16.Controls.Add(this.rLabel18);
             this.groupBox16.Controls.Add(this.rLabel21);
             this.groupBox16.Controls.Add(this.MICounterLEDDisplay);
-            this.groupBox16.Location = new System.Drawing.Point(167, 284);
+            this.groupBox16.Location = new System.Drawing.Point(164, 276);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(152, 54);
             this.groupBox16.TabIndex = 135;
@@ -762,7 +765,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(318, 65);
+            this.pictureBox1.Location = new System.Drawing.Point(315, 57);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 279);
             this.pictureBox1.TabIndex = 136;
@@ -771,14 +774,28 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(535, 12);
+            this.textBox3.Location = new System.Drawing.Point(502, 4);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(236, 60);
+            this.textBox3.Size = new System.Drawing.Size(240, 60);
             this.textBox3.TabIndex = 137;
             this.textBox3.Text = "8 Bit SAP1 architecture. Based on Ben Eater\'s breadboard build.\r\n\r\nSam Farah - 20" +
     "21-02-01";
+            // 
+            // BRegArrowIn
+            // 
+            this.BRegArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.BRegArrowIn.ArrowLength = 54;
+            this.BRegArrowIn.CapNumber = '8';
+            this.BRegArrowIn.Location = new System.Drawing.Point(429, 267);
+            this.BRegArrowIn.Name = "BRegArrowIn";
+            this.BRegArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.BRegArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.BRegArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.BRegArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BRegArrowIn.Size = new System.Drawing.Size(73, 19);
+            this.BRegArrowIn.TabIndex = 139;
             // 
             // CLDecodedLEDDisplay
             // 
@@ -1122,7 +1139,7 @@
             this.MARLEDDisplay.LEDs.Add(this.led53);
             this.MARLEDDisplay.LEDs.Add(this.led54);
             this.MARLEDDisplay.LEDSpacing = 2;
-            this.MARLEDDisplay.Location = new System.Drawing.Point(6, 19);
+            this.MARLEDDisplay.Location = new System.Drawing.Point(56, 22);
             this.MARLEDDisplay.Name = "MARLEDDisplay";
             this.MARLEDDisplay.NibbleSpacing = 2;
             this.MARLEDDisplay.Size = new System.Drawing.Size(54, 16);
@@ -2106,7 +2123,7 @@
             this.ledDisplay2.Controls.Add(this.led1);
             this.ledDisplay2.LEDs.Add(this.led1);
             this.ledDisplay2.LEDSpacing = 2;
-            this.ledDisplay2.Location = new System.Drawing.Point(253, 31);
+            this.ledDisplay2.Location = new System.Drawing.Point(178, 31);
             this.ledDisplay2.Name = "ledDisplay2";
             this.ledDisplay2.NibbleSpacing = 2;
             this.ledDisplay2.Size = new System.Drawing.Size(16, 16);
@@ -2129,25 +2146,191 @@
             this.led2.TabIndex = 15;
             this.led2.Visible = false;
             // 
+            // OutputRegArrowIn
+            // 
+            this.OutputRegArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.OutputRegArrowIn.ArrowLength = 54;
+            this.OutputRegArrowIn.CapNumber = '8';
+            this.OutputRegArrowIn.Location = new System.Drawing.Point(429, 312);
+            this.OutputRegArrowIn.Name = "OutputRegArrowIn";
+            this.OutputRegArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.OutputRegArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.OutputRegArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.OutputRegArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.OutputRegArrowIn.Size = new System.Drawing.Size(73, 19);
+            this.OutputRegArrowIn.TabIndex = 140;
+            // 
+            // ARegArrowIn
+            // 
+            this.ARegArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.ARegArrowIn.ArrowLength = 54;
+            this.ARegArrowIn.CapNumber = '8';
+            this.ARegArrowIn.Location = new System.Drawing.Point(429, 122);
+            this.ARegArrowIn.Name = "ARegArrowIn";
+            this.ARegArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ARegArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.ARegArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.ARegArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.ARegArrowIn.Size = new System.Drawing.Size(73, 19);
+            this.ARegArrowIn.TabIndex = 141;
+            // 
+            // PCArrowIn
+            // 
+            this.PCArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.PCArrowIn.ArrowLength = 54;
+            this.PCArrowIn.CapNumber = '4';
+            this.PCArrowIn.Location = new System.Drawing.Point(429, 72);
+            this.PCArrowIn.Name = "PCArrowIn";
+            this.PCArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.PCArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.PCArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.PCArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.PCArrowIn.Size = new System.Drawing.Size(73, 19);
+            this.PCArrowIn.TabIndex = 142;
+            // 
+            // PCArrowOut
+            // 
+            this.PCArrowOut.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.PCArrowOut.ArrowLength = 54;
+            this.PCArrowOut.CapNumber = '4';
+            this.PCArrowOut.Location = new System.Drawing.Point(429, 91);
+            this.PCArrowOut.Name = "PCArrowOut";
+            this.PCArrowOut.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.PCArrowOut.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.PCArrowOut.OnColorBorder = System.Drawing.Color.DarkGreen;
+            this.PCArrowOut.OnColorFill = System.Drawing.Color.LightGreen;
+            this.PCArrowOut.Size = new System.Drawing.Size(73, 19);
+            this.PCArrowOut.TabIndex = 143;
+            // 
+            // ARegArrowOut
+            // 
+            this.ARegArrowOut.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.ARegArrowOut.ArrowLength = 54;
+            this.ARegArrowOut.CapNumber = '8';
+            this.ARegArrowOut.Location = new System.Drawing.Point(429, 141);
+            this.ARegArrowOut.Name = "ARegArrowOut";
+            this.ARegArrowOut.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.ARegArrowOut.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.ARegArrowOut.OnColorBorder = System.Drawing.Color.DarkGreen;
+            this.ARegArrowOut.OnColorFill = System.Drawing.Color.LightGreen;
+            this.ARegArrowOut.Size = new System.Drawing.Size(73, 19);
+            this.ARegArrowOut.TabIndex = 144;
+            // 
+            // SUMArrowOut
+            // 
+            this.SUMArrowOut.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.SUMArrowOut.ArrowLength = 54;
+            this.SUMArrowOut.CapNumber = '8';
+            this.SUMArrowOut.Location = new System.Drawing.Point(429, 197);
+            this.SUMArrowOut.Name = "SUMArrowOut";
+            this.SUMArrowOut.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.SUMArrowOut.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.SUMArrowOut.OnColorBorder = System.Drawing.Color.DarkGreen;
+            this.SUMArrowOut.OnColorFill = System.Drawing.Color.LightGreen;
+            this.SUMArrowOut.Size = new System.Drawing.Size(73, 19);
+            this.SUMArrowOut.TabIndex = 145;
+            // 
+            // MARArrowIn
+            // 
+            this.MARArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.MARArrowIn.ArrowLength = 51;
+            this.MARArrowIn.CapNumber = '4';
+            this.MARArrowIn.Location = new System.Drawing.Point(316, 139);
+            this.MARArrowIn.Name = "MARArrowIn";
+            this.MARArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.MARArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.MARArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.MARArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.MARArrowIn.Size = new System.Drawing.Size(70, 19);
+            this.MARArrowIn.TabIndex = 146;
+            // 
+            // RAMArrowIn
+            // 
+            this.RAMArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.RAMArrowIn.ArrowLength = 51;
+            this.RAMArrowIn.CapNumber = '8';
+            this.RAMArrowIn.Location = new System.Drawing.Point(316, 176);
+            this.RAMArrowIn.Name = "RAMArrowIn";
+            this.RAMArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.RAMArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.RAMArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.RAMArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.RAMArrowIn.Size = new System.Drawing.Size(70, 19);
+            this.RAMArrowIn.TabIndex = 147;
+            // 
+            // InstArrowIn
+            // 
+            this.InstArrowIn.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Left;
+            this.InstArrowIn.ArrowLength = 51;
+            this.InstArrowIn.CapNumber = '8';
+            this.InstArrowIn.Location = new System.Drawing.Point(316, 229);
+            this.InstArrowIn.Name = "InstArrowIn";
+            this.InstArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.InstArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.InstArrowIn.OnColorBorder = System.Drawing.Color.Red;
+            this.InstArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.InstArrowIn.Size = new System.Drawing.Size(70, 19);
+            this.InstArrowIn.TabIndex = 148;
+            // 
+            // RAMArrowOut
+            // 
+            this.RAMArrowOut.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.RAMArrowOut.ArrowLength = 51;
+            this.RAMArrowOut.CapNumber = '8';
+            this.RAMArrowOut.Location = new System.Drawing.Point(316, 195);
+            this.RAMArrowOut.Name = "RAMArrowOut";
+            this.RAMArrowOut.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.RAMArrowOut.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.RAMArrowOut.OnColorBorder = System.Drawing.Color.DarkGreen;
+            this.RAMArrowOut.OnColorFill = System.Drawing.Color.LightGreen;
+            this.RAMArrowOut.Size = new System.Drawing.Size(70, 19);
+            this.RAMArrowOut.TabIndex = 149;
+            // 
+            // InstArrowOut
+            // 
+            this.InstArrowOut.ArrowDirection = SAP1Emulator.AppCode.Visual.Arrow.Direction.Right;
+            this.InstArrowOut.ArrowLength = 51;
+            this.InstArrowOut.CapNumber = '4';
+            this.InstArrowOut.Location = new System.Drawing.Point(316, 248);
+            this.InstArrowOut.Name = "InstArrowOut";
+            this.InstArrowOut.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.InstArrowOut.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.InstArrowOut.OnColorBorder = System.Drawing.Color.DarkGreen;
+            this.InstArrowOut.OnColorFill = System.Drawing.Color.LightGreen;
+            this.InstArrowOut.Size = new System.Drawing.Size(70, 19);
+            this.InstArrowOut.TabIndex = 150;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 627);
+            this.ClientSize = new System.Drawing.Size(747, 585);
+            this.Controls.Add(this.InstArrowOut);
+            this.Controls.Add(this.RAMArrowOut);
+            this.Controls.Add(this.InstArrowIn);
+            this.Controls.Add(this.RAMArrowIn);
+            this.Controls.Add(this.MARArrowIn);
+            this.Controls.Add(this.SUMArrowOut);
+            this.Controls.Add(this.ARegArrowOut);
+            this.Controls.Add(this.PCArrowIn);
+            this.Controls.Add(this.PCArrowOut);
+            this.Controls.Add(this.ARegArrowIn);
+            this.Controls.Add(this.OutputRegArrowIn);
+            this.Controls.Add(this.BRegArrowIn);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox16);
-            this.Controls.Add(this.groupBox15);
-            this.Controls.Add(this.groupBox14);
-            this.Controls.Add(this.groupBox13);
+            this.Controls.Add(this.InstGroup);
+            this.Controls.Add(this.RAMGroup);
+            this.Controls.Add(this.MARGroup);
             this.Controls.Add(this.groupBox12);
-            this.Controls.Add(this.groupBox11);
-            this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.groupBox9);
-            this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.OutputGroup);
+            this.Controls.Add(this.BRegGroup);
+            this.Controls.Add(this.FlagsGroup);
+            this.Controls.Add(this.SumGroup);
+            this.Controls.Add(this.ARegGroup);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.PCGroup);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
@@ -2165,27 +2348,26 @@
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.PCGroup.ResumeLayout(false);
+            this.PCGroup.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.ARegGroup.ResumeLayout(false);
+            this.ARegGroup.PerformLayout();
+            this.SumGroup.ResumeLayout(false);
+            this.SumGroup.PerformLayout();
+            this.FlagsGroup.ResumeLayout(false);
+            this.BRegGroup.ResumeLayout(false);
+            this.BRegGroup.PerformLayout();
+            this.OutputGroup.ResumeLayout(false);
+            this.OutputGroup.PerformLayout();
             this.groupBox12.ResumeLayout(false);
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
+            this.MARGroup.ResumeLayout(false);
+            this.MARGroup.PerformLayout();
+            this.RAMGroup.ResumeLayout(false);
+            this.RAMGroup.PerformLayout();
+            this.InstGroup.ResumeLayout(false);
+            this.InstGroup.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.CLDecodedLEDDisplay.ResumeLayout(false);
@@ -2374,24 +2556,35 @@
         private AppCode.Visual.LED led94;
         private AppCode.Visual.LED led2;
         private AppCode.Visual.RLabel rLabel25;
-        private System.Windows.Forms.Label FlagsValLbl;
         private System.Windows.Forms.Button LoadExampleIntoRAMBtn;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox PCGroup;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.GroupBox ARegGroup;
+        private System.Windows.Forms.GroupBox SumGroup;
+        private System.Windows.Forms.GroupBox FlagsGroup;
+        private System.Windows.Forms.GroupBox BRegGroup;
         private System.Windows.Forms.CheckBox CarryInCB;
-        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.GroupBox OutputGroup;
         private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.GroupBox groupBox15;
+        private System.Windows.Forms.GroupBox MARGroup;
+        private System.Windows.Forms.GroupBox RAMGroup;
+        private System.Windows.Forms.GroupBox InstGroup;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox3;
+        private AppCode.Visual.Arrow BRegArrowIn;
+        private AppCode.Visual.Arrow OutputRegArrowIn;
+        private AppCode.Visual.Arrow ARegArrowIn;
+        private AppCode.Visual.Arrow PCArrowIn;
+        private AppCode.Visual.Arrow PCArrowOut;
+        private AppCode.Visual.Arrow ARegArrowOut;
+        private AppCode.Visual.Arrow SUMArrowOut;
+        private AppCode.Visual.Arrow MARArrowIn;
+        private AppCode.Visual.Arrow RAMArrowIn;
+        private AppCode.Visual.Arrow InstArrowIn;
+        private AppCode.Visual.Arrow RAMArrowOut;
+        private AppCode.Visual.Arrow InstArrowOut;
     }
 }
 

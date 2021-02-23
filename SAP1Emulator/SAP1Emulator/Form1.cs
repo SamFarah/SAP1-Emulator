@@ -97,7 +97,9 @@ namespace SAP1Emulator
             RAMRegValLbl.Text = $"0x{CPU1.Bus.RAM.Data.ToString("X2")}";
             PCRegValLbl.Text = $"0x{CPU1.Bus.PC.Data.ToString("X2")}";
             OutputRegValLbl.Text = $"0x{CPU1.Bus.Output.Data.ToString("X2")}";
-            FlagsValLbl.Text = $"0x{CPU1.Flags.Data.ToString("X2")}";
+
+
+
 
 
 
@@ -123,7 +125,40 @@ namespace SAP1Emulator
                 NotPrevCPUOutput = CPU1.Clock.Output;
             }
             Frames++;
-            StatusLEDDsiaply.DisplayData(CPU1.ControlWord);
+            UInt16 ControlWord = CPU1.ControlWord;
+            StatusLEDDsiaply.DisplayData(ControlWord);
+
+            PCGroup.ForeColor = GetGroupColour(CPU1.Bus.PC);
+            ARegGroup.ForeColor = GetGroupColour(CPU1.Bus.A);
+            SumGroup.ForeColor = GetGroupColour(CPU1.Bus.Sum);
+            BRegGroup.ForeColor = GetGroupColour(CPU1.Bus.B);
+            OutputGroup.ForeColor = GetGroupColour(CPU1.Bus.Output);
+            InstGroup.ForeColor = GetGroupColour(CPU1.Bus.Inst);
+            RAMGroup.ForeColor = GetGroupColour(CPU1.Bus.RAM);
+            MARGroup.ForeColor = GetGroupColour(CPU1.Bus.MAR);
+            FlagsGroup.ForeColor = GetGroupColour(CPU1.Flags, true);
+
+
+            PCArrowIn.ChangeState(CPU1.Bus.PC.Load);
+            ARegArrowIn.ChangeState(CPU1.Bus.A.Load);
+            BRegArrowIn.ChangeState(CPU1.Bus.B.Load);
+            OutputRegArrowIn.ChangeState(CPU1.Bus.Output.Load);
+            MARArrowIn.ChangeState(CPU1.Bus.MAR.Load);
+            RAMArrowIn.ChangeState(CPU1.Bus.RAM.Load);
+            InstArrowIn.ChangeState(CPU1.Bus.Inst.Load);
+
+
+            PCArrowOut.ChangeState(CPU1.Bus.PC.Enable);
+            ARegArrowOut.ChangeState(CPU1.Bus.A.Enable);
+            SUMArrowOut.ChangeState(CPU1.Bus.Sum .Enable);
+            RAMArrowOut.ChangeState(CPU1.Bus.RAM.Enable);
+            InstArrowOut.ChangeState(CPU1.Bus.Inst.Enable);
+
+
+        }
+        Color GetGroupColour(Register Reg, bool AlwaysEnabled = false)
+        {
+            return (!AlwaysEnabled && Reg.Enable) ? Color.DarkGreen : Reg.Load ? Color.Red : Color.Black;
         }
         private void UpdateRamView()
         {

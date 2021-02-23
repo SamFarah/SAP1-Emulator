@@ -66,19 +66,16 @@ class SAP1_8Bit
 
 
     private void RisingEdge()
-    {
-        Bus.Write();
-        Bus.Read();
+    {      
+        Bus.PulseDevices();
 
-        //update flags;
-        Flags.Read((byte)(((Bus.Sum.CarryOut ? 1 : 0) << 1) | ((Bus.Sum.IsZero ? 1 : 0) << 0))); //>LOAD CF ZF
-               
+        //update flags;        
+        Flags.Read((byte)(((Bus.Sum.CarryOut ? 1 : 0) << 1) | ((Bus.Sum.IsZero ? 1 : 0) << 0))); //>LOAD CF ZF               
     }
 
     private void FallingEdge()
     {        
-        ControlWord = CL.GetControlWord();
-        
+        ControlWord = CL.GetControlWord();        
     }
 
     public void Reset()

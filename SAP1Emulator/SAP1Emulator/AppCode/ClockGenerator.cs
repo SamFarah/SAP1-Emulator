@@ -58,7 +58,6 @@ class ClockGenerator
             case ThreadState.Stopped: thread.Start(); break;
             case ThreadState.Unstarted: thread.Start(); break;
         }
-
     }
 
     public void Stop()
@@ -69,7 +68,6 @@ class ClockGenerator
             while ((thread.ThreadState & ThreadState.SuspendRequested) > 0) ;//wait until it is suspended
         }
         Output = false;
-
     }
     public void Step()
     {

@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 class ControlLogic
 {
+    // Connected Devices
+    private Register InstructionRegister;
+    private Register FlagsRegister;
+    public Counter MicroCounter { get; set; }
+
     /*
      * This is made to copy Ben Eater's method of filling micro instruction EEPROM instea of being the most optimized way
      */
@@ -16,11 +21,7 @@ class ControlLogic
         FlagsRegister = flags;
 
         InitUCode();
-
-    }
-
-    private Register InstructionRegister;
-    private Register FlagsRegister;
+    }   
 
     public UInt16 GetControlWord(bool Init = false)
     {
@@ -35,7 +36,7 @@ class ControlLogic
         return uCode[Flags,Instruction,Step];
     }
 
-    public Counter MicroCounter { get; set; }
+    
     public byte Decoder
     {
         get
@@ -79,8 +80,6 @@ class ControlLogic
 
     UInt16[,,] uCode;
 
-
-
     //Micro instructions Set 
     private static readonly UInt16[,] uCodeTmeplate =
         {            
@@ -108,8 +107,6 @@ class ControlLogic
     {
         uCode = new UInt16[4,16,8];// {   (UInt16[,])uCodeTmeplate.Clone(), (UInt16[,])uCodeTmeplate.Clone(), (UInt16[,])uCodeTmeplate.Clone(), (UInt16[,,])uCodeTmeplate.Clone() };
         arrayCopy(uCodeTmeplate, ref uCode);
-
-
         
         // CF = 0, ZF = 0
         // No change
