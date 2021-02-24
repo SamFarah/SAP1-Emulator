@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using SAP1Modules;
 
@@ -192,10 +194,35 @@ namespace SAP1Emulator
             catch (Exception) { }
         }
         private void ResetBtn_Click(object sender, EventArgs e) { Computer.Reset(); }
-        
+
         private void WipeRAMBtn_Click(object sender, EventArgs e) { for (int i = 0; i < 16; i++) Computer.RAM.MEM[i] = 0xFF; UpdateRamView(); }
         private void RandomizeRAMBtn_Click(object sender, EventArgs e) { Utilities.RadomizeArray(Computer.RAM.MEM); UpdateRamView(); }
-        
+
+
+        // Testing assembler functionality
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+
+        //    Assembler t = new Assembler();
+
+        //    t.GenerateCommands(textBox4.Lines);
+
+        //    MessageBox.Show(string.Join(Environment.NewLine, new List<Byte>(t.GetMachineCode()).Select(x => $"0x{x.ToString("X2")}")));
+
+        //    //Label1: lda 0x0E; 0x1E
+        //    //Label: SUB 0x0C; comment here
+        //    //Label: JC  0x06; 0x76
+        //    //Label: LDA 0x0D; 0x1D
+        //    //Label: OUT; 0xE0
+        //    //Label: HLT; 0xF0
+        //    //Label: STA 0x0E; 0x4E
+        //    //Label: LDA 0x0C; 0x1D
+        //    //Label: ADD 0x0E; 0x2F
+        //    //Label: STA 0x0D; 0x4D
+        //    //Label: JMP 0x00; 0x60
+
+
+        //}
 
         private void LoadExampleIntoRAMBtn_Click(object sender, EventArgs e)
         {
