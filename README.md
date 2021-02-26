@@ -13,14 +13,26 @@ A SAP1 computer contains the following:
 * Accumulator  "A" Register: Stores 8bit of data directly, as well as the result of Sum/Subtraction
 * General use "B" Register: General use register that can only be "loaded" into
 * Output Register:  Connected to a 7-segment display that shows the value of the register in decimal
-* Instruction Register (IR): Holds the current instruction  being used
+* Instruction Register (IR): Holds the current instruction being used
 * Memory Address Register (MAR): Holds the current memory address being used
 * Flags Register: Holds Zero Flag (ZF) and Carry Flag (CF) that were produced while doing Sum/Sub
 * Program Counter: Increments once per "execution cycle" to tell the computer where is the next instruction
 * Memory (RAM): 16bytes of RAM is connected to the MAR, stores machine code and data
 
+Each of these "devices" has its own class. The simulation form "taps" into each of these modules to display its content on as LEDs and other visual representation. 
 
-Each of these "devices" has it's own class. The simulation form "taps" into each of these modules to display its content on as LEDs and other visual effects, however the computer doesnt reqire that to function. you can simply define an instance of the SAP1_8Bit class:
+## Getting Started
+
+### Dependencies
+
+* .NET Framework v4.7
+* For the display to look nice, you will need to install Digital-7 Mono font(by Sizenko Alexander). you can get it from Docs -> digital-7 (mono).ttf or from [Here](https://fonts2u.com/download/digital-7-mono.font)
+
+### Executing the program
+
+You can run the code using visual studio 2017+, no NuGet packages required for this to work, uses all "vanilla" libraries
+
+for example to run a simple program that multiplies 3x5, all you need is the following:
 ```C#
 byte foo()
 {
@@ -35,18 +47,7 @@ byte foo()
 }
 ```
 
-The above code block shows the bare minimum requirements to run the computer. However, in the "SimulationForm.cs" it expans on that by showing single changes on each component of the computer as the clock cycle progresses (either automatically or step-by-step)
-
-## Getting Started
-
-### Dependencies
-
-* .NET Framework v4.7
-* For the display to look nice, you will need to install Digital-7 Mono font(by Sizenko Alexander). you can get it from Docs -> digital-7 (mono).ttf or from [Here](https://fonts2u.com/download/digital-7-mono.font)
-
-### Executing the program
-
-You can run the code using visual studio 2017+, no NuGet packages required for this to work, uses all "vanilla" libraries
+The above code block shows the bare minimum requirements to run the computer. However, in the "SimulationForm.cs" it expands on that by showing single changes on each component of the computer as the clock cycle progresses (either automatically or step-by-step)
 
 ## License
 
