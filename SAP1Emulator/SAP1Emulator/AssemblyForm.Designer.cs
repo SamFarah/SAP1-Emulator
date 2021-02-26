@@ -35,17 +35,20 @@
             this.LoadExample3Btn = new System.Windows.Forms.Button();
             this.LoadExample4Btn = new System.Windows.Forms.Button();
             this.NewProgramBtn = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // AssemblyTB
             // 
             this.AssemblyTB.AcceptsTab = true;
             this.AssemblyTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AssemblyTB.Location = new System.Drawing.Point(113, 12);
+            this.AssemblyTB.Location = new System.Drawing.Point(158, 12);
             this.AssemblyTB.Multiline = true;
             this.AssemblyTB.Name = "AssemblyTB";
             this.AssemblyTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AssemblyTB.Size = new System.Drawing.Size(443, 395);
+            this.AssemblyTB.Size = new System.Drawing.Size(398, 395);
             this.AssemblyTB.TabIndex = 153;
             // 
             // LoadASMBtn
@@ -108,11 +111,35 @@
             this.NewProgramBtn.UseVisualStyleBackColor = true;
             this.NewProgramBtn.Click += new System.EventHandler(this.NewProgramBtn_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Location = new System.Drawing.Point(3, 200);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(149, 165);
+            this.groupBox3.TabIndex = 160;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Instruction Cheatsheet";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(6, 19);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(137, 136);
+            this.textBox2.TabIndex = 0;
+            this.textBox2.Text = "LDA: Load A; MEM->A\r\nADD: (A+B)->A \r\nSUB: (A-B)->A\r\nSTA: Store A; A->MEM\r\nLDI: Lo" +
+    "ad Immediate\r\nJMP: Jump to label\r\n JC: Jmp if CF=1\r\n JZ: Jmp if ZF=1\r\nOUT: A->Ou" +
+    "tput\r\nHLT: Stop Clock";
+            // 
             // AssemblyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(562, 498);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.NewProgramBtn);
             this.Controls.Add(this.LoadExample4Btn);
             this.Controls.Add(this.LoadExample3Btn);
@@ -123,7 +150,10 @@
             this.Name = "AssemblyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AssemblyForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AssemblyForm_FormClosing);
             this.Shown += new System.EventHandler(this.AssemblyForm_Shown);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,5 +168,7 @@
         private System.Windows.Forms.Button LoadExample3Btn;
         private System.Windows.Forms.Button LoadExample4Btn;
         private System.Windows.Forms.Button NewProgramBtn;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

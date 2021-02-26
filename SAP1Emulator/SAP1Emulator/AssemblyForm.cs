@@ -80,6 +80,15 @@ namespace SAP1Emulator
             AssemblyTB.Select(AssemblyTB.Text.Length, 0);
         }
 
-        
+
+        //prevent form from being disposed of and not able to open again
+        private void AssemblyForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
     }
 }
