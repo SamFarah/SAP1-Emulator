@@ -78,6 +78,8 @@
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.InstArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
             this.RAMArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
             this.InstArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
@@ -808,6 +810,27 @@
             this.textBox3.TabIndex = 137;
             this.textBox3.Text = "8 Bit SAP1 architecture. Based on Ben Eater\'s breadboard build.\r\n\r\nSam Farah - 20" +
     "21-02-01";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1127, 402);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 62);
+            this.button1.TabIndex = 151;
+            this.button1.Text = "Load Code into RAM";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox4
+            // 
+            this.textBox4.AcceptsTab = true;
+            this.textBox4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(759, 4);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(443, 395);
+            this.textBox4.TabIndex = 152;
+            this.textBox4.Text = resources.GetString("textBox4.Text");
             // 
             // InstArrowOut
             // 
@@ -2335,7 +2358,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 585);
+            this.ClientSize = new System.Drawing.Size(1214, 585);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.InstArrowOut);
             this.Controls.Add(this.RAMArrowOut);
             this.Controls.Add(this.InstArrowIn);
@@ -2618,6 +2643,8 @@
         private System.Windows.Forms.Label label2;
         private AppCode.Visual.LED SubLED;
         private AppCode.Visual.LED ClkLed;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
 

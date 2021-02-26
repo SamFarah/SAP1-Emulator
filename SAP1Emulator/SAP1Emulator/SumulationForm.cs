@@ -200,29 +200,35 @@ namespace SAP1Emulator
 
 
         // Testing assembler functionality
-        //private void button1_Click(object sender, EventArgs e)
-        //{
+        private void button1_Click(object sender, EventArgs e)
+        {
 
-        //    Assembler t = new Assembler();
+            Assembler t = new Assembler();
 
-        //    t.GenerateCommands(textBox4.Lines);
+            t.GenerateCommands(textBox4.Lines);
+            if (t.isValid)
+            {
+                //MessageBox.Show(string.Join(Environment.NewLine, new List<Byte>(t.GetMachineCode()).Select(x => $"0x{x.ToString("X2")}")));
+                Computer.RAM.MEM = t.GetMachineCode();
+                UpdateRamView();
+            }
+            else
+                MessageBox.Show("Invalid Code");
 
-        //    MessageBox.Show(string.Join(Environment.NewLine, new List<Byte>(t.GetMachineCode()).Select(x => $"0x{x.ToString("X2")}")));
-
-        //    //Label1: lda 0x0E; 0x1E
-        //    //Label: SUB 0x0C; comment here
-        //    //Label: JC  0x06; 0x76
-        //    //Label: LDA 0x0D; 0x1D
-        //    //Label: OUT; 0xE0
-        //    //Label: HLT; 0xF0
-        //    //Label: STA 0x0E; 0x4E
-        //    //Label: LDA 0x0C; 0x1D
-        //    //Label: ADD 0x0E; 0x2F
-        //    //Label: STA 0x0D; 0x4D
-        //    //Label: JMP 0x00; 0x60
+            //Label1: lda 0x0E; 0x1E
+            //Label: SUB 0x0C; comment here
+            //Label: JC  0x06; 0x76
+            //Label: LDA 0x0D; 0x1D
+            //Label: OUT; 0xE0
+            //Label: HLT; 0xF0
+            //Label: STA 0x0E; 0x4E
+            //Label: LDA 0x0C; 0x1D
+            //Label: ADD 0x0E; 0x2F
+            //Label: STA 0x0D; 0x4D
+            //Label: JMP 0x00; 0x60
 
 
-        //}
+        }
 
         private void LoadExampleIntoRAMBtn_Click(object sender, EventArgs e)
         {
@@ -242,6 +248,7 @@ namespace SAP1Emulator
             Computer.RAM.MEM[0x0D] = 0x00;
             Computer.RAM.MEM[0x0E] = 0x03;
             Computer.RAM.MEM[0x0F] = 0x05;
+            UpdateRamView();
         }
     }
 }

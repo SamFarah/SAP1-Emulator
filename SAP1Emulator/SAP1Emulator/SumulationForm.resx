@@ -170,4 +170,25 @@ Multiply value in memory 0x0E by value in memory 0x0F. Value at 0x0D should be i
         dxF8IPgugg8E30XwgeC7CD4QfBfBB2tAn8XW+XPr+fn5/B88w/TwrIULHgAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="textBox4.Text" xml:space="preserve">
+    <value>.CODE
+Start:	LDA Op1		; Load value of Op1
+	SUB i		; subtract value of i from A
+	JC  Cont	; jump to Cont if carry
+	LDA Res		; Load value of Res in A
+	OUT		; Output result
+	HLT		; Halt Computer
+Cont:	STA Op1		; Store value of A in Op1
+	LDA Res		; Load value of Res in A
+	ADD Op2		; Add value of Op2 into A
+	STA Res		; Sore value of A in Res
+	JMP Start	; Jump to Start
+
+
+.DATA
+	i   $01		; Decrement variable
+	Op1 $03		; First operand variable
+	Op2 $05		; Second operand variable
+	Res $00		; Result variable</value>
+  </data>
 </root>

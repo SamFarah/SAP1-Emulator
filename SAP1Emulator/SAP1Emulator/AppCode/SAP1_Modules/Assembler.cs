@@ -17,6 +17,7 @@ namespace SAP1Modules
     {
         public enum Instructions
         {
+            NOP = 0x00,
             LDA = 0x01,
             ADD = 0x02,
             SUB = 0x03,
@@ -24,7 +25,7 @@ namespace SAP1Modules
             LDI = 0x05,
             JMP = 0x06,
             JC = 0x07,
-            JZ = 0x08,
+            JZ = 0x08,            
             //  <Future Use Instruction> = 0x09
             //  <Future Use Instruction> = 0x0A
             //  <Future Use Instruction> = 0x0B
@@ -35,37 +36,151 @@ namespace SAP1Modules
         }
 
         public List<AssemblyCommand> Commands;
+        public List<AssemblyVariable> Variables;
+        public bool isValid { get; set; }
+        private bool isData { get; set; }
         public Assembler()
         {
             Commands = new List<AssemblyCommand>();
+            Variables = new List<AssemblyVariable>();
+            isValid = true;//assume valid until proven otherwise 
+            isData = false;
         }
 
         public void GenerateCommands(string[] lines)
         {
-            Regex regex = new Regex("(?<Label>.+:)? *(?<Instruction>\\w{2,3}) +(?<Byte>[^\\s]+)? *;?(?<Comment>.*)?");
+            Regex CommandRegex = new Regex("(?<Label>.+:)?[ \\t]*(?<Instruction>\\w{2,3})[ \\t]*(?<Operands>\\$[A-Za-z\\d]+)?[ \\t]*(?<Address>\\w*)[ \\t]*(?<Comment>;+ *\\w*)?");
+            Regex DataRegex = new Regex("^[ \\t]*(?<VarName>[A-Za-z]+\\w*)[ \\t]+(?<Value>\\$[A-Za-z\\d]+)[ \\t]*(?<Comment>;+.*)?$");
 
             foreach (string line in lines)
             {
+
                 if (string.IsNullOrEmpty(line)) continue;
-                var Res = regex.Match(line);
-                if (!Res.Success) continue;
-                byte temp = 0x01;
-                byte.TryParse(Res.Groups["Byte"].Value.Replace("0x", ""), System.Globalization.NumberStyles.HexNumber, null as IFormatProvider, out temp);
 
-                Commands.Add(new AssemblyCommand()
+
+                if (line==".CODE")
                 {
-                    Address = (byte)Commands.Count,
-                    Label = Res.Groups["Label"].Value,
-                    Instruction = (Instructions)Enum.Parse(typeof(Instructions), Res.Groups["Instruction"].Value.ToUpper()),
-                    Byte = temp,
-                    Comment = Res.Groups["Comment"].Value
-                });
+                    isData = false;
+                    continue;
+                }
 
+                if(line==".DATA")
+                {
+                    isData = true;
+                    continue;
+                }
+
+
+                if (!isData) //reading commands
+                {
+                    string label = string.Empty;
+                    string inst = string.Empty;
+                    string operand = string.Empty;
+                    string address = string.Empty;
+                    string comment = string.Empty;
+
+                    
+                    var Res = CommandRegex.Match(line);
+                    if (!Res.Success) continue;
+
+
+                    label = Res.Groups["Label"].Value.Replace(":", "").Trim();
+                    inst = Res.Groups["Instruction"].Value.ToUpper();
+                    operand = Res.Groups["Operands"].Value.Replace("$", "");
+                    address = Res.Groups["Address"].Value;
+                    comment = Res.Groups["Comment"].Value.Replace(";", "").Trim();
+
+
+
+                    // check type of val
+                    // starts with 0x
+
+
+                    byte temp = 0x01;
+                    byte.TryParse(operand, System.Globalization.NumberStyles.HexNumber, null as IFormatProvider, out temp);
+
+                    try
+                    {
+                        Commands.Add(new AssemblyCommand()
+                        {
+                            Address = (byte)Commands.Count,
+                            Label = label,
+                            Instruction = (Instructions)Enum.Parse(typeof(Instructions), inst),
+                            Operand = temp,
+                            OpAddress = address,
+                            Comment = comment
+                        });
+                    }
+                    catch (Exception)
+                    {
+
+                        isValid = false;
+                        break;
+                    }
+                }
+                else// reading data
+                {
+
+                    string varName = string.Empty;
+                    string value = string.Empty;
+                    string comment = string.Empty;
+
+                    var Res = DataRegex.Match(line);
+                    if (!Res.Success) continue;
+
+                    varName = Res.Groups["VarName"].Value.Trim();                    
+                    value = Res.Groups["Value"].Value.Replace("$", "");
+                    comment = Res.Groups["Comment"].Value.Replace(";", "").Trim();
+
+                    byte temp = 0x01;
+                    byte.TryParse(value, System.Globalization.NumberStyles.HexNumber, null as IFormatProvider, out temp);
+
+                    try
+                    {
+                        Variables.Add(new AssemblyVariable()
+                        {
+                            Address = (byte)(15 -Variables.Count), // put variables on bottom
+                            Name = varName,
+                            Value  = temp,
+                            Comment=comment
+                            
+                        });
+                    }
+                    catch (Exception)
+                    {
+
+                        isValid = false;
+                        break;
+                    }
+
+                }
+
+
+
+            }
+            if (Validate())
+            {
+                foreach (AssemblyCommand Command in Commands.Where(x => !string.IsNullOrEmpty(x.OpAddress)))
+                {
+                    //Find label address
+                    AssemblyCommand CommandAtAddress = Commands.Where(x => x.Label.Trim().ToLower() == Command.OpAddress.Trim().ToLower()).FirstOrDefault();
+                    if (CommandAtAddress != null) Command.Operand = CommandAtAddress.Address;
+                    else
+                    {
+                        AssemblyVariable VariableAttAddress = Variables.Where(x => x.Name == Command.OpAddress).FirstOrDefault();
+                        if (VariableAttAddress != null) Command.Operand = VariableAttAddress.Address;
+                    }
+
+                }
             }
         }
         public bool Validate()
         {
             //validate code
+
+            //find duplicate labels.
+            //count how many .DATA and how many .CODE
+            //check if variables are not defined
             return true;
         }
 
@@ -74,8 +189,13 @@ namespace SAP1Modules
             byte[] retVal = new byte[16];
             foreach (AssemblyCommand command in Commands)
             {
-                retVal[command.Address] = (byte)(((byte)command.Instruction << 4) | (command.Byte & 0x0F));
+                retVal[command.Address] = (byte)(((byte)command.Instruction << 4) | (command.Operand & 0x0F));
             }
+            foreach (AssemblyVariable  variable in Variables )
+            {
+                retVal[variable.Address] = variable.Value ;
+            }
+
             return retVal;
         }
 
@@ -86,7 +206,16 @@ namespace SAP1Modules
         public byte Address { get; set; }
         public string Label { get; set; }
         public Assembler.Instructions Instruction { get; set; }
-        public byte Byte;
+        public byte Operand { get; set; }
+        public string OpAddress { get; set; }
+        public string Comment { get; set; }
+    }
+
+    class AssemblyVariable
+    {
+        public byte Address { get; set; }
+        public string Name { get; set; }        
+        public byte Value { get; set; }
         public string Comment { get; set; }
     }
 }
