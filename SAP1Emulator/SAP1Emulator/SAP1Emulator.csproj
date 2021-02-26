@@ -83,6 +83,12 @@
     <Compile Include="AppCode\Visual\RLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="AssemblyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyForm.Designer.cs">
+      <DependentUpon>AssemblyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SumulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AppCode\Visual\LEDDisplay.resx">
       <DependentUpon>LEDDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssemblyForm.resx">
+      <DependentUpon>AssemblyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SumulationForm.resx">
       <DependentUpon>SumulationForm.cs</DependentUpon>

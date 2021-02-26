@@ -2,7 +2,7 @@
 
 namespace SAP1Modules
 {
-    class SAP1_8Bit
+    public class SAP1_8Bit
     {
         /*
                                 Inside the SAP1 8Bit CPU

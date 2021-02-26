@@ -1,6 +1,6 @@
 ﻿namespace SAP1Modules
 {
-    class Register
+    public class Register
     {
 
         //Control signals and outputs

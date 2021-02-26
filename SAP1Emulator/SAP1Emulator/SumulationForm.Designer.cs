@@ -58,8 +58,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.ResetBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LoadExampleIntoRAMBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.LoadedProgramTB = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.PCGroup = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -78,8 +77,7 @@
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.OpenAssemblerBtn = new System.Windows.Forms.Button();
             this.InstArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
             this.RAMArrowOut = new SAP1Emulator.AppCode.Visual.Arrow();
             this.InstArrowIn = new SAP1Emulator.AppCode.Visual.Arrow();
@@ -551,35 +549,24 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.LoadExampleIntoRAMBtn);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.LoadedProgramTB);
             this.groupBox1.Location = new System.Drawing.Point(245, 342);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(251, 241);
             this.groupBox1.TabIndex = 101;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sample Program";
+            this.groupBox1.Text = "Loaded Program";
             // 
-            // LoadExampleIntoRAMBtn
+            // LoadedProgramTB
             // 
-            this.LoadExampleIntoRAMBtn.Location = new System.Drawing.Point(156, 26);
-            this.LoadExampleIntoRAMBtn.Name = "LoadExampleIntoRAMBtn";
-            this.LoadExampleIntoRAMBtn.Size = new System.Drawing.Size(83, 51);
-            this.LoadExampleIntoRAMBtn.TabIndex = 1;
-            this.LoadExampleIntoRAMBtn.Text = "Load Into RAM";
-            this.LoadExampleIntoRAMBtn.UseVisualStyleBackColor = true;
-            this.LoadExampleIntoRAMBtn.Click += new System.EventHandler(this.LoadExampleIntoRAMBtn_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(239, 216);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.LoadedProgramTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadedProgramTB.Location = new System.Drawing.Point(6, 19);
+            this.LoadedProgramTB.Multiline = true;
+            this.LoadedProgramTB.Name = "LoadedProgramTB";
+            this.LoadedProgramTB.ReadOnly = true;
+            this.LoadedProgramTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LoadedProgramTB.Size = new System.Drawing.Size(239, 216);
+            this.LoadedProgramTB.TabIndex = 0;
             // 
             // groupBox4
             // 
@@ -811,26 +798,15 @@
             this.textBox3.Text = "8 Bit SAP1 architecture. Based on Ben Eater\'s breadboard build.\r\n\r\nSam Farah - 20" +
     "21-02-01";
             // 
-            // button1
+            // OpenAssemblerBtn
             // 
-            this.button1.Location = new System.Drawing.Point(1127, 402);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 62);
-            this.button1.TabIndex = 151;
-            this.button1.Text = "Load Code into RAM";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox4
-            // 
-            this.textBox4.AcceptsTab = true;
-            this.textBox4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(759, 4);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(443, 395);
-            this.textBox4.TabIndex = 152;
-            this.textBox4.Text = resources.GetString("textBox4.Text");
+            this.OpenAssemblerBtn.Location = new System.Drawing.Point(35, 131);
+            this.OpenAssemblerBtn.Name = "OpenAssemblerBtn";
+            this.OpenAssemblerBtn.Size = new System.Drawing.Size(102, 23);
+            this.OpenAssemblerBtn.TabIndex = 151;
+            this.OpenAssemblerBtn.Text = "Open Assembler";
+            this.OpenAssemblerBtn.UseVisualStyleBackColor = true;
+            this.OpenAssemblerBtn.Click += new System.EventHandler(this.OpenAssemblerBtn_Click);
             // 
             // InstArrowOut
             // 
@@ -2358,9 +2334,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 585);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(757, 585);
+            this.Controls.Add(this.OpenAssemblerBtn);
             this.Controls.Add(this.InstArrowOut);
             this.Controls.Add(this.RAMArrowOut);
             this.Controls.Add(this.InstArrowIn);
@@ -2594,7 +2569,6 @@
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Button WipeRAMBtn;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button RandomizeRAMBtn;
         private AppCode.Visual.LEDDisplay SumFlagsLEDDisplay;
         private AppCode.Visual.LED led90;
@@ -2609,7 +2583,6 @@
         private AppCode.Visual.LED led94;
         private AppCode.Visual.LED led2;
         private AppCode.Visual.RLabel rLabel25;
-        private System.Windows.Forms.Button LoadExampleIntoRAMBtn;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox PCGroup;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -2643,8 +2616,8 @@
         private System.Windows.Forms.Label label2;
         private AppCode.Visual.LED SubLED;
         private AppCode.Visual.LED ClkLed;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button OpenAssemblerBtn;
+        public System.Windows.Forms.TextBox LoadedProgramTB;
     }
 }
 

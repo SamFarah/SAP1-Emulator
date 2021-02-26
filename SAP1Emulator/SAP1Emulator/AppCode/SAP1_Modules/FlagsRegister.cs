@@ -1,7 +1,7 @@
 ﻿using BitField;
 namespace SAP1Modules
 {
-    class FlagsRegister : Register
+    public class FlagsRegister : Register
     {
         public FlagBitField FlagsBits; //its data is in the form of bitField
         public override byte Data { get { return FlagsBits; } } //return the bitField

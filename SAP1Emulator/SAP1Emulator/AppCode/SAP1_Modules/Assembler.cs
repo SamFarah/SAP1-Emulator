@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace SAP1Modules
 {
-    class Assembler
+    public class Assembler
     {
         public enum Instructions
         {
@@ -25,7 +25,7 @@ namespace SAP1Modules
             LDI = 0x05,
             JMP = 0x06,
             JC = 0x07,
-            JZ = 0x08,            
+            JZ = 0x08,
             //  <Future Use Instruction> = 0x09
             //  <Future Use Instruction> = 0x0A
             //  <Future Use Instruction> = 0x0B
@@ -55,16 +55,16 @@ namespace SAP1Modules
             foreach (string line in lines)
             {
 
-                if (string.IsNullOrEmpty(line)) continue;
+                if (string.IsNullOrEmpty(line) || line.Trim().StartsWith(";")) continue;
 
 
-                if (line==".CODE")
+                if (line == ".CODE")
                 {
                     isData = false;
                     continue;
                 }
 
-                if(line==".DATA")
+                if (line == ".DATA")
                 {
                     isData = true;
                     continue;
@@ -79,7 +79,7 @@ namespace SAP1Modules
                     string address = string.Empty;
                     string comment = string.Empty;
 
-                    
+
                     var Res = CommandRegex.Match(line);
                     if (!Res.Success) continue;
 
@@ -128,7 +128,7 @@ namespace SAP1Modules
                     var Res = DataRegex.Match(line);
                     if (!Res.Success) continue;
 
-                    varName = Res.Groups["VarName"].Value.Trim();                    
+                    varName = Res.Groups["VarName"].Value.Trim();
                     value = Res.Groups["Value"].Value.Replace("$", "");
                     comment = Res.Groups["Comment"].Value.Replace(";", "").Trim();
 
@@ -139,11 +139,11 @@ namespace SAP1Modules
                     {
                         Variables.Add(new AssemblyVariable()
                         {
-                            Address = (byte)(15 -Variables.Count), // put variables on bottom
+                            Address = (byte)(15 - Variables.Count), // put variables on bottom
                             Name = varName,
-                            Value  = temp,
-                            Comment=comment
-                            
+                            Value = temp,
+                            Comment = comment
+
                         });
                     }
                     catch (Exception)
@@ -187,21 +187,22 @@ namespace SAP1Modules
         public byte[] GetMachineCode()
         {
             byte[] retVal = new byte[16];
+            Utilities.RadomizeArray(retVal);//fill it with garbage first
             foreach (AssemblyCommand command in Commands)
             {
                 retVal[command.Address] = (byte)(((byte)command.Instruction << 4) | (command.Operand & 0x0F));
             }
-            foreach (AssemblyVariable  variable in Variables )
+            foreach (AssemblyVariable variable in Variables)
             {
-                retVal[variable.Address] = variable.Value ;
+                retVal[variable.Address] = variable.Value;
             }
+
 
             return retVal;
         }
-
     }
 
-    class AssemblyCommand
+    public class AssemblyCommand
     {
         public byte Address { get; set; }
         public string Label { get; set; }
@@ -211,10 +212,10 @@ namespace SAP1Modules
         public string Comment { get; set; }
     }
 
-    class AssemblyVariable
+    public class AssemblyVariable
     {
         public byte Address { get; set; }
-        public string Name { get; set; }        
+        public string Name { get; set; }
         public byte Value { get; set; }
         public string Comment { get; set; }
     }

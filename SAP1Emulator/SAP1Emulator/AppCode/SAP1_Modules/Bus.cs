@@ -2,7 +2,7 @@
 using System.Linq;
 namespace SAP1Modules
 {
-    class Bus
+    public class Bus
     {
         /*
              A bus can have (theoretically) an infinite number of devices (registers) 

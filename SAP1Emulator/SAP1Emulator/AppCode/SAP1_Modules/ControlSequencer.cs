@@ -3,7 +3,7 @@ using BitField;
 
 namespace SAP1Modules
 {
-    class ControlSequencer
+    public class ControlSequencer
     {
 
         /*

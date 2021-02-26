@@ -1,6 +1,6 @@
 ﻿namespace SAP1Modules
 {
-    class Counter : Register
+    public class Counter : Register
     {
         //Control Signals
         public bool Count { get; set; } // If enabled the counter will increment on each read.

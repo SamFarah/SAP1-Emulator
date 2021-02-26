@@ -1,7 +1,7 @@
 ﻿using System;
 namespace SAP1Modules
 {
-    class ALU : Register
+    public class ALU : Register
     {
         /*
                             ALU Block Diagram

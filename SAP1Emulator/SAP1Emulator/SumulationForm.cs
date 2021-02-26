@@ -9,18 +9,22 @@ namespace SAP1Emulator
 {
     public partial class SimulationForm : Form
     {
-        SAP1_8Bit Computer { get; set; }
+        public SAP1_8Bit Computer { get; set; }
         private uint Frames = 0;
         bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
+        AssemblyForm assemblyForm;
         public SimulationForm()
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             DoubleBuffered = true;
             Application.Idle += HandleApplicationIdle;
+            assemblyForm = new AssemblyForm(this);
 
             // Set up the comnputer
-            Computer = new SAP1_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SignleStep); //Create an instance of the computer            
+            Computer = new SAP1_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SignleStep); //Create an instance of the computer       
+            
+
         }
 
         bool IsApplicationIdle()
@@ -150,7 +154,7 @@ namespace SAP1Emulator
             Frames++;
         }
         Color GetGroupColour(Register Reg, bool AlwaysEnabled = false) { return (!AlwaysEnabled && Reg.Enable) ? Color.DarkGreen : Reg.Load ? Color.Red : Color.Black; }
-        private void UpdateRamView()
+        public void UpdateRamView()
         {
             RAMView.Items.Clear();
 
@@ -198,57 +202,16 @@ namespace SAP1Emulator
         private void WipeRAMBtn_Click(object sender, EventArgs e) { for (int i = 0; i < 16; i++) Computer.RAM.MEM[i] = 0xFF; UpdateRamView(); }
         private void RandomizeRAMBtn_Click(object sender, EventArgs e) { Utilities.RadomizeArray(Computer.RAM.MEM); UpdateRamView(); }
 
+        private void OpenAssemblerBtn_Click(object sender, EventArgs e)
+        {
+           
+            assemblyForm.Show();
+        }
+
 
         // Testing assembler functionality
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            Assembler t = new Assembler();
-
-            t.GenerateCommands(textBox4.Lines);
-            if (t.isValid)
-            {
-                //MessageBox.Show(string.Join(Environment.NewLine, new List<Byte>(t.GetMachineCode()).Select(x => $"0x{x.ToString("X2")}")));
-                Computer.RAM.MEM = t.GetMachineCode();
-                UpdateRamView();
-            }
-            else
-                MessageBox.Show("Invalid Code");
-
-            //Label1: lda 0x0E; 0x1E
-            //Label: SUB 0x0C; comment here
-            //Label: JC  0x06; 0x76
-            //Label: LDA 0x0D; 0x1D
-            //Label: OUT; 0xE0
-            //Label: HLT; 0xF0
-            //Label: STA 0x0E; 0x4E
-            //Label: LDA 0x0C; 0x1D
-            //Label: ADD 0x0E; 0x2F
-            //Label: STA 0x0D; 0x4D
-            //Label: JMP 0x00; 0x60
 
 
-        }
-
-        private void LoadExampleIntoRAMBtn_Click(object sender, EventArgs e)
-        {
-            Computer.RAM.MEM[0x00] = 0x1e;
-            Computer.RAM.MEM[0x01] = 0x3c;
-            Computer.RAM.MEM[0x02] = 0x76;
-            Computer.RAM.MEM[0x03] = 0x1d;
-            Computer.RAM.MEM[0x04] = 0xe0;
-            Computer.RAM.MEM[0x05] = 0xf0;
-            Computer.RAM.MEM[0x06] = 0x4e;
-            Computer.RAM.MEM[0x07] = 0x1d;
-            Computer.RAM.MEM[0x08] = 0x2f;
-            Computer.RAM.MEM[0x09] = 0x4d;
-            Computer.RAM.MEM[0x0A] = 0x60;
-            Computer.RAM.MEM[0x0B] = 0x00;
-            Computer.RAM.MEM[0x0C] = 0x01;
-            Computer.RAM.MEM[0x0D] = 0x00;
-            Computer.RAM.MEM[0x0E] = 0x03;
-            Computer.RAM.MEM[0x0F] = 0x05;
-            UpdateRamView();
-        }
+       
     }
 }

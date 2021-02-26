@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-class ClockGenerator
+public class ClockGenerator
 {
     public enum ClockModes
     {

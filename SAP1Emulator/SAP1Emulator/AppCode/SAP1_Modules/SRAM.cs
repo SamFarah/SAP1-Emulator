@@ -1,6 +1,6 @@
 ﻿namespace SAP1Modules
 {
-    class SRAM : Register
+    public class SRAM : Register
     {
         /*
                    RAM Block Diagram
