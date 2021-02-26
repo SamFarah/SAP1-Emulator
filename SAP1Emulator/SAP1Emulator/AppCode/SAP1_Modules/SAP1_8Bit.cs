@@ -89,7 +89,7 @@ namespace SAP1Modules
                 mControlWord = value; //store it for display purposes, to reduce overhead on getting device status every display update
 
                 // Update device control signals
-                Clock.Hault = value.HLT;
+                Clock.Halt = value.HLT;
                 MAR.Load = value.MI;
                 RAM.Load = value.RI;
                 RAM.Enable = value.RO;
@@ -121,7 +121,7 @@ namespace SAP1Modules
         public void Reset()
         {            
             Clock.Stop();
-            Clock.Hault = false;
+            Clock.Halt = false;
             Bus.Reset();
             Flags.Reset();
             CL.Reset();

@@ -11,7 +11,7 @@ public class ClockGenerator
     public int Frequency { get; set; }
     public ClockModes ClockMode { get; set; }
     public bool Output { get; set; }
-    public bool Hault { get; set; }
+    public bool Halt { get; set; }
 
     private Thread thread { get; set; }
 
@@ -30,7 +30,7 @@ public class ClockGenerator
 
     public void Step()
     {
-        if (!Hault)
+        if (!Halt)
         {
             Output = !Output;
             if (Output) RisingEdge();
