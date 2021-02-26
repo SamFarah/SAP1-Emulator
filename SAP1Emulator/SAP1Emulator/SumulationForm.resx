@@ -172,12 +172,12 @@ Multiply value in memory 0x0E by value in memory 0x0F. Value at 0x0D should be i
   </data>
   <data name="textBox4.Text" xml:space="preserve">
     <value>.CODE
-Start:	LDA Op1		; Load value of Op1
+Start:	LDA Op1		; Load value of Op1 into A
 	SUB i		; subtract value of i from A
 	JC  Cont	; jump to Cont if carry
 	LDA Res		; Load value of Res in A
 	OUT		; Output result
-	HLT		; Halt Computer
+	HLT		; Hault Computer
 Cont:	STA Op1		; Store value of A in Op1
 	LDA Res		; Load value of Res in A
 	ADD Op2		; Add value of Op2 into A
