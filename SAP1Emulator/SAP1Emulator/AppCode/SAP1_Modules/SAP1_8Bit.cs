@@ -119,13 +119,13 @@ namespace SAP1Modules
 
         //Reset the computer
         public void Reset()
-        {
-            mControlWord = (ControlSequencer.ControlWordBitField)0x0000;
+        {            
             Clock.Stop();
             Clock.Hault = false;
             Bus.Reset();
             Flags.Reset();
             CL.Reset();
+            ControlWord = CL.GetControlWord(true);
             if (Clock.ClockMode == ClockGenerator.ClockModes.Auto) Clock.Start();
         }
     }

@@ -45,15 +45,19 @@ namespace SAP1Modules
             InitUCode(); //generate "ROM" of microinstructions
         }
 
-        public ControlWordBitField GetControlWord()
+        public ControlWordBitField GetControlWord(bool init = false)
         {
+            // when computer is reset it already has step 0 loaded. so next time it gets control word it will step to the next step, unless it is initializing
+            if (!init) StepCounter.SetData(); // Increment Step counter by setting its value to 0x0000. It doesnt not affect its data "Load" signal is inactive            
+            if ((Decoder & 0x20) == 0) StepCounter.Reset(); // if the decoded output is 0x00100000 then it reached step 5 and needs to reset
+                                                            //there are better ways, but this mirrors Ben Eater's implementation 
+
             //uCode address is defined by [FlagValue][InstructionValue][StepValue]
             //Get the uCode address
             byte FlagValue = (byte)(FlagsRegister.Data & 0x03);
             byte InstructionValue = (byte)((InstructionRegister.Data & 0xF0) >> 4);
             byte StepValue = (byte)(StepCounter.Data & 0x07);
 
-            StepCounter.SetData(); // Increment Step counter by setting its value to 0x0000. It doesnt not affect its data "Load" signal is inactive
             return (ControlWordBitField)uCode[FlagValue, InstructionValue, StepValue]; //return uCode
         }
 
@@ -63,8 +67,7 @@ namespace SAP1Modules
         {
             get
             {
-                byte Decoded = (byte)~(byte)Math.Pow(2, (StepCounter.Data & 0x07)); //inverse the outpuer (Active LOW)
-                if ((Decoded & 0x20) == 0) StepCounter.Reset(); // if the decoded output is 0x00100000 then it reached step 6 and needs to reset
+                byte Decoded = (byte)~(byte)Math.Pow(2, StepCounter.Data); //inverse the output (Active LOW)                
                 return Decoded;
             }
         }

@@ -12,7 +12,7 @@
         public override void SetData(byte data = 0x00)
         {
             base.SetData(data);
-            if (Count) Data = (byte)(Data + 1); ; //Increament the Program Counter if CE is enabled
+            if (Count) Data = (byte)(Data + 1); //Increament the Program Counter if CE is enabled
         }
 
 
