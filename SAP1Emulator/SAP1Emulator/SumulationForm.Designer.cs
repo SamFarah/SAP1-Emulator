@@ -286,7 +286,7 @@
             this.StepClockBtn.Name = "StepClockBtn";
             this.StepClockBtn.Size = new System.Drawing.Size(65, 23);
             this.StepClockBtn.TabIndex = 5;
-            this.StepClockBtn.Text = "Signle";
+            this.StepClockBtn.Text = "Single";
             this.StepClockBtn.UseVisualStyleBackColor = true;
             this.StepClockBtn.Click += new System.EventHandler(this.StepClockBtn_Click);
             this.StepClockBtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StepClockBtn_KeyDown);
