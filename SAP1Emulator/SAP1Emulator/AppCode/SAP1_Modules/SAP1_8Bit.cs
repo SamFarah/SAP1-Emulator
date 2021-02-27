@@ -50,7 +50,7 @@ namespace SAP1Modules
         public ALU Sum { get; set; }                // Adder / Subtracter 
         public SRAM RAM { get; set; }               // Random Access Memory
         public Counter PC { get; set; }             // Program Counter
-        public ControlSequencer CL { get; set; }        // Generates control word depending on instructions to enable/load devices on the bus.
+        public ControlSequencer CL { get; set; }    // Generates control word depending on instructions to enable/load devices on the bus.
         public FlagsRegister Flags { get; set; }    // A register to hold flags after an operation
 
 
