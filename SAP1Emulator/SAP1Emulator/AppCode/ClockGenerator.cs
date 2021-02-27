@@ -5,7 +5,7 @@ public class ClockGenerator
     public enum ClockModes
     {
         Auto,
-        SignleStep
+        SingleStep
     }
 
     public int Frequency { get; set; }

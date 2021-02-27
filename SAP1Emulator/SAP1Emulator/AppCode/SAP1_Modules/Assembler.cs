@@ -37,13 +37,13 @@ namespace SAP1Modules
 
         public List<AssemblyCommand> Commands;
         public List<AssemblyVariable> Variables;
-        public bool isValid { get; set; }
+        public List<string> Errors;
         private bool isData { get; set; }
         public Assembler()
         {
             Commands = new List<AssemblyCommand>();
             Variables = new List<AssemblyVariable>();
-            isValid = true;//assume valid until proven otherwise 
+            Errors = new List<string>(); // Store errors while generating machine code            
             isData = false;
         }
 
@@ -55,7 +55,7 @@ namespace SAP1Modules
             foreach (string line in lines)
             {
 
-                if (string.IsNullOrEmpty(line) || line.Trim().StartsWith(";")) continue;
+                if (string.IsNullOrEmpty(line.Trim()) || line.Trim().StartsWith(";")) continue;
 
 
                 if (line == ".CODE")
@@ -79,22 +79,14 @@ namespace SAP1Modules
                     string address = string.Empty;
                     string comment = string.Empty;
 
-
                     var Res = CommandRegex.Match(line);
                     if (!Res.Success) continue;
-
 
                     label = Res.Groups["Label"].Value.Replace(":", "").Trim();
                     inst = Res.Groups["Instruction"].Value.ToUpper();
                     operand = Res.Groups["Operands"].Value.Replace("$", "");
                     address = Res.Groups["Address"].Value;
                     comment = Res.Groups["Comment"].Value.Replace(";", "").Trim();
-
-
-
-                    // check type of val
-                    // starts with 0x
-
 
                     byte temp = 0x01;
                     byte.TryParse(operand, System.Globalization.NumberStyles.HexNumber, null as IFormatProvider, out temp);
@@ -111,14 +103,9 @@ namespace SAP1Modules
                             Comment = comment
                         });
                     }
-                    catch (Exception)
-                    {
-
-                        isValid = false;
-                        break;
-                    }
+                    catch (Exception) { Errors.Add($"could not recognize {inst} as an instruction"); }
                 }
-                else// reading data
+                else // reading data
                 {
 
                     string varName = string.Empty;
@@ -126,7 +113,11 @@ namespace SAP1Modules
                     string comment = string.Empty;
 
                     var Res = DataRegex.Match(line);
-                    if (!Res.Success) continue;
+                    if (!Res.Success)
+                    {
+                        Errors.Add($"could not parse the line: {line}");
+                        continue;
+                    }
 
                     varName = Res.Groups["VarName"].Value.Trim();
                     value = Res.Groups["Value"].Value.Replace("$", "");
@@ -146,29 +137,21 @@ namespace SAP1Modules
 
                         });
                     }
-                    catch (Exception)
-                    {
-
-                        isValid = false;
-                        break;
-                    }
-
+                    catch (Exception) { Errors.Add($"could not add variable: {line}"); }
                 }
-
-
-
             }
             if (Validate())
             {
                 foreach (AssemblyCommand Command in Commands.Where(x => !string.IsNullOrEmpty(x.OpAddress)))
                 {
-                    //Find label address
+                    //Find label,var address
                     AssemblyCommand CommandAtAddress = Commands.Where(x => x.Label.Trim().ToLower() == Command.OpAddress.Trim().ToLower()).FirstOrDefault();
                     if (CommandAtAddress != null) Command.Operand = CommandAtAddress.Address;
                     else
                     {
                         AssemblyVariable VariableAttAddress = Variables.Where(x => x.Name == Command.OpAddress).FirstOrDefault();
                         if (VariableAttAddress != null) Command.Operand = VariableAttAddress.Address;
+                        else Errors.Add($"could not find label or variable: {Command.OpAddress}");
                     }
 
                 }
@@ -176,28 +159,37 @@ namespace SAP1Modules
         }
         public bool Validate()
         {
-            //validate code
+            //find duplicate labels:
+            var duplicateLabels = Commands
+                                .Where(x => !string.IsNullOrEmpty(x.Label.Trim()))
+                                .Select(x => x.Label.ToUpper())
+                                .GroupBy(x => x)
+                                .Where(g => g.Count() > 1)
+                                .Select(y => new { Element = y.Key, Counter = y.Count() })
+                                .ToList();
 
-            //find duplicate labels.
-            //count how many .DATA and how many .CODE
-            //check if variables are not defined
-            return true;
+            if (duplicateLabels.Count > 0) Errors.AddRange(duplicateLabels.Select(x => $"The label \"{x.Element }\" was defined {x.Counter} times"));
+
+            //find duplicate variables:
+            var duplicateVariables = Variables
+                                .Where(x => !string.IsNullOrEmpty(x.Name.Trim()))
+                                .Select(x => x.Name)
+                                .GroupBy(x => x)
+                                .Where(g => g.Count() > 1)
+                                .Select(y => new { Element = y.Key, Counter = y.Count() })
+                                .ToList();
+
+            if (duplicateVariables.Count > 0) Errors.AddRange(duplicateVariables.Select(x => $"The variable \"{x.Element }\" was defined {x.Counter} times"));
+
+            return Errors.Count == 0;
         }
 
-        public byte[] GetMachineCode()
+        public byte[] GetMachineCode(bool RandomizeBlanks)
         {
             byte[] retVal = new byte[16];
-            Utilities.RadomizeArray(retVal);//fill it with garbage first
-            foreach (AssemblyCommand command in Commands)
-            {
-                retVal[command.Address] = (byte)(((byte)command.Instruction << 4) | (command.Operand & 0x0F));
-            }
-            foreach (AssemblyVariable variable in Variables)
-            {
-                retVal[variable.Address] = variable.Value;
-            }
-
-
+            if (RandomizeBlanks) Utilities.RadomizeArray(retVal);
+            foreach (AssemblyCommand command in Commands) retVal[command.Address] = (byte)(((byte)command.Instruction << 4) | (command.Operand & 0x0F));            
+            foreach (AssemblyVariable variable in Variables) retVal[variable.Address] = variable.Value;           
             return retVal;
         }
     }

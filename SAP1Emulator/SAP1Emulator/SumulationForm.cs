@@ -22,7 +22,7 @@ namespace SAP1Emulator
             assemblyForm = new AssemblyForm(this);
 
             // Set up the comnputer
-            Computer = new SAP1_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SignleStep); //Create an instance of the computer       
+            Computer = new SAP1_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
             
 
         }
@@ -48,7 +48,7 @@ namespace SAP1Emulator
             {
                 ClockModeBtn.Text = "Stopped";
                 ClockModeBtn.BackColor = Color.Red;
-                Computer.Clock.ClockMode = ClockGenerator.ClockModes.SignleStep;
+                Computer.Clock.ClockMode = ClockGenerator.ClockModes.SingleStep;
                 Computer.Clock.Stop();
                 StepClockBtn.Enabled = true;
             }
