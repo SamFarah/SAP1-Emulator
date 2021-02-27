@@ -26,7 +26,7 @@ Each of these "devices" has its own class. The simulation form "taps" into each 
 ### Dependencies
 
 * .NET Framework v4.7
-* For the display to look nice, you will need to install Digital-7 Mono font(by Sizenko Alexander). you can get it from Docs -> digital-7 (mono).ttf or from [Here](https://fonts2u.com/download/digital-7-mono.font)
+* For the display to look nice, you will need to install Digital-7 Mono font (by Sizenko Alexander). you can get it from Docs -> digital-7 (mono).ttf or from [Here](https://fonts2u.com/download/digital-7-mono.font)
 
 ### Executing the program
 
