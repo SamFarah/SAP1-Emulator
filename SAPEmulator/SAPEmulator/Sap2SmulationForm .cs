@@ -64,7 +64,7 @@ namespace SAPEmulator
             }
         }
         void updateScreen()
-        {            
+        {
             //Update LED Arrays            
             BusLEDDisplay.DisplayData(Computer.Bus.Data);
             ARegLEDDisplay.DisplayData(Computer.A.Data);
@@ -79,13 +79,13 @@ namespace SAPEmulator
             FlagRegLEDDisplay.DisplayData(Computer.Flags.Data, true);
             MICounterLEDDisplay.DisplayData(Computer.CL.StepCounter.Data, true);
             CLDecodedLEDDisplay.DisplayData(Computer.CL.Decoder, true);
-            StatusLEDDsiaply1.DisplayData((UInt16)(Computer.ControlWord>>16));
+            StatusLEDDsiaply1.DisplayData((UInt16)(Computer.ControlWord >> 16));
             StatusLEDDsiaply2.DisplayData((UInt16)(Computer.ControlWord));
 
             MDRLEDDisplay.DisplayData(Computer.MDR.Data);
             TempRegLEDDisplay.DisplayData(Computer.Temp.Data);
             CRegLEDDisplay.DisplayData(Computer.C.Data);
-            ALUModeSelect.DisplayData((byte)((Computer.Alu.ModeSelect<<1) | (Computer.Alu.M?1:0) ));
+            //ALUModeSelect.DisplayData((byte)((Computer.Alu.ModeSelect << 2) | ((Computer.Alu.M ? 1 : 0)<<1) | (Computer.Alu.CarryIn?1:0)));
 
 
             //Update Value labels
@@ -99,10 +99,10 @@ namespace SAPEmulator
             PCRegValLbl.Text = $"0x{Computer.PC.Data.ToString("X4")}";
             OutputRegValLbl.Text = $"0x{Computer.Output1.Data.ToString("X2")}";
 
-            MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";            
-            TempRegValLbl.Text= $"0x{Computer.Temp.Data.ToString("X2")}";
-            CRegValLbl .Text= $"0x{Computer.C.Data.ToString("X2")}";
-
+            MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";
+            TempRegValLbl.Text = $"0x{Computer.Temp.Data.ToString("X2")}";
+            CRegValLbl.Text = $"0x{Computer.C.Data.ToString("X2")}";
+            InstructionLBL.Text = ((ControlSequencer.Instructions)Computer.IR.Data).ToString().Replace("__",",").Replace("_"," ");
             // Update Group Colors according to control signals
             PCGroup.ForeColor = GetGroupColour(Computer.PC);
             ARegGroup.ForeColor = GetGroupColour(Computer.A);
@@ -118,35 +118,29 @@ namespace SAPEmulator
 
 
             //Update IN Arrows according to "Load" signals
-            PCArrowIn.ChangeState(Computer.PC.Load);
-            ARegArrowIn.ChangeState(Computer.A.Load);
-            BRegArrowIn.ChangeState(Computer.B.Load);
+            PCArrow.ChangeState(GetArrowDirection(Computer.PC,true));
+            ARegArrow.ChangeState(GetArrowDirection(Computer.A));
+            BRegArrow.ChangeState(GetArrowDirection(Computer.B));
+            CRegArrow.ChangeState(GetArrowDirection(Computer.C));
+
+            RAMArrow.ChangeState(GetArrowDirection(Computer.RAM,true));
+            MDRArrow.ChangeState(GetArrowDirection(Computer.MDR,true));
+
+
             OutputRegArrowIn.ChangeState(Computer.Output1.Load);
             MARArrowIn.ChangeState(Computer.MAR.Load);
-            RAMArrowIn.ChangeState(Computer.RAM.Load);
-            InstArrowIn.ChangeState(Computer.IR.Load);
-
-            MDRArrowIn.ChangeState(Computer.MDR.Load);
-            MDRArrowOut.ChangeState(Computer.MDR.Enable );
-
-            TempRegArrowIn.ChangeState(Computer.Temp.Load);
-
-            BRegArrowOut.ChangeState(Computer.B.Enable);
-
-
-            //Update OUT Arrows according to "Enable" signals
-            PCArrowOut.ChangeState(Computer.PC.Enable);
-            ARegArrowOut.ChangeState(Computer.A.Enable);
+            InstArrowIn.ChangeState(Computer.IR.Load);           
+            TempRegArrowIn.ChangeState(Computer.Temp.Load);                                
+            FlagRegArrowIn.ChangeState(Computer.Flags.Load);
             SUMArrowOut.ChangeState(Computer.Alu.Enable);
-            RAMArrowOut.ChangeState(Computer.RAM.Enable);
-            InstArrowOut.ChangeState(Computer.IR.Enable);
+            
+            
 
 
             //Update signle LEDs
             IncLED.ChangeState(Computer.PC.Count);
             //SubLED.ChangeState(Computer.Alu.Subtract);
-            ClkLed.ChangeState(Computer.Clock.Output);
-            CarryInLED.ChangeState(Computer.Alu.CarryIn);
+            ClkLed.ChangeState(Computer.Clock.Output);            
 
 
             //Update 7-Segment Display
@@ -163,7 +157,7 @@ namespace SAPEmulator
             //Update RAM content viewer slowing it down abit to reduce flicker
             if (updateRAMViewFlag || Frames % 10000 == 0)
             {
-               // UpdateRamView();
+                // UpdateRamView();
                 updateRAMViewFlag = false;
             }
 
@@ -174,6 +168,12 @@ namespace SAPEmulator
             }
             Frames++;
         }
+        AppCode.Visual.DoubleEndedArrow.Direction GetArrowDirection(Register Reg,bool flipped=false)
+        {
+
+            return (AppCode.Visual.DoubleEndedArrow.Direction) ((Reg.Load ? 1 : 0) << (flipped?0:1) | ((Reg.Enable ? 1 : 0)<< (flipped ? 1 : 0)));
+
+        }
         Color GetGroupColour(Register Reg, bool AlwaysEnabled = false) { return (!AlwaysEnabled && Reg.Enable) ? Color.DarkGreen : Reg.Load ? Color.Red : Color.Black; }
         public void UpdateRamView()
         {
@@ -182,11 +182,11 @@ namespace SAPEmulator
             for (int i = 0; i < 4096; i++)
             {
                 string line = $"{(i * 16).ToString("X4")}  ";
-                for (int j = 0; j < 16; j++) line += $"{Computer.RAM.MEM[(i * 16) + j].ToString("X2")}{(j==8?"  ":" ")}";
+                for (int j = 0; j < 16; j++) line += $"{Computer.RAM.MEM[(i * 16) + j].ToString("X2")}{(j == 7 ? "  " : " ")}";
 
                 line += '|';
 
-                for (int j = 0; j < 16; j++) line += $"{(isPrintable( (char) Computer.RAM.MEM[(i * 16) + j])? (char)Computer.RAM.MEM[(i * 16) + j]: '.')}";
+                for (int j = 0; j < 16; j++) line += $"{(isPrintable((char)Computer.RAM.MEM[(i * 16) + j]) ? (char)Computer.RAM.MEM[(i * 16) + j] : '.')}";
                 line += '|';
                 RAMView.Items.Add(line);
             }
@@ -195,7 +195,7 @@ namespace SAPEmulator
         }
 
         bool isPrintable(char ch)
-        {            
+        {
             return !(ch < 0x20 || ch > 126);
         }
 
@@ -231,7 +231,7 @@ namespace SAPEmulator
         }
         private void ResetBtn_Click(object sender, EventArgs e) { Computer.Reset(); }
 
-        private void WipeRAMBtn_Click(object sender, EventArgs e) { for (int i = 0; i < 64*1024; i++) Computer.RAM.MEM[i] = 0xFF; UpdateRamView(); }
+        private void WipeRAMBtn_Click(object sender, EventArgs e) { for (int i = 0; i < 64 * 1024; i++) Computer.RAM.MEM[i] = 0xFF; UpdateRamView(); }
         private void RandomizeRAMBtn_Click(object sender, EventArgs e) { Utilities.RadomizeArray(Computer.RAM.MEM); UpdateRamView(); }
 
         private void ScreenUpdateTimer_Tick(object sender, EventArgs e)
@@ -259,7 +259,7 @@ namespace SAPEmulator
 
         private void PCOutBtn_Click(object sender, EventArgs e) { Computer.PC.Enable = BtnClick(sender, Computer.PC.Enable); }
         private void PCInBtn_Click(object sender, EventArgs e) { Computer.PC.Load = BtnClick(sender, Computer.PC.Load); }
-        private void PCEnBtn_Click(object sender, EventArgs e) { Computer.PC.Count = BtnClick(sender, Computer.PC.Count); }        
+        private void PCEnBtn_Click(object sender, EventArgs e) { Computer.PC.Count = BtnClick(sender, Computer.PC.Count); }
         private void MARLoadBtn_Click(object sender, EventArgs e) { Computer.MAR.Load = BtnClick(sender, Computer.MAR.Load); }
 
         private void MDRLoadBtn_Click(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace SAPEmulator
         }
         private void RAMLoadBtn_Click(object sender, EventArgs e)
         {
-            Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load);        
+            Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load);
         }
 
         private void ShiftMDRBtn_Click(object sender, EventArgs e)
@@ -311,6 +311,18 @@ namespace SAPEmulator
 
         }
 
+        private void LoadSampleBtn_Click(object sender, EventArgs e)
+        {
+
+            //for (int i = 0; i < 64 * 1024; i++) Computer.RAM.MEM[i] = 0xFF;
+
+            byte[] prog = { 0x3E, 0x00, 0xD3, 0x00, 0x3C, 0xFA, 0x0B, 0x00, 0xC3, 0x02, 0x00, 0x3D, 0xD3, 0x00, 0xCA, 0x02, 0x00, 0xC3, 0x0B, 0x00 };
+
+            for (int i = 0; i < prog.Length; i++)
+                Computer.RAM.MEM[i] = prog[i];
+            UpdateRamView();
+        }
+            
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)
         {
 

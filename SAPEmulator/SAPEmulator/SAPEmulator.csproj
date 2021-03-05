@@ -93,6 +93,12 @@
     <Compile Include="SAP2_Modules\SAP2_8Bit.cs" />
     <Compile Include="SAP2_Modules\SRAM.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Visual\DoubleEndedArrow .cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Visual\DoubleEndedArrow .Designer.cs">
+      <DependentUpon>DoubleEndedArrow .cs</DependentUpon>
+    </Compile>
     <Compile Include="Visual\Arrow.cs">
       <SubType>UserControl</SubType>
     </Compile>

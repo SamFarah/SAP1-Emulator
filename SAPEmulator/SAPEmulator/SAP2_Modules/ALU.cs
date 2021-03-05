@@ -37,6 +37,7 @@ namespace SAP2Modules
         public bool CarryIn { get; set; } //Ability to take exteranl Carry in
         public bool CarryOut { get { return AluResult > 255; } } //Active if result of operation caused an overflow
         public bool IsZero { get { return (AluResult & 0xFF) == 0; } } //Active if result of operation is zero     
+        public bool WithCarry { get; set; }
 
 
         public bool M { get; set; }// Mode Select (LOGIC = true | ARITHMETIC = false)
@@ -61,10 +62,10 @@ namespace SAP2Modules
         |   0x8    |   1   0   0   0  |  F = ~A | B     |   F = A + (A & B) + CarryIn        | 
         |   0x9    |   1   0   0   1  |  F = ~(A ^ B)   |   F = A + B + CarryIn              | 
         |   0xA    |   1   0   1   0  |  F = B          |   F = (A | ~B) + (A & B) + CarryIn | 
-        |   0xB    |   1   0   1   1  |  F = (A & B)    |   F = (A & B) - 1 + CarryIn        | 
+        |   0xB    |   1   0   1   1  |  F = A & B      |   F = (A & B) - 1 + CarryIn        | 
         |   0xC    |   1   1   0   0  |  F = 1          |   F = A + A + CarryIn              | 
-        |   0xD    |   1   1   0   1  |  F = (A | ~B)   |   F = (A | B) + A + CarryIn        | 
-        |   0xE    |   1   1   1   0  |  F = (A | B)    |   F = (A | ~B) + A + CarryIn       | 
+        |   0xD    |   1   1   0   1  |  F = A | ~B     |   F = (A | B) + A + CarryIn        | 
+        |   0xE    |   1   1   1   0  |  F = A | B      |   F = (A | ~B) + A + CarryIn       | 
         |   0xF    |   1   1   1   1  |  F = A          |   F = A - 1 + CarryIn              | 
         +----------+------------------+-----------------+------------------------------------+                                  
 
@@ -109,7 +110,7 @@ namespace SAP2Modules
                         case 0x3: AluResult = (UInt16)(-1 + CI); break;
                         case 0x4: AluResult = (UInt16)(A.Data + (A.Data & ~B.Data) + CI); break;
                         case 0x5: AluResult = (UInt16)((A.Data | B.Data) + (A.Data & ~B.Data) + CI); break;
-                        case 0x6: AluResult = (UInt16)(B.Data + ~A.Data  + CI); break; //should be the other way around but for now makes things easier
+                        case 0x6: AluResult = (UInt16)(A.Data + (byte)~B.Data  + CI); break;
                         case 0x7: AluResult = (UInt16)((A.Data  & ~B.Data ) - 1 + CI); break;
                         case 0x8: AluResult = (UInt16)(A.Data + (A.Data & B.Data) + CI); break;
                         case 0x9: AluResult = (UInt16)(A.Data  + B.Data  + CI); break;
@@ -123,6 +124,7 @@ namespace SAP2Modules
                 }
                 //Op1 + (If subtract then take 2's compt of Op2, else Op2) + add carry if it's set
                 //AluResult = (UInt32)(A.Data + (Subtract ? (UInt16)(~B.Data + 0x0001) : B.Data) + (UInt16)(CarryIn ? 1 : 0));
+                if (WithCarry) AluResult += (byte)(AluResult > 255 ? 1 : 0);
                 return (UInt16)(AluResult & 0xFF);
             }
         }

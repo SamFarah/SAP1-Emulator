@@ -19,8 +19,8 @@ namespace SAP2Modules
         public Register Output2 { get; set; }        // Output 1 Register
         public Buffer MDR { get; set; }           // MEMORY DATA REGISTER
 
-        public Register Input1 { get; set; }        // Output 2 Register Connected to display
-        public Register Input2 { get; set; }        // Output 1 Register
+        public Register Input1 { get; set; }        // 
+        public Register Input2 { get; set; }        // 
 
         public ALU Alu { get; set; }                // Adder / Subtracter 
         public SRAM RAM { get; set; }               // Random Access Memory
@@ -72,8 +72,7 @@ namespace SAP2Modules
                 Clock.Halt = value.HLT;
                 MAR.Load = value.MI;
                 RAM.Load = value.RI;
-                RAM.Enable = value.RO;
-                IR.Enable = value.IO;
+                RAM.Enable = value.RO;                
                 IR.Load = value.II;
                 A.Load = value.AI;
                 A.Enable = value.AO;
@@ -91,11 +90,11 @@ namespace SAP2Modules
                 MDR.Load = value.MDI;
                 MDR.Enable = value.MDO;
                 MDR.Shift = value.MDS;
-                Temp.Load = value.TI;
-                Temp.Enable = value.TO;
+                Temp.Load = value.TI;                
                 B.Enable = value.BO;
                 C.Enable = value.CO;
                 C.Load = value.CI;
+                Alu.WithCarry = value.AC;
             }
 
             // Create control word (for display purposes) from device control signals

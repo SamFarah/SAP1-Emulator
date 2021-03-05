@@ -26,7 +26,7 @@ namespace SAPEmulator.AppCode.Visual
         [Category("Appearance"), Description("The length of the arrow leg (excluding the cap)"), Editor("ArrowLength", typeof(int))]
         public int ArrowLength { get; set; }
 
-        [Category("Appearance"), Description("The number to appear in the cap of the arrpw"), Editor("CapNumber", typeof(char))]
+        [Category("Appearance"), Description("The number to appear in the cap of the arrow"), Editor("CapNumber", typeof(char))]
         public char CapNumber { get; set; }
 
         [Category("Appearance"), Description("The color of the border when the arrow is highlighted"), Editor("OnColorBorder", typeof(Color))]
