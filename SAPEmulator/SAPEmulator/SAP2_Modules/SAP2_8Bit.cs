@@ -78,11 +78,13 @@ namespace SAP2Modules
                 A.Load = value.AI;
                 A.Enable = value.AO;
                 Alu.Enable = value.SO;
-                Alu.Subtract = value.SUB;
+                Alu.M = value.M;
+                Alu.ModeSelect = (ALU.ModeSelectField)value.ALUModeSelect;
+                Alu.CarryIn = value.CRI;
                 B.Load = value.BI;
                 Output1.Load = value.OI;
                 PC.Count = value.CE;
-                PC.Enable = value.CO;
+                PC.Enable = value.PCO;
                 PC.Load = value.JMP;
                 Flags.Load = value.FI;
                 CL.StepCounter.sReset = value.RT;
@@ -92,6 +94,8 @@ namespace SAP2Modules
                 Temp.Load = value.TI;
                 Temp.Enable = value.TO;
                 B.Enable = value.BO;
+                C.Enable = value.CO;
+                C.Load = value.CI;
             }
 
             // Create control word (for display purposes) from device control signals

@@ -14,9 +14,14 @@ namespace SAP2Modules
         public Buffer(UInt16 maskIn = 0xFFFF, UInt16 maskOut = 0xFFFF) : base(maskIn, maskOut) { }
 
 
-        public override void SetData(UInt16 data) {
-            if (Shift) data = (UInt16)(data << 8);
-            if (Load) Data |= (UInt16)(data & MaskIn);
+        public override void SetData(UInt16 data)
+        {
+            if (Load)
+            {
+                if (Shift) Data |= (UInt16)(data << 8);
+                else Data = (UInt16)(data & MaskIn);
+
+            }
         }
 
     }

@@ -69,7 +69,6 @@
             this.ARegGroup = new System.Windows.Forms.GroupBox();
             this.SumGroup = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.CarryInCB = new System.Windows.Forms.CheckBox();
             this.FlagsGroup = new System.Windows.Forms.GroupBox();
             this.BRegGroup = new System.Windows.Forms.GroupBox();
             this.OutputGroup = new System.Windows.Forms.GroupBox();
@@ -81,23 +80,21 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ScreenUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.PCOutBtn = new System.Windows.Forms.Button();
-            this.PCInBtn = new System.Windows.Forms.Button();
-            this.PCEnBtn = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.TempRegValLbl = new System.Windows.Forms.Label();
-            this.MARLoadBtn = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.MDRRegValLbl = new System.Windows.Forms.Label();
-            this.MDRLoadBtn = new System.Windows.Forms.Button();
-            this.RAMEnableBtn = new System.Windows.Forms.Button();
-            this.ShiftMDRBtn = new System.Windows.Forms.Button();
-            this.MDREnableBtn = new System.Windows.Forms.Button();
-            this.InstEnableBtn = new System.Windows.Forms.Button();
-            this.InstLoadBtn = new System.Windows.Forms.Button();
-            this.RamLoadBtn = new System.Windows.Forms.Button();
-            this.ResetStepCounter = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.CRegGroup = new System.Windows.Forms.GroupBox();
+            this.CRegValLbl = new System.Windows.Forms.Label();
+            this.CRegLEDDisplay = new SAPEmulator.AppCode.Visual.LEDDisplay();
+            this.led181 = new SAPEmulator.AppCode.Visual.LED();
+            this.led182 = new SAPEmulator.AppCode.Visual.LED();
+            this.led183 = new SAPEmulator.AppCode.Visual.LED();
+            this.led184 = new SAPEmulator.AppCode.Visual.LED();
+            this.led185 = new SAPEmulator.AppCode.Visual.LED();
+            this.led186 = new SAPEmulator.AppCode.Visual.LED();
+            this.led187 = new SAPEmulator.AppCode.Visual.LED();
+            this.led188 = new SAPEmulator.AppCode.Visual.LED();
             this.BRegArrowOut = new SAPEmulator.AppCode.Visual.Arrow();
             this.TempRegArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
             this.MDRArrowOut = new SAPEmulator.AppCode.Visual.Arrow();
@@ -205,6 +202,9 @@
             this.led123 = new SAPEmulator.AppCode.Visual.LED();
             this.led124 = new SAPEmulator.AppCode.Visual.LED();
             this.led125 = new SAPEmulator.AppCode.Visual.LED();
+            this.rLabel41 = new SAPEmulator.AppCode.Visual.RLabel();
+            this.rLabel35 = new SAPEmulator.AppCode.Visual.RLabel();
+            this.rLabel10 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel26 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel27 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel28 = new SAPEmulator.AppCode.Visual.RLabel();
@@ -214,13 +214,11 @@
             this.rLabel32 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel33 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel34 = new SAPEmulator.AppCode.Visual.RLabel();
-            this.rLabel35 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel36 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel37 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel38 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel39 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel40 = new SAPEmulator.AppCode.Visual.RLabel();
-            this.rLabel41 = new SAPEmulator.AppCode.Visual.RLabel();
             this.StatusLEDDsiaply2 = new SAPEmulator.AppCode.Visual.LEDDisplay();
             this.led150 = new SAPEmulator.AppCode.Visual.LED();
             this.led151 = new SAPEmulator.AppCode.Visual.LED();
@@ -264,7 +262,6 @@
             this.rLabel7 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel8 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel9 = new SAPEmulator.AppCode.Visual.RLabel();
-            this.rLabel10 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel25 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel12 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel11 = new SAPEmulator.AppCode.Visual.RLabel();
@@ -294,7 +291,17 @@
             this.led93 = new SAPEmulator.AppCode.Visual.LED();
             this.rLabel24 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel23 = new SAPEmulator.AppCode.Visual.RLabel();
-            this.SubLED = new SAPEmulator.AppCode.Visual.LED();
+            this.ALUModeSelect = new SAPEmulator.AppCode.Visual.LEDDisplay();
+            this.led189 = new SAPEmulator.AppCode.Visual.LED();
+            this.led190 = new SAPEmulator.AppCode.Visual.LED();
+            this.led191 = new SAPEmulator.AppCode.Visual.LED();
+            this.led192 = new SAPEmulator.AppCode.Visual.LED();
+            this.led194 = new SAPEmulator.AppCode.Visual.LED();
+            this.rLabel42 = new SAPEmulator.AppCode.Visual.RLabel();
+            this.rLabel43 = new SAPEmulator.AppCode.Visual.RLabel();
+            this.CarryInLED = new SAPEmulator.AppCode.Visual.LED();
+            this.rLabel44 = new SAPEmulator.AppCode.Visual.RLabel();
+            this.rLabel45 = new SAPEmulator.AppCode.Visual.RLabel();
             this.SumRegLEDDisplay = new SAPEmulator.AppCode.Visual.LEDDisplay();
             this.led35 = new SAPEmulator.AppCode.Visual.LED();
             this.led36 = new SAPEmulator.AppCode.Visual.LED();
@@ -304,6 +311,7 @@
             this.led40 = new SAPEmulator.AppCode.Visual.LED();
             this.led41 = new SAPEmulator.AppCode.Visual.LED();
             this.led42 = new SAPEmulator.AppCode.Visual.LED();
+            this.rLabel46 = new SAPEmulator.AppCode.Visual.RLabel();
             this.rLabel22 = new SAPEmulator.AppCode.Visual.RLabel();
             this.SumFlagsLEDDisplay = new SAPEmulator.AppCode.Visual.LEDDisplay();
             this.led90 = new SAPEmulator.AppCode.Visual.LED();
@@ -355,6 +363,7 @@
             this.led105 = new SAPEmulator.AppCode.Visual.LED();
             this.ClkLed = new SAPEmulator.AppCode.Visual.LED();
             this.led2 = new SAPEmulator.AppCode.Visual.LED();
+            this.led193 = new SAPEmulator.AppCode.Visual.LED();
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyAdjust)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -375,6 +384,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.CRegGroup.SuspendLayout();
+            this.CRegLEDDisplay.SuspendLayout();
             this.MDRLEDDisplay.SuspendLayout();
             this.TempRegLEDDisplay.SuspendLayout();
             this.CLDecodedLEDDisplay.SuspendLayout();
@@ -387,6 +398,7 @@
             this.OutputRegLEDDisplay.SuspendLayout();
             this.BRegLEDDisplay.SuspendLayout();
             this.FlagRegLEDDisplay.SuspendLayout();
+            this.ALUModeSelect.SuspendLayout();
             this.SumRegLEDDisplay.SuspendLayout();
             this.SumFlagsLEDDisplay.SuspendLayout();
             this.ARegLEDDisplay.SuspendLayout();
@@ -791,17 +803,22 @@
             // 
             // SumGroup
             // 
+            this.SumGroup.Controls.Add(this.ALUModeSelect);
+            this.SumGroup.Controls.Add(this.rLabel42);
+            this.SumGroup.Controls.Add(this.rLabel43);
+            this.SumGroup.Controls.Add(this.CarryInLED);
+            this.SumGroup.Controls.Add(this.rLabel44);
             this.SumGroup.Controls.Add(this.label2);
-            this.SumGroup.Controls.Add(this.SubLED);
-            this.SumGroup.Controls.Add(this.CarryInCB);
+            this.SumGroup.Controls.Add(this.rLabel45);
             this.SumGroup.Controls.Add(this.SumRegLEDDisplay);
+            this.SumGroup.Controls.Add(this.rLabel46);
             this.SumGroup.Controls.Add(this.SumRegValLbl);
             this.SumGroup.Controls.Add(this.rLabel22);
             this.SumGroup.Controls.Add(this.SumFlagsLEDDisplay);
             this.SumGroup.Controls.Add(this.rLabel20);
             this.SumGroup.Location = new System.Drawing.Point(652, 173);
             this.SumGroup.Name = "SumGroup";
-            this.SumGroup.Size = new System.Drawing.Size(157, 77);
+            this.SumGroup.Size = new System.Drawing.Size(322, 77);
             this.SumGroup.TabIndex = 127;
             this.SumGroup.TabStop = false;
             this.SumGroup.Text = "Sum Register";
@@ -811,29 +828,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(129, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 72;
-            this.label2.Text = "Sub";
-            // 
-            // CarryInCB
-            // 
-            this.CarryInCB.AutoSize = true;
-            this.CarryInCB.Location = new System.Drawing.Point(56, 47);
-            this.CarryInCB.Name = "CarryInCB";
-            this.CarryInCB.Size = new System.Drawing.Size(62, 17);
-            this.CarryInCB.TabIndex = 130;
-            this.CarryInCB.Text = "Carry In";
-            this.CarryInCB.UseVisualStyleBackColor = true;
-            this.CarryInCB.CheckedChanged += new System.EventHandler(this.CarryInCB_CheckedChanged);
+            this.label2.Text = "CarryIn";
             // 
             // FlagsGroup
             // 
             this.FlagsGroup.Controls.Add(this.FlagRegLEDDisplay);
             this.FlagsGroup.Controls.Add(this.rLabel24);
             this.FlagsGroup.Controls.Add(this.rLabel23);
-            this.FlagsGroup.Location = new System.Drawing.Point(817, 176);
+            this.FlagsGroup.Location = new System.Drawing.Point(980, 173);
             this.FlagsGroup.Name = "FlagsGroup";
-            this.FlagsGroup.Size = new System.Drawing.Size(53, 74);
+            this.FlagsGroup.Size = new System.Drawing.Size(53, 77);
             this.FlagsGroup.TabIndex = 128;
             this.FlagsGroup.TabStop = false;
             this.FlagsGroup.Text = "Flags";
@@ -865,6 +871,9 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.rLabel41);
+            this.groupBox12.Controls.Add(this.rLabel35);
+            this.groupBox12.Controls.Add(this.rLabel10);
             this.groupBox12.Controls.Add(this.rLabel26);
             this.groupBox12.Controls.Add(this.rLabel27);
             this.groupBox12.Controls.Add(this.rLabel28);
@@ -874,13 +883,11 @@
             this.groupBox12.Controls.Add(this.rLabel32);
             this.groupBox12.Controls.Add(this.rLabel33);
             this.groupBox12.Controls.Add(this.rLabel34);
-            this.groupBox12.Controls.Add(this.rLabel35);
             this.groupBox12.Controls.Add(this.rLabel36);
             this.groupBox12.Controls.Add(this.rLabel37);
             this.groupBox12.Controls.Add(this.rLabel38);
             this.groupBox12.Controls.Add(this.rLabel39);
             this.groupBox12.Controls.Add(this.rLabel40);
-            this.groupBox12.Controls.Add(this.rLabel41);
             this.groupBox12.Controls.Add(this.StatusLEDDsiaply2);
             this.groupBox12.Controls.Add(this.StatusLEDDsiaply1);
             this.groupBox12.Controls.Add(this.rLabel1);
@@ -892,7 +899,6 @@
             this.groupBox12.Controls.Add(this.rLabel7);
             this.groupBox12.Controls.Add(this.rLabel8);
             this.groupBox12.Controls.Add(this.rLabel9);
-            this.groupBox12.Controls.Add(this.rLabel10);
             this.groupBox12.Controls.Add(this.rLabel25);
             this.groupBox12.Controls.Add(this.rLabel12);
             this.groupBox12.Controls.Add(this.rLabel11);
@@ -982,36 +988,6 @@
             this.ScreenUpdateTimer.Interval = 1;
             this.ScreenUpdateTimer.Tick += new System.EventHandler(this.ScreenUpdateTimer_Tick);
             // 
-            // PCOutBtn
-            // 
-            this.PCOutBtn.Location = new System.Drawing.Point(1061, 84);
-            this.PCOutBtn.Name = "PCOutBtn";
-            this.PCOutBtn.Size = new System.Drawing.Size(75, 23);
-            this.PCOutBtn.TabIndex = 152;
-            this.PCOutBtn.Text = "Put on Bus";
-            this.PCOutBtn.UseVisualStyleBackColor = true;
-            this.PCOutBtn.Click += new System.EventHandler(this.PCOutBtn_Click);
-            // 
-            // PCInBtn
-            // 
-            this.PCInBtn.Location = new System.Drawing.Point(1142, 85);
-            this.PCInBtn.Name = "PCInBtn";
-            this.PCInBtn.Size = new System.Drawing.Size(98, 23);
-            this.PCInBtn.TabIndex = 153;
-            this.PCInBtn.Text = "Load From Bus";
-            this.PCInBtn.UseVisualStyleBackColor = true;
-            this.PCInBtn.Click += new System.EventHandler(this.PCInBtn_Click);
-            // 
-            // PCEnBtn
-            // 
-            this.PCEnBtn.Location = new System.Drawing.Point(1246, 84);
-            this.PCEnBtn.Name = "PCEnBtn";
-            this.PCEnBtn.Size = new System.Drawing.Size(75, 23);
-            this.PCEnBtn.TabIndex = 154;
-            this.PCEnBtn.Text = "Count";
-            this.PCEnBtn.UseVisualStyleBackColor = true;
-            this.PCEnBtn.Click += new System.EventHandler(this.PCEnBtn_Click);
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.TempRegLEDDisplay);
@@ -1031,16 +1007,6 @@
             this.TempRegValLbl.Size = new System.Drawing.Size(29, 13);
             this.TempRegValLbl.TabIndex = 30;
             this.TempRegValLbl.Text = "AVal";
-            // 
-            // MARLoadBtn
-            // 
-            this.MARLoadBtn.Location = new System.Drawing.Point(111, 134);
-            this.MARLoadBtn.Name = "MARLoadBtn";
-            this.MARLoadBtn.Size = new System.Drawing.Size(93, 23);
-            this.MARLoadBtn.TabIndex = 156;
-            this.MARLoadBtn.Text = "Load from Bus";
-            this.MARLoadBtn.UseVisualStyleBackColor = true;
-            this.MARLoadBtn.Click += new System.EventHandler(this.MARLoadBtn_Click);
             // 
             // groupBox7
             // 
@@ -1062,95 +1028,114 @@
             this.MDRRegValLbl.TabIndex = 48;
             this.MDRRegValLbl.Text = "Rval";
             // 
-            // MDRLoadBtn
+            // CRegGroup
             // 
-            this.MDRLoadBtn.Location = new System.Drawing.Point(30, 360);
-            this.MDRLoadBtn.Name = "MDRLoadBtn";
-            this.MDRLoadBtn.Size = new System.Drawing.Size(93, 23);
-            this.MDRLoadBtn.TabIndex = 158;
-            this.MDRLoadBtn.Text = "Load from Bus";
-            this.MDRLoadBtn.UseVisualStyleBackColor = true;
-            this.MDRLoadBtn.Click += new System.EventHandler(this.MDRLoadBtn_Click);
+            this.CRegGroup.Controls.Add(this.CRegValLbl);
+            this.CRegGroup.Controls.Add(this.CRegLEDDisplay);
+            this.CRegGroup.Location = new System.Drawing.Point(1151, 144);
+            this.CRegGroup.Name = "CRegGroup";
+            this.CRegGroup.Size = new System.Drawing.Size(157, 45);
+            this.CRegGroup.TabIndex = 130;
+            this.CRegGroup.TabStop = false;
+            this.CRegGroup.Text = "\"C\" Register";
             // 
-            // RAMEnableBtn
+            // CRegValLbl
             // 
-            this.RAMEnableBtn.Location = new System.Drawing.Point(230, 190);
-            this.RAMEnableBtn.Name = "RAMEnableBtn";
-            this.RAMEnableBtn.Size = new System.Drawing.Size(75, 23);
-            this.RAMEnableBtn.TabIndex = 159;
-            this.RAMEnableBtn.Text = "Put on Bus";
-            this.RAMEnableBtn.UseVisualStyleBackColor = true;
-            this.RAMEnableBtn.Click += new System.EventHandler(this.RAMEnableBtn_Click);
+            this.CRegValLbl.AutoSize = true;
+            this.CRegValLbl.Location = new System.Drawing.Point(119, 22);
+            this.CRegValLbl.Name = "CRegValLbl";
+            this.CRegValLbl.Size = new System.Drawing.Size(29, 13);
+            this.CRegValLbl.TabIndex = 32;
+            this.CRegValLbl.Text = "CVal";
             // 
-            // ShiftMDRBtn
+            // CRegLEDDisplay
             // 
-            this.ShiftMDRBtn.Location = new System.Drawing.Point(11, 334);
-            this.ShiftMDRBtn.Name = "ShiftMDRBtn";
-            this.ShiftMDRBtn.Size = new System.Drawing.Size(40, 23);
-            this.ShiftMDRBtn.TabIndex = 160;
-            this.ShiftMDRBtn.Text = "Shift";
-            this.ShiftMDRBtn.UseVisualStyleBackColor = true;
-            this.ShiftMDRBtn.Click += new System.EventHandler(this.ShiftMDRBtn_Click);
+            this.CRegLEDDisplay.Controls.Add(this.led181);
+            this.CRegLEDDisplay.Controls.Add(this.led182);
+            this.CRegLEDDisplay.Controls.Add(this.led183);
+            this.CRegLEDDisplay.Controls.Add(this.led184);
+            this.CRegLEDDisplay.Controls.Add(this.led185);
+            this.CRegLEDDisplay.Controls.Add(this.led186);
+            this.CRegLEDDisplay.Controls.Add(this.led187);
+            this.CRegLEDDisplay.Controls.Add(this.led188);
+            this.CRegLEDDisplay.LEDs.Add(this.led181);
+            this.CRegLEDDisplay.LEDs.Add(this.led182);
+            this.CRegLEDDisplay.LEDs.Add(this.led183);
+            this.CRegLEDDisplay.LEDs.Add(this.led184);
+            this.CRegLEDDisplay.LEDs.Add(this.led185);
+            this.CRegLEDDisplay.LEDs.Add(this.led186);
+            this.CRegLEDDisplay.LEDs.Add(this.led187);
+            this.CRegLEDDisplay.LEDs.Add(this.led188);
+            this.CRegLEDDisplay.LEDSpacing = 2;
+            this.CRegLEDDisplay.Location = new System.Drawing.Point(9, 19);
+            this.CRegLEDDisplay.Name = "CRegLEDDisplay";
+            this.CRegLEDDisplay.NibbleSpacing = 2;
+            this.CRegLEDDisplay.Size = new System.Drawing.Size(104, 16);
+            this.CRegLEDDisplay.TabIndex = 17;
             // 
-            // MDREnableBtn
+            // led181
             // 
-            this.MDREnableBtn.Location = new System.Drawing.Point(129, 360);
-            this.MDREnableBtn.Name = "MDREnableBtn";
-            this.MDREnableBtn.Size = new System.Drawing.Size(75, 23);
-            this.MDREnableBtn.TabIndex = 161;
-            this.MDREnableBtn.Text = "Put on Bus";
-            this.MDREnableBtn.UseVisualStyleBackColor = true;
-            this.MDREnableBtn.Click += new System.EventHandler(this.MDREnableBtn_Click);
+            this.led181.LEDColor = System.Drawing.Color.Red;
+            this.led181.Location = new System.Drawing.Point(3, 3);
+            this.led181.Name = "led181";
+            this.led181.Size = new System.Drawing.Size(11, 11);
+            this.led181.TabIndex = 0;
             // 
-            // InstEnableBtn
+            // led182
             // 
-            this.InstEnableBtn.Location = new System.Drawing.Point(228, 243);
-            this.InstEnableBtn.Name = "InstEnableBtn";
-            this.InstEnableBtn.Size = new System.Drawing.Size(75, 23);
-            this.InstEnableBtn.TabIndex = 164;
-            this.InstEnableBtn.Text = "Put on Bus";
-            this.InstEnableBtn.UseVisualStyleBackColor = true;
-            this.InstEnableBtn.Click += new System.EventHandler(this.InstEnableBtn_Click);
+            this.led182.LEDColor = System.Drawing.Color.Red;
+            this.led182.Location = new System.Drawing.Point(15, 3);
+            this.led182.Name = "led182";
+            this.led182.Size = new System.Drawing.Size(11, 11);
+            this.led182.TabIndex = 1;
             // 
-            // InstLoadBtn
+            // led183
             // 
-            this.InstLoadBtn.Location = new System.Drawing.Point(129, 243);
-            this.InstLoadBtn.Name = "InstLoadBtn";
-            this.InstLoadBtn.Size = new System.Drawing.Size(93, 23);
-            this.InstLoadBtn.TabIndex = 163;
-            this.InstLoadBtn.Text = "Load from Bus";
-            this.InstLoadBtn.UseVisualStyleBackColor = true;
-            this.InstLoadBtn.Click += new System.EventHandler(this.InstLoadBtn_Click);
+            this.led183.LEDColor = System.Drawing.Color.Red;
+            this.led183.Location = new System.Drawing.Point(27, 3);
+            this.led183.Name = "led183";
+            this.led183.Size = new System.Drawing.Size(11, 11);
+            this.led183.TabIndex = 2;
             // 
-            // RamLoadBtn
+            // led184
             // 
-            this.RamLoadBtn.Location = new System.Drawing.Point(131, 191);
-            this.RamLoadBtn.Name = "RamLoadBtn";
-            this.RamLoadBtn.Size = new System.Drawing.Size(93, 23);
-            this.RamLoadBtn.TabIndex = 165;
-            this.RamLoadBtn.Text = "Load from Bus";
-            this.RamLoadBtn.UseVisualStyleBackColor = true;
-            this.RamLoadBtn.Click += new System.EventHandler(this.RAMLoadBtn_Click);
+            this.led184.LEDColor = System.Drawing.Color.Red;
+            this.led184.Location = new System.Drawing.Point(39, 3);
+            this.led184.Name = "led184";
+            this.led184.Size = new System.Drawing.Size(11, 11);
+            this.led184.TabIndex = 3;
             // 
-            // ResetStepCounter
+            // led185
             // 
-            this.ResetStepCounter.Location = new System.Drawing.Point(11, 295);
-            this.ResetStepCounter.Name = "ResetStepCounter";
-            this.ResetStepCounter.Size = new System.Drawing.Size(76, 23);
-            this.ResetStepCounter.TabIndex = 166;
-            this.ResetStepCounter.Text = "Reset";
-            this.ResetStepCounter.UseVisualStyleBackColor = true;
-            this.ResetStepCounter.Click += new System.EventHandler(this.ResetStepCounter_Click);
+            this.led185.LEDColor = System.Drawing.Color.Red;
+            this.led185.Location = new System.Drawing.Point(53, 3);
+            this.led185.Name = "led185";
+            this.led185.Size = new System.Drawing.Size(11, 11);
+            this.led185.TabIndex = 4;
             // 
-            // button1
+            // led186
             // 
-            this.button1.Location = new System.Drawing.Point(756, 580);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 167;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.led186.LEDColor = System.Drawing.Color.Red;
+            this.led186.Location = new System.Drawing.Point(65, 3);
+            this.led186.Name = "led186";
+            this.led186.Size = new System.Drawing.Size(11, 11);
+            this.led186.TabIndex = 5;
+            // 
+            // led187
+            // 
+            this.led187.LEDColor = System.Drawing.Color.Red;
+            this.led187.Location = new System.Drawing.Point(77, 3);
+            this.led187.Name = "led187";
+            this.led187.Size = new System.Drawing.Size(11, 11);
+            this.led187.TabIndex = 6;
+            // 
+            // led188
+            // 
+            this.led188.LEDColor = System.Drawing.Color.Red;
+            this.led188.Location = new System.Drawing.Point(89, 3);
+            this.led188.Name = "led188";
+            this.led188.Size = new System.Drawing.Size(11, 11);
+            this.led188.TabIndex = 7;
             // 
             // BRegArrowOut
             // 
@@ -2284,6 +2269,39 @@
             this.led125.Size = new System.Drawing.Size(11, 11);
             this.led125.TabIndex = 15;
             // 
+            // rLabel41
+            // 
+            this.rLabel41.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel41.Location = new System.Drawing.Point(207, 92);
+            this.rLabel41.Name = "rLabel41";
+            this.rLabel41.RotationAngle = 90D;
+            this.rLabel41.Size = new System.Drawing.Size(14, 16);
+            this.rLabel41.TabIndex = 142;
+            this.rLabel41.Text = "..";
+            this.rLabel41.TopLine = false;
+            // 
+            // rLabel35
+            // 
+            this.rLabel35.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel35.Location = new System.Drawing.Point(136, 92);
+            this.rLabel35.Name = "rLabel35";
+            this.rLabel35.RotationAngle = 90D;
+            this.rLabel35.Size = new System.Drawing.Size(14, 16);
+            this.rLabel35.TabIndex = 141;
+            this.rLabel35.Text = "S3";
+            this.rLabel35.TopLine = false;
+            // 
+            // rLabel10
+            // 
+            this.rLabel10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel10.Location = new System.Drawing.Point(132, 27);
+            this.rLabel10.Name = "rLabel10";
+            this.rLabel10.RotationAngle = 90D;
+            this.rLabel10.Size = new System.Drawing.Size(14, 16);
+            this.rLabel10.TabIndex = 140;
+            this.rLabel10.Text = "BO";
+            this.rLabel10.TopLine = false;
+            // 
             // rLabel26
             // 
             this.rLabel26.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2358,7 +2376,7 @@
             this.rLabel32.RotationAngle = 90D;
             this.rLabel32.Size = new System.Drawing.Size(14, 16);
             this.rLabel32.TabIndex = 129;
-            this.rLabel32.Text = "BO";
+            this.rLabel32.Text = "CO";
             this.rLabel32.TopLine = false;
             // 
             // rLabel33
@@ -2369,7 +2387,7 @@
             this.rLabel33.RotationAngle = 90D;
             this.rLabel33.Size = new System.Drawing.Size(14, 16);
             this.rLabel33.TabIndex = 130;
-            this.rLabel33.Text = "..";
+            this.rLabel33.Text = "CI";
             this.rLabel33.TopLine = false;
             // 
             // rLabel34
@@ -2380,19 +2398,8 @@
             this.rLabel34.RotationAngle = 90D;
             this.rLabel34.Size = new System.Drawing.Size(14, 16);
             this.rLabel34.TabIndex = 131;
-            this.rLabel34.Text = "..";
+            this.rLabel34.Text = " M";
             this.rLabel34.TopLine = false;
-            // 
-            // rLabel35
-            // 
-            this.rLabel35.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel35.Location = new System.Drawing.Point(135, 84);
-            this.rLabel35.Name = "rLabel35";
-            this.rLabel35.RotationAngle = 90D;
-            this.rLabel35.Size = new System.Drawing.Size(14, 25);
-            this.rLabel35.TabIndex = 132;
-            this.rLabel35.Text = "..";
-            this.rLabel35.TopLine = false;
             // 
             // rLabel36
             // 
@@ -2413,52 +2420,41 @@
             this.rLabel37.RotationAngle = 90D;
             this.rLabel37.Size = new System.Drawing.Size(14, 16);
             this.rLabel37.TabIndex = 133;
-            this.rLabel37.Text = "..";
+            this.rLabel37.Text = "S2";
             this.rLabel37.TopLine = false;
             // 
             // rLabel38
             // 
             this.rLabel38.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel38.Location = new System.Drawing.Point(163, 92);
+            this.rLabel38.Location = new System.Drawing.Point(163, 93);
             this.rLabel38.Name = "rLabel38";
             this.rLabel38.RotationAngle = 90D;
             this.rLabel38.Size = new System.Drawing.Size(14, 16);
             this.rLabel38.TabIndex = 134;
-            this.rLabel38.Text = "..";
+            this.rLabel38.Text = "S1";
             this.rLabel38.TopLine = false;
             // 
             // rLabel39
             // 
             this.rLabel39.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel39.Location = new System.Drawing.Point(177, 93);
+            this.rLabel39.Location = new System.Drawing.Point(177, 92);
             this.rLabel39.Name = "rLabel39";
             this.rLabel39.RotationAngle = 90D;
             this.rLabel39.Size = new System.Drawing.Size(14, 16);
             this.rLabel39.TabIndex = 135;
-            this.rLabel39.Text = "..";
+            this.rLabel39.Text = "S0";
             this.rLabel39.TopLine = false;
             // 
             // rLabel40
             // 
             this.rLabel40.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel40.Location = new System.Drawing.Point(191, 92);
+            this.rLabel40.Location = new System.Drawing.Point(191, 83);
             this.rLabel40.Name = "rLabel40";
             this.rLabel40.RotationAngle = 90D;
-            this.rLabel40.Size = new System.Drawing.Size(14, 16);
+            this.rLabel40.Size = new System.Drawing.Size(15, 25);
             this.rLabel40.TabIndex = 136;
-            this.rLabel40.Text = "..";
+            this.rLabel40.Text = "CRI";
             this.rLabel40.TopLine = false;
-            // 
-            // rLabel41
-            // 
-            this.rLabel41.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel41.Location = new System.Drawing.Point(205, 83);
-            this.rLabel41.Name = "rLabel41";
-            this.rLabel41.RotationAngle = 90D;
-            this.rLabel41.Size = new System.Drawing.Size(14, 25);
-            this.rLabel41.TabIndex = 137;
-            this.rLabel41.Text = "..";
-            this.rLabel41.TopLine = false;
             // 
             // StatusLEDDsiaply2
             // 
@@ -2897,17 +2893,6 @@
             this.rLabel9.Text = "SO";
             this.rLabel9.TopLine = false;
             // 
-            // rLabel10
-            // 
-            this.rLabel10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel10.Location = new System.Drawing.Point(132, 19);
-            this.rLabel10.Name = "rLabel10";
-            this.rLabel10.RotationAngle = 90D;
-            this.rLabel10.Size = new System.Drawing.Size(14, 25);
-            this.rLabel10.TabIndex = 94;
-            this.rLabel10.Text = "SUB";
-            this.rLabel10.TopLine = false;
-            // 
             // rLabel25
             // 
             this.rLabel25.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -3203,13 +3188,116 @@
             this.rLabel23.Text = "ZF";
             this.rLabel23.TopLine = false;
             // 
-            // SubLED
+            // ALUModeSelect
             // 
-            this.SubLED.LEDColor = System.Drawing.Color.Blue;
-            this.SubLED.Location = new System.Drawing.Point(135, 58);
-            this.SubLED.Name = "SubLED";
-            this.SubLED.Size = new System.Drawing.Size(11, 11);
-            this.SubLED.TabIndex = 71;
+            this.ALUModeSelect.Controls.Add(this.led189);
+            this.ALUModeSelect.Controls.Add(this.led190);
+            this.ALUModeSelect.Controls.Add(this.led191);
+            this.ALUModeSelect.Controls.Add(this.led192);
+            this.ALUModeSelect.Controls.Add(this.led194);
+            this.ALUModeSelect.LEDs.Add(this.led189);
+            this.ALUModeSelect.LEDs.Add(this.led190);
+            this.ALUModeSelect.LEDs.Add(this.led191);
+            this.ALUModeSelect.LEDs.Add(this.led192);
+            this.ALUModeSelect.LEDs.Add(this.led194);
+            this.ALUModeSelect.LEDSpacing = 5;
+            this.ALUModeSelect.Location = new System.Drawing.Point(198, 42);
+            this.ALUModeSelect.Name = "ALUModeSelect";
+            this.ALUModeSelect.NibbleSpacing = 5;
+            this.ALUModeSelect.Size = new System.Drawing.Size(81, 16);
+            this.ALUModeSelect.TabIndex = 172;
+            // 
+            // led189
+            // 
+            this.led189.LEDColor = System.Drawing.Color.Red;
+            this.led189.Location = new System.Drawing.Point(3, 3);
+            this.led189.Name = "led189";
+            this.led189.Size = new System.Drawing.Size(11, 11);
+            this.led189.TabIndex = 0;
+            // 
+            // led190
+            // 
+            this.led190.LEDColor = System.Drawing.Color.Red;
+            this.led190.Location = new System.Drawing.Point(18, 3);
+            this.led190.Name = "led190";
+            this.led190.Size = new System.Drawing.Size(11, 11);
+            this.led190.TabIndex = 1;
+            // 
+            // led191
+            // 
+            this.led191.LEDColor = System.Drawing.Color.Red;
+            this.led191.Location = new System.Drawing.Point(33, 3);
+            this.led191.Name = "led191";
+            this.led191.Size = new System.Drawing.Size(11, 11);
+            this.led191.TabIndex = 2;
+            // 
+            // led192
+            // 
+            this.led192.LEDColor = System.Drawing.Color.Red;
+            this.led192.Location = new System.Drawing.Point(48, 3);
+            this.led192.Name = "led192";
+            this.led192.Size = new System.Drawing.Size(11, 11);
+            this.led192.TabIndex = 3;
+            // 
+            // led194
+            // 
+            this.led194.LEDColor = System.Drawing.Color.Red;
+            this.led194.Location = new System.Drawing.Point(68, 3);
+            this.led194.Name = "led194";
+            this.led194.Size = new System.Drawing.Size(11, 11);
+            this.led194.TabIndex = 4;
+            // 
+            // rLabel42
+            // 
+            this.rLabel42.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel42.Location = new System.Drawing.Point(200, 27);
+            this.rLabel42.Name = "rLabel42";
+            this.rLabel42.RotationAngle = 0D;
+            this.rLabel42.Size = new System.Drawing.Size(14, 16);
+            this.rLabel42.TabIndex = 109;
+            this.rLabel42.Text = "S3";
+            this.rLabel42.TopLine = false;
+            // 
+            // rLabel43
+            // 
+            this.rLabel43.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel43.Location = new System.Drawing.Point(216, 27);
+            this.rLabel43.Name = "rLabel43";
+            this.rLabel43.RotationAngle = 0D;
+            this.rLabel43.Size = new System.Drawing.Size(14, 16);
+            this.rLabel43.TabIndex = 110;
+            this.rLabel43.Text = "S2";
+            this.rLabel43.TopLine = false;
+            // 
+            // CarryInLED
+            // 
+            this.CarryInLED.LEDColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.CarryInLED.Location = new System.Drawing.Point(142, 58);
+            this.CarryInLED.Name = "CarryInLED";
+            this.CarryInLED.Size = new System.Drawing.Size(11, 11);
+            this.CarryInLED.TabIndex = 173;
+            // 
+            // rLabel44
+            // 
+            this.rLabel44.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel44.Location = new System.Drawing.Point(232, 27);
+            this.rLabel44.Name = "rLabel44";
+            this.rLabel44.RotationAngle = 0D;
+            this.rLabel44.Size = new System.Drawing.Size(14, 16);
+            this.rLabel44.TabIndex = 111;
+            this.rLabel44.Text = "S1";
+            this.rLabel44.TopLine = false;
+            // 
+            // rLabel45
+            // 
+            this.rLabel45.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel45.Location = new System.Drawing.Point(248, 27);
+            this.rLabel45.Name = "rLabel45";
+            this.rLabel45.RotationAngle = 0D;
+            this.rLabel45.Size = new System.Drawing.Size(14, 16);
+            this.rLabel45.TabIndex = 112;
+            this.rLabel45.Text = "S0";
+            this.rLabel45.TopLine = false;
             // 
             // SumRegLEDDisplay
             // 
@@ -3299,6 +3387,17 @@
             this.led42.Name = "led42";
             this.led42.Size = new System.Drawing.Size(11, 11);
             this.led42.TabIndex = 7;
+            // 
+            // rLabel46
+            // 
+            this.rLabel46.Font = new System.Drawing.Font("Consolas", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rLabel46.Location = new System.Drawing.Point(264, 12);
+            this.rLabel46.Name = "rLabel46";
+            this.rLabel46.RotationAngle = 90D;
+            this.rLabel46.Size = new System.Drawing.Size(15, 31);
+            this.rLabel46.TabIndex = 113;
+            this.rLabel46.Text = "Logic";
+            this.rLabel46.TopLine = false;
             // 
             // rLabel22
             // 
@@ -3803,30 +3902,26 @@
             this.led2.TabIndex = 15;
             this.led2.Visible = false;
             // 
+            // led193
+            // 
+            this.led193.LEDColor = System.Drawing.Color.Blue;
+            this.led193.Location = new System.Drawing.Point(63, 3);
+            this.led193.Name = "led193";
+            this.led193.Size = new System.Drawing.Size(11, 11);
+            this.led193.TabIndex = 4;
+            // 
             // Sap2SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1477, 685);
+            this.Controls.Add(this.CRegGroup);
             this.Controls.Add(this.BRegArrowOut);
             this.Controls.Add(this.TempRegArrowIn);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.ResetStepCounter);
-            this.Controls.Add(this.RamLoadBtn);
-            this.Controls.Add(this.InstEnableBtn);
-            this.Controls.Add(this.InstLoadBtn);
             this.Controls.Add(this.MDRArrowOut);
-            this.Controls.Add(this.MDREnableBtn);
-            this.Controls.Add(this.ShiftMDRBtn);
-            this.Controls.Add(this.RAMEnableBtn);
-            this.Controls.Add(this.MDRLoadBtn);
             this.Controls.Add(this.MDRArrowIn);
             this.Controls.Add(this.groupBox7);
-            this.Controls.Add(this.MARLoadBtn);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.PCEnBtn);
-            this.Controls.Add(this.PCInBtn);
-            this.Controls.Add(this.PCOutBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.InstArrowOut);
             this.Controls.Add(this.RAMArrowOut);
@@ -3897,6 +3992,9 @@
             this.groupBox5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.CRegGroup.ResumeLayout(false);
+            this.CRegGroup.PerformLayout();
+            this.CRegLEDDisplay.ResumeLayout(false);
             this.MDRLEDDisplay.ResumeLayout(false);
             this.TempRegLEDDisplay.ResumeLayout(false);
             this.CLDecodedLEDDisplay.ResumeLayout(false);
@@ -3909,6 +4007,7 @@
             this.OutputRegLEDDisplay.ResumeLayout(false);
             this.BRegLEDDisplay.ResumeLayout(false);
             this.FlagRegLEDDisplay.ResumeLayout(false);
+            this.ALUModeSelect.ResumeLayout(false);
             this.SumRegLEDDisplay.ResumeLayout(false);
             this.SumFlagsLEDDisplay.ResumeLayout(false);
             this.ARegLEDDisplay.ResumeLayout(false);
@@ -4042,7 +4141,6 @@
         private AppCode.Visual.RLabel rLabel7;
         private AppCode.Visual.RLabel rLabel8;
         private AppCode.Visual.RLabel rLabel9;
-        private AppCode.Visual.RLabel rLabel10;
         private AppCode.Visual.RLabel rLabel11;
         private AppCode.Visual.RLabel rLabel12;
         private AppCode.Visual.RLabel rLabel13;
@@ -4089,7 +4187,6 @@
         private System.Windows.Forms.GroupBox SumGroup;
         private System.Windows.Forms.GroupBox FlagsGroup;
         private System.Windows.Forms.GroupBox BRegGroup;
-        private System.Windows.Forms.CheckBox CarryInCB;
         private System.Windows.Forms.GroupBox OutputGroup;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.GroupBox MARGroup;
@@ -4112,7 +4209,6 @@
         private System.Windows.Forms.Label label1;
         private AppCode.Visual.LED IncLED;
         private System.Windows.Forms.Label label2;
-        private AppCode.Visual.LED SubLED;
         private AppCode.Visual.LED ClkLed;
         private System.Windows.Forms.Button OpenAssemblerBtn;
         public System.Windows.Forms.TextBox LoadedProgramTB;
@@ -4150,9 +4246,6 @@
         private AppCode.Visual.LED led123;
         private AppCode.Visual.LED led124;
         private AppCode.Visual.LED led125;
-        private System.Windows.Forms.Button PCOutBtn;
-        private System.Windows.Forms.Button PCInBtn;
-        private System.Windows.Forms.Button PCEnBtn;
         private System.Windows.Forms.GroupBox groupBox5;
         private AppCode.Visual.LEDDisplay TempRegLEDDisplay;
         private AppCode.Visual.LED led126;
@@ -4164,7 +4257,6 @@
         private AppCode.Visual.LED led132;
         private AppCode.Visual.LED led133;
         private System.Windows.Forms.Label TempRegValLbl;
-        private System.Windows.Forms.Button MARLoadBtn;
         private System.Windows.Forms.GroupBox groupBox7;
         private AppCode.Visual.LEDDisplay MDRLEDDisplay;
         private AppCode.Visual.LED led134;
@@ -4185,15 +4277,8 @@
         private AppCode.Visual.LED led148;
         private AppCode.Visual.LED led149;
         private AppCode.Visual.Arrow MDRArrowIn;
-        private System.Windows.Forms.Button MDRLoadBtn;
-        private System.Windows.Forms.Button RAMEnableBtn;
-        private System.Windows.Forms.Button ShiftMDRBtn;
-        private System.Windows.Forms.Button MDREnableBtn;
         private AppCode.Visual.Arrow MDRArrowOut;
-        private System.Windows.Forms.Button InstEnableBtn;
-        private System.Windows.Forms.Button InstLoadBtn;
         private System.Windows.Forms.Button RefreshRamView;
-        private System.Windows.Forms.Button RamLoadBtn;
         private AppCode.Visual.RLabel rLabel27;
         private AppCode.Visual.RLabel rLabel28;
         private AppCode.Visual.RLabel rLabel29;
@@ -4202,13 +4287,11 @@
         private AppCode.Visual.RLabel rLabel32;
         private AppCode.Visual.RLabel rLabel33;
         private AppCode.Visual.RLabel rLabel34;
-        private AppCode.Visual.RLabel rLabel35;
         private AppCode.Visual.RLabel rLabel36;
         private AppCode.Visual.RLabel rLabel37;
         private AppCode.Visual.RLabel rLabel38;
         private AppCode.Visual.RLabel rLabel39;
         private AppCode.Visual.RLabel rLabel40;
-        private AppCode.Visual.RLabel rLabel41;
         private AppCode.Visual.LEDDisplay StatusLEDDsiaply2;
         private AppCode.Visual.LED led150;
         private AppCode.Visual.LED led151;
@@ -4242,10 +4325,35 @@
         private AppCode.Visual.LED led178;
         private AppCode.Visual.LED led179;
         private AppCode.Visual.LED led180;
-        private System.Windows.Forms.Button ResetStepCounter;
-        private System.Windows.Forms.Button button1;
         private AppCode.Visual.Arrow TempRegArrowIn;
         private AppCode.Visual.Arrow BRegArrowOut;
+        private System.Windows.Forms.GroupBox CRegGroup;
+        private System.Windows.Forms.Label CRegValLbl;
+        private AppCode.Visual.LEDDisplay CRegLEDDisplay;
+        private AppCode.Visual.LED led181;
+        private AppCode.Visual.LED led182;
+        private AppCode.Visual.LED led183;
+        private AppCode.Visual.LED led184;
+        private AppCode.Visual.LED led185;
+        private AppCode.Visual.LED led186;
+        private AppCode.Visual.LED led187;
+        private AppCode.Visual.LED led188;
+        private AppCode.Visual.LEDDisplay ALUModeSelect;
+        private AppCode.Visual.LED led189;
+        private AppCode.Visual.LED led190;
+        private AppCode.Visual.LED led191;
+        private AppCode.Visual.LED led192;
+        private AppCode.Visual.LED CarryInLED;
+        private AppCode.Visual.LED led194;
+        private AppCode.Visual.RLabel rLabel42;
+        private AppCode.Visual.RLabel rLabel43;
+        private AppCode.Visual.RLabel rLabel44;
+        private AppCode.Visual.RLabel rLabel45;
+        private AppCode.Visual.RLabel rLabel46;
+        private AppCode.Visual.LED led193;
+        private AppCode.Visual.RLabel rLabel10;
+        private AppCode.Visual.RLabel rLabel35;
+        private AppCode.Visual.RLabel rLabel41;
     }
 }
 

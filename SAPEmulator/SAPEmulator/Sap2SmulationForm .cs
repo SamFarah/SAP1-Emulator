@@ -84,6 +84,8 @@ namespace SAPEmulator
 
             MDRLEDDisplay.DisplayData(Computer.MDR.Data);
             TempRegLEDDisplay.DisplayData(Computer.Temp.Data);
+            CRegLEDDisplay.DisplayData(Computer.C.Data);
+            ALUModeSelect.DisplayData((byte)((Computer.Alu.ModeSelect<<1) | (Computer.Alu.M?1:0) ));
 
 
             //Update Value labels
@@ -97,9 +99,9 @@ namespace SAPEmulator
             PCRegValLbl.Text = $"0x{Computer.PC.Data.ToString("X4")}";
             OutputRegValLbl.Text = $"0x{Computer.Output1.Data.ToString("X2")}";
 
-            MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";
-            BRegValLbl.Text = $"0x{Computer.B.Data.ToString("X2")}";
+            MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";            
             TempRegValLbl.Text= $"0x{Computer.Temp.Data.ToString("X2")}";
+            CRegValLbl .Text= $"0x{Computer.C.Data.ToString("X2")}";
 
             // Update Group Colors according to control signals
             PCGroup.ForeColor = GetGroupColour(Computer.PC);
@@ -111,6 +113,8 @@ namespace SAPEmulator
             RAMGroup.ForeColor = GetGroupColour(Computer.RAM);
             MARGroup.ForeColor = GetGroupColour(Computer.MAR);
             FlagsGroup.ForeColor = GetGroupColour(Computer.Flags, true);
+
+            CRegGroup.ForeColor = GetGroupColour(Computer.C);
 
 
             //Update IN Arrows according to "Load" signals
@@ -140,8 +144,9 @@ namespace SAPEmulator
 
             //Update signle LEDs
             IncLED.ChangeState(Computer.PC.Count);
-            SubLED.ChangeState(Computer.Alu.Subtract);
+            //SubLED.ChangeState(Computer.Alu.Subtract);
             ClkLed.ChangeState(Computer.Clock.Output);
+            CarryInLED.ChangeState(Computer.Alu.CarryIn);
 
 
             //Update 7-Segment Display
@@ -207,7 +212,7 @@ namespace SAPEmulator
         private void StepClockBtn_KeyDown(object sender, KeyEventArgs e) { Computer.Clock.Step(); }
         private void StepClockBtn_KeyUp(object sender, KeyEventArgs e) { Computer.Clock.Step(); }
 
-        private void CarryInCB_CheckedChanged(object sender, EventArgs e) { Computer.Alu.CarryIn = CarryInCB.Checked; }
+        //private void CarryInCB_CheckedChanged(object sender, EventArgs e) { Computer.Alu.CarryIn = CarryInCB.Checked; }
         private void ProgramBtn_Click(object sender, EventArgs e)
         {
             try
@@ -268,7 +273,7 @@ namespace SAPEmulator
         }
         private void RAMLoadBtn_Click(object sender, EventArgs e)
         {
-            Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load);
+            Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load);        
         }
 
         private void ShiftMDRBtn_Click(object sender, EventArgs e)
@@ -303,9 +308,6 @@ namespace SAPEmulator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string s = "";
-            for (int i = 0; i < 256; i++) s += $"{i.ToString("X2")}\n";
-            MessageBox.Show(s);
 
         }
 
