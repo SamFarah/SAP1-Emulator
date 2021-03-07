@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-
+using System;
 public class ClockGenerator
 {
     public enum ClockModes
@@ -19,6 +19,8 @@ public class ClockGenerator
     public PulseFunctionDel RisingEdge;
     public PulseFunctionDel FallingEdge;
 
+    public UInt64 Counter;
+
     public ClockGenerator(int frequency, PulseFunctionDel RisingEdgeHandler, PulseFunctionDel FallingEdgeHandler,ClockModes clockMode)
     {
         thread = new Thread(Pulse);
@@ -26,6 +28,7 @@ public class ClockGenerator
         RisingEdge = RisingEdgeHandler;
         FallingEdge = FallingEdgeHandler;
         Frequency = frequency; //Hz
+        Counter = 0;
     }
 
     public void Step()
@@ -34,8 +37,8 @@ public class ClockGenerator
         {
             Output = !Output;
             if (Output) RisingEdge();
-            else FallingEdge();
-        }
+            else { FallingEdge(); Counter++; }
+            }
     }
 
     private void Pulse()

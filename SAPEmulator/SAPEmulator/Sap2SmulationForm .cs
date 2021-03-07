@@ -12,6 +12,7 @@ namespace SAPEmulator
         public SAP2_8Bit Computer { get; set; }
         private uint Frames = 0;
         bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
+        System.Diagnostics.Stopwatch  SW;
         Sap2AssemblyForm assemblyForm;
         public Sap2SimulationForm()
         {
@@ -24,6 +25,7 @@ namespace SAPEmulator
             // Set up the comnputer
             Computer = new SAP2_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
 
+            SW = new System.Diagnostics.Stopwatch();
             UpdateRamView();
 
 
@@ -65,6 +67,15 @@ namespace SAPEmulator
         }
         void updateScreen()
         {
+            if (Computer.Clock .ClockMode== ClockGenerator.ClockModes.Auto && !Computer.Clock.Halt )
+            {
+                if (!SW.IsRunning) { SW.Reset(); SW.Start(); }
+            }
+            else
+            {
+                SW.Stop();
+            }
+
             //Update LED Arrays            
             BusLEDDisplay.DisplayData(Computer.Bus.Data);
             ARegLEDDisplay.DisplayData(Computer.A.Data);
@@ -85,6 +96,8 @@ namespace SAPEmulator
             MDRLEDDisplay.DisplayData(Computer.MDR.Data);
             TempRegLEDDisplay.DisplayData(Computer.Temp.Data);
             CRegLEDDisplay.DisplayData(Computer.C.Data);
+            ClkCounterLBL.Text = $"Cycles: { Computer.Clock.Counter.ToString()}";
+            SWLbl.Text = new TimeSpan(SW.ElapsedTicks).ToString();
             //ALUModeSelect.DisplayData((byte)((Computer.Alu.ModeSelect << 2) | ((Computer.Alu.M ? 1 : 0)<<1) | (Computer.Alu.CarryIn?1:0)));
 
 
@@ -322,7 +335,16 @@ namespace SAPEmulator
                 Computer.RAM.MEM[i] = prog[i];
             UpdateRamView();
         }
-            
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+           byte[] prog = { 0x3E, 0x00, 0x32, 0x03, 0xFF, 0x3E, 0x03, 0x32, 0x01, 0xFF, 0x3E, 0x05, 0x32, 0x02, 0xFF, 0x3E, 0x01, 0x32, 0x00, 0xFF, 0x3A, 0x00, 0xFF, 0x47, 0x3A, 0x01, 0xFF, 0x90, 0xFA, 0x25, 0x00, 0x3A, 0x03, 0xFF, 0xD3, 0x00, 0x76, 0x32, 0x01, 0xFF, 0x3A, 0x02, 0xFF, 0x47, 0x3A, 0x03, 0xFF, 0x80, 0x32, 0x03, 0xFF, 0xC3, 0x14, 0x00 };
+
+            for (int i = 0; i < prog.Length; i++)
+                Computer.RAM.MEM[i] = prog[i];
+            UpdateRamView();
+        }
+
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)
         {
 

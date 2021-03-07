@@ -112,6 +112,7 @@ namespace SAP2Modules
         {
             Clock.Stop();
             Clock.Halt = false;
+            Clock.Counter = 0;
             Bus.Reset();
             Flags.Reset();
             CL.Reset();
