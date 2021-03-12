@@ -71,6 +71,7 @@ namespace SAP2Modules
                 // Update device control signals
                 Clock.Halt = value.HLT;
                 MAR.Load = value.MI;
+                MAR.Enable = value.MO;
                 RAM.Load = value.RI;
                 RAM.Enable = value.RO;                
                 IR.Load = value.II;
@@ -90,7 +91,8 @@ namespace SAP2Modules
                 MDR.Load = value.MDI;
                 MDR.Enable = value.MDO;
                 MDR.Shift = value.MDS;
-                Temp.Load = value.TI;                
+                Temp.Load = value.TI;
+                Temp.Enable = value.TO;
                 B.Enable = value.BO;
                 C.Enable = value.CO;
                 C.Load = value.CI;

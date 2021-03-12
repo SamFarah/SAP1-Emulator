@@ -47,6 +47,8 @@
             this.ProgRamDataTB = new System.Windows.Forms.TextBox();
             this.ProramBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.UpdateRAMViewCB = new System.Windows.Forms.CheckBox();
+            this.RAMGridView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.LoadSampleBtn = new System.Windows.Forms.Button();
             this.RefreshRamView = new System.Windows.Forms.Button();
@@ -81,13 +83,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ScreenUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.TempRegGroup = new System.Windows.Forms.GroupBox();
             this.TempRegValLbl = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.MDRRegValLbl = new System.Windows.Forms.Label();
             this.CRegGroup = new System.Windows.Forms.GroupBox();
             this.CRegValLbl = new System.Windows.Forms.Label();
-            this.RAMGridView = new System.Windows.Forms.DataGridView();
+            this.TempRegArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
+            this.MARArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.MDRArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.RAMArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.PCArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
@@ -95,9 +98,7 @@
             this.BRegArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.ARegArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.FlagRegArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
-            this.TempRegArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
             this.InstArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
-            this.MARArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
             this.SUMArrowOut = new SAPEmulator.AppCode.Visual.Arrow();
             this.OutputRegArrowIn = new SAPEmulator.AppCode.Visual.Arrow();
             this.CRegLEDDisplay = new SAPEmulator.AppCode.Visual.LEDDisplay();
@@ -365,6 +366,7 @@
             this.led193 = new SAPEmulator.AppCode.Visual.LED();
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyAdjust)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.PCGroup.SuspendLayout();
@@ -380,10 +382,9 @@
             this.InstGroup.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox5.SuspendLayout();
+            this.TempRegGroup.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.CRegGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).BeginInit();
             this.CRegLEDDisplay.SuspendLayout();
             this.MDRLEDDisplay.SuspendLayout();
             this.TempRegLEDDisplay.SuspendLayout();
@@ -519,7 +520,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(11, 21);
+            this.label18.Location = new System.Drawing.Point(6, 21);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(75, 13);
             this.label18.TabIndex = 59;
@@ -528,7 +529,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(11, 70);
+            this.label20.Location = new System.Drawing.Point(6, 70);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(33, 13);
             this.label20.TabIndex = 60;
@@ -536,25 +537,25 @@
             // 
             // ProgRAMAddrTB
             // 
-            this.ProgRAMAddrTB.Location = new System.Drawing.Point(14, 37);
+            this.ProgRAMAddrTB.Location = new System.Drawing.Point(6, 37);
             this.ProgRAMAddrTB.Name = "ProgRAMAddrTB";
-            this.ProgRAMAddrTB.Size = new System.Drawing.Size(100, 20);
+            this.ProgRAMAddrTB.Size = new System.Drawing.Size(108, 20);
             this.ProgRAMAddrTB.TabIndex = 61;
             this.ProgRAMAddrTB.Text = "0x0000";
             // 
             // ProgRamDataTB
             // 
-            this.ProgRamDataTB.Location = new System.Drawing.Point(14, 86);
+            this.ProgRamDataTB.Location = new System.Drawing.Point(6, 86);
             this.ProgRamDataTB.Name = "ProgRamDataTB";
-            this.ProgRamDataTB.Size = new System.Drawing.Size(100, 20);
+            this.ProgRamDataTB.Size = new System.Drawing.Size(108, 20);
             this.ProgRamDataTB.TabIndex = 62;
             this.ProgRamDataTB.Text = "0x";
             // 
             // ProramBtn
             // 
-            this.ProramBtn.Location = new System.Drawing.Point(39, 112);
+            this.ProramBtn.Location = new System.Drawing.Point(6, 112);
             this.ProramBtn.Name = "ProramBtn";
-            this.ProramBtn.Size = new System.Drawing.Size(75, 23);
+            this.ProramBtn.Size = new System.Drawing.Size(108, 23);
             this.ProramBtn.TabIndex = 63;
             this.ProramBtn.Text = "Clock In";
             this.ProramBtn.UseVisualStyleBackColor = true;
@@ -562,6 +563,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.UpdateRAMViewCB);
             this.groupBox2.Controls.Add(this.RAMGridView);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.LoadSampleBtn);
@@ -575,16 +577,48 @@
             this.groupBox2.Controls.Add(this.ProgRAMAddrTB);
             this.groupBox2.Location = new System.Drawing.Point(653, 174);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(614, 396);
+            this.groupBox2.Size = new System.Drawing.Size(614, 412);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Debug";
             // 
+            // UpdateRAMViewCB
+            // 
+            this.UpdateRAMViewCB.AutoSize = true;
+            this.UpdateRAMViewCB.Checked = true;
+            this.UpdateRAMViewCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UpdateRAMViewCB.Location = new System.Drawing.Point(9, 303);
+            this.UpdateRAMViewCB.Name = "UpdateRAMViewCB";
+            this.UpdateRAMViewCB.Size = new System.Drawing.Size(95, 17);
+            this.UpdateRAMViewCB.TabIndex = 184;
+            this.UpdateRAMViewCB.Text = "Keep Updated";
+            this.UpdateRAMViewCB.UseVisualStyleBackColor = true;
+            // 
+            // RAMGridView
+            // 
+            this.RAMGridView.AllowUserToAddRows = false;
+            this.RAMGridView.AllowUserToDeleteRows = false;
+            this.RAMGridView.AllowUserToOrderColumns = true;
+            this.RAMGridView.AllowUserToResizeColumns = false;
+            this.RAMGridView.AllowUserToResizeRows = false;
+            this.RAMGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.RAMGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.RAMGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RAMGridView.EnableHeadersVisualStyles = false;
+            this.RAMGridView.Location = new System.Drawing.Point(120, 15);
+            this.RAMGridView.Name = "RAMGridView";
+            this.RAMGridView.RowHeadersVisible = false;
+            this.RAMGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RAMGridView.RowTemplate.Height = 12;
+            this.RAMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.RAMGridView.Size = new System.Drawing.Size(485, 386);
+            this.RAMGridView.TabIndex = 183;
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(39, 204);
+            this.button1.Location = new System.Drawing.Point(6, 204);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 50);
+            this.button1.Size = new System.Drawing.Size(108, 50);
             this.button1.TabIndex = 68;
             this.button1.Text = "Load Sample";
             this.button1.UseVisualStyleBackColor = true;
@@ -592,9 +626,9 @@
             // 
             // LoadSampleBtn
             // 
-            this.LoadSampleBtn.Location = new System.Drawing.Point(39, 148);
+            this.LoadSampleBtn.Location = new System.Drawing.Point(6, 148);
             this.LoadSampleBtn.Name = "LoadSampleBtn";
-            this.LoadSampleBtn.Size = new System.Drawing.Size(75, 50);
+            this.LoadSampleBtn.Size = new System.Drawing.Size(108, 50);
             this.LoadSampleBtn.TabIndex = 67;
             this.LoadSampleBtn.Text = "Load Sample";
             this.LoadSampleBtn.UseVisualStyleBackColor = true;
@@ -602,9 +636,9 @@
             // 
             // RefreshRamView
             // 
-            this.RefreshRamView.Location = new System.Drawing.Point(39, 274);
+            this.RefreshRamView.Location = new System.Drawing.Point(6, 274);
             this.RefreshRamView.Name = "RefreshRamView";
-            this.RefreshRamView.Size = new System.Drawing.Size(75, 23);
+            this.RefreshRamView.Size = new System.Drawing.Size(108, 23);
             this.RefreshRamView.TabIndex = 66;
             this.RefreshRamView.Text = "Refresh";
             this.RefreshRamView.UseVisualStyleBackColor = true;
@@ -612,9 +646,9 @@
             // 
             // RandomizeRAMBtn
             // 
-            this.RandomizeRAMBtn.Location = new System.Drawing.Point(38, 332);
+            this.RandomizeRAMBtn.Location = new System.Drawing.Point(6, 348);
             this.RandomizeRAMBtn.Name = "RandomizeRAMBtn";
-            this.RandomizeRAMBtn.Size = new System.Drawing.Size(75, 23);
+            this.RandomizeRAMBtn.Size = new System.Drawing.Size(108, 23);
             this.RandomizeRAMBtn.TabIndex = 65;
             this.RandomizeRAMBtn.Text = "Randomize";
             this.RandomizeRAMBtn.UseVisualStyleBackColor = true;
@@ -622,9 +656,9 @@
             // 
             // WipeRAMBtn
             // 
-            this.WipeRAMBtn.Location = new System.Drawing.Point(38, 362);
+            this.WipeRAMBtn.Location = new System.Drawing.Point(6, 378);
             this.WipeRAMBtn.Name = "WipeRAMBtn";
-            this.WipeRAMBtn.Size = new System.Drawing.Size(75, 23);
+            this.WipeRAMBtn.Size = new System.Drawing.Size(108, 23);
             this.WipeRAMBtn.TabIndex = 64;
             this.WipeRAMBtn.Text = "Wipe RAM";
             this.WipeRAMBtn.UseVisualStyleBackColor = true;
@@ -999,16 +1033,16 @@
             this.ScreenUpdateTimer.Interval = 1;
             this.ScreenUpdateTimer.Tick += new System.EventHandler(this.ScreenUpdateTimer_Tick);
             // 
-            // groupBox5
+            // TempRegGroup
             // 
-            this.groupBox5.Controls.Add(this.TempRegLEDDisplay);
-            this.groupBox5.Controls.Add(this.TempRegValLbl);
-            this.groupBox5.Location = new System.Drawing.Point(489, 165);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(157, 45);
-            this.groupBox5.TabIndex = 127;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "\"Temp\" Register";
+            this.TempRegGroup.Controls.Add(this.TempRegLEDDisplay);
+            this.TempRegGroup.Controls.Add(this.TempRegValLbl);
+            this.TempRegGroup.Location = new System.Drawing.Point(489, 165);
+            this.TempRegGroup.Name = "TempRegGroup";
+            this.TempRegGroup.Size = new System.Drawing.Size(157, 45);
+            this.TempRegGroup.TabIndex = 127;
+            this.TempRegGroup.TabStop = false;
+            this.TempRegGroup.Text = "\"Temp\" Register";
             // 
             // TempRegValLbl
             // 
@@ -1059,24 +1093,39 @@
             this.CRegValLbl.TabIndex = 32;
             this.CRegValLbl.Text = "CVal";
             // 
-            // RAMGridView
+            // TempRegArrow
             // 
-            this.RAMGridView.AllowUserToAddRows = false;
-            this.RAMGridView.AllowUserToDeleteRows = false;
-            this.RAMGridView.AllowUserToOrderColumns = true;
-            this.RAMGridView.AllowUserToResizeColumns = false;
-            this.RAMGridView.AllowUserToResizeRows = false;
-            this.RAMGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.RAMGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.RAMGridView.ColumnHeadersVisible = false;
-            this.RAMGridView.Location = new System.Drawing.Point(120, 15);
-            this.RAMGridView.Name = "RAMGridView";
-            this.RAMGridView.RowHeadersVisible = false;
-            this.RAMGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RAMGridView.RowTemplate.Height = 12;
-            this.RAMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.RAMGridView.Size = new System.Drawing.Size(485, 370);
-            this.RAMGridView.TabIndex = 183;
+            this.TempRegArrow.ArrowLength = 35;
+            this.TempRegArrow.ArrowPointingDirection = SAPEmulator.AppCode.Visual.DoubleEndedArrow.Direction.None;
+            this.TempRegArrow.CapLNumber = '8';
+            this.TempRegArrow.CapRNumber = '8';
+            this.TempRegArrow.Location = new System.Drawing.Point(416, 182);
+            this.TempRegArrow.Name = "TempRegArrow";
+            this.TempRegArrow.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.TempRegArrow.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.TempRegArrow.OnLColorBorder = System.Drawing.Color.DarkGreen;
+            this.TempRegArrow.OnLColorFill = System.Drawing.Color.LightGreen;
+            this.TempRegArrow.OnRColorBorder = System.Drawing.Color.Red;
+            this.TempRegArrow.OnRColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.TempRegArrow.Size = new System.Drawing.Size(73, 19);
+            this.TempRegArrow.TabIndex = 184;
+            // 
+            // MARArrow
+            // 
+            this.MARArrow.ArrowLength = 35;
+            this.MARArrow.ArrowPointingDirection = SAPEmulator.AppCode.Visual.DoubleEndedArrow.Direction.None;
+            this.MARArrow.CapLNumber = 'F';
+            this.MARArrow.CapRNumber = 'F';
+            this.MARArrow.Location = new System.Drawing.Point(299, 128);
+            this.MARArrow.Name = "MARArrow";
+            this.MARArrow.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.MARArrow.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            this.MARArrow.OnLColorBorder = System.Drawing.Color.Red;
+            this.MARArrow.OnLColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.MARArrow.OnRColorBorder = System.Drawing.Color.DarkGreen;
+            this.MARArrow.OnRColorFill = System.Drawing.Color.LightGreen;
+            this.MARArrow.Size = new System.Drawing.Size(73, 19);
+            this.MARArrow.TabIndex = 183;
             // 
             // MDRArrow
             // 
@@ -1194,20 +1243,6 @@
             this.FlagRegArrowIn.Size = new System.Drawing.Size(43, 19);
             this.FlagRegArrowIn.TabIndex = 175;
             // 
-            // TempRegArrowIn
-            // 
-            this.TempRegArrowIn.ArrowDirection = SAPEmulator.AppCode.Visual.Arrow.Direction.Right;
-            this.TempRegArrowIn.ArrowLength = 54;
-            this.TempRegArrowIn.CapNumber = '8';
-            this.TempRegArrowIn.Location = new System.Drawing.Point(416, 180);
-            this.TempRegArrowIn.Name = "TempRegArrowIn";
-            this.TempRegArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.TempRegArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
-            this.TempRegArrowIn.OnColorBorder = System.Drawing.Color.Red;
-            this.TempRegArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.TempRegArrowIn.Size = new System.Drawing.Size(73, 19);
-            this.TempRegArrowIn.TabIndex = 168;
-            // 
             // InstArrowIn
             // 
             this.InstArrowIn.ArrowDirection = SAPEmulator.AppCode.Visual.Arrow.Direction.Left;
@@ -1221,20 +1256,6 @@
             this.InstArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.InstArrowIn.Size = new System.Drawing.Size(73, 19);
             this.InstArrowIn.TabIndex = 148;
-            // 
-            // MARArrowIn
-            // 
-            this.MARArrowIn.ArrowDirection = SAPEmulator.AppCode.Visual.Arrow.Direction.Left;
-            this.MARArrowIn.ArrowLength = 54;
-            this.MARArrowIn.CapNumber = 'F';
-            this.MARArrowIn.Location = new System.Drawing.Point(299, 129);
-            this.MARArrowIn.Name = "MARArrowIn";
-            this.MARArrowIn.OffColorBorder = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.MARArrowIn.OffColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
-            this.MARArrowIn.OnColorBorder = System.Drawing.Color.Red;
-            this.MARArrowIn.OnColorFill = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.MARArrowIn.Size = new System.Drawing.Size(73, 19);
-            this.MARArrowIn.TabIndex = 146;
             // 
             // SUMArrowOut
             // 
@@ -2407,12 +2428,12 @@
             // rLabel41
             // 
             this.rLabel41.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel41.Location = new System.Drawing.Point(207, 92);
+            this.rLabel41.Location = new System.Drawing.Point(204, 92);
             this.rLabel41.Name = "rLabel41";
             this.rLabel41.RotationAngle = 90D;
             this.rLabel41.Size = new System.Drawing.Size(14, 16);
             this.rLabel41.TabIndex = 142;
-            this.rLabel41.Text = "..";
+            this.rLabel41.Text = "TO";
             this.rLabel41.TopLine = false;
             // 
             // rLabel35
@@ -2500,7 +2521,7 @@
             this.rLabel31.RotationAngle = 90D;
             this.rLabel31.Size = new System.Drawing.Size(14, 16);
             this.rLabel31.TabIndex = 128;
-            this.rLabel31.Text = "..";
+            this.rLabel31.Text = "MO";
             this.rLabel31.TopLine = false;
             // 
             // rLabel32
@@ -2583,7 +2604,7 @@
             // rLabel40
             // 
             this.rLabel40.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel40.Location = new System.Drawing.Point(191, 83);
+            this.rLabel40.Location = new System.Drawing.Point(191, 85);
             this.rLabel40.Name = "rLabel40";
             this.rLabel40.RotationAngle = 90D;
             this.rLabel40.Size = new System.Drawing.Size(15, 25);
@@ -3928,6 +3949,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1282, 595);
+            this.Controls.Add(this.TempRegArrow);
+            this.Controls.Add(this.MARArrow);
             this.Controls.Add(this.MDRArrow);
             this.Controls.Add(this.RAMArrow);
             this.Controls.Add(this.PCArrow);
@@ -3935,15 +3958,13 @@
             this.Controls.Add(this.BRegArrow);
             this.Controls.Add(this.ARegArrow);
             this.Controls.Add(this.FlagRegArrowIn);
-            this.Controls.Add(this.TempRegArrowIn);
             this.Controls.Add(this.InstArrowIn);
-            this.Controls.Add(this.MARArrowIn);
             this.Controls.Add(this.SUMArrowOut);
             this.Controls.Add(this.OutputRegArrowIn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.CRegGroup);
             this.Controls.Add(this.groupBox7);
-            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.TempRegGroup);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox16);
             this.Controls.Add(this.InstGroup);
@@ -3968,6 +3989,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyAdjust)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -3994,13 +4016,12 @@
             this.InstGroup.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.TempRegGroup.ResumeLayout(false);
+            this.TempRegGroup.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.CRegGroup.ResumeLayout(false);
             this.CRegGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).EndInit();
             this.CRegLEDDisplay.ResumeLayout(false);
             this.MDRLEDDisplay.ResumeLayout(false);
             this.TempRegLEDDisplay.ResumeLayout(false);
@@ -4198,7 +4219,6 @@
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.PictureBox pictureBox1;
         private AppCode.Visual.Arrow OutputRegArrowIn;
-        private AppCode.Visual.Arrow MARArrowIn;
         private AppCode.Visual.Arrow InstArrowIn;
         private System.Windows.Forms.Label label1;
         private AppCode.Visual.LED IncLED;
@@ -4239,7 +4259,7 @@
         private AppCode.Visual.LED led123;
         private AppCode.Visual.LED led124;
         private AppCode.Visual.LED led125;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox TempRegGroup;
         private AppCode.Visual.LEDDisplay TempRegLEDDisplay;
         private AppCode.Visual.LED led126;
         private AppCode.Visual.LED led127;
@@ -4347,7 +4367,6 @@
         private System.Windows.Forms.Label InstructionLBL;
         private System.Windows.Forms.Button LoadSampleBtn;
         private AppCode.Visual.Arrow FlagRegArrowIn;
-        private AppCode.Visual.Arrow TempRegArrowIn;
         private AppCode.Visual.Arrow SUMArrowOut;
         private AppCode.Visual.DoubleEndedArrow ARegArrow;
         private AppCode.Visual.DoubleEndedArrow BRegArrow;
@@ -4359,6 +4378,9 @@
         private System.Windows.Forms.Label ClkCounterLBL;
         private System.Windows.Forms.Label SWLbl;
         private System.Windows.Forms.DataGridView RAMGridView;
+        private System.Windows.Forms.CheckBox UpdateRAMViewCB;
+        private AppCode.Visual.DoubleEndedArrow MARArrow;
+        private AppCode.Visual.DoubleEndedArrow TempRegArrow;
     }
 }
 

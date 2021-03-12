@@ -96,7 +96,7 @@ namespace SAP2Modules
         const UInt32 MI = 0b01000000000000000000000000000000;       // Memory Address Register.......In......(Read from Bus)
         const UInt32 RI = 0b00100000000000000000000000000000;       // RAM (at current MAR value)....In......(Read from Bus)
         const UInt32 RO = 0b00010000000000000000000000000000;       // RAM (at current MAR value)....Out.....(Write to Bus)
-        const UInt32 AC = 0b00001000000000000000000000000000;     // Not Used
+        const UInt32 AC = 0b00001000000000000000000000000000;       // Add with Carry
         const UInt32 II = 0b00000100000000000000000000000000;       // Instruction Register..........In......(Read from Bus)
         const UInt32 AI = 0b00000010000000000000000000000000;       // Accumilator A Register........In......(Read from Bus)
         const UInt32 AO = 0b00000001000000000000000000000000;       // Accumilator A Register........Out.....(Write to Bus)
@@ -113,7 +113,7 @@ namespace SAP2Modules
         const UInt32 MDO = 0b00000000000000000010000000000000;      // MDR out
         const UInt32 MDS = 0b00000000000000000001000000000000;      // MDR Shift
         const UInt32 TI = 0b00000000000000000000100000000000;       // Temp Reg In
-        //const UInt32 NN = 0b00000000000000000000010000000000;     // Not used
+        const UInt32 MO = 0b00000000000000000000010000000000;       // Memory Address Register.......Out......(Write to Bus)
         const UInt32 CO = 0b00000000000000000000001000000000;       // C out
         const UInt32 CI = 0b00000000000000000000000100000000;       // C In
         const UInt32 M = 0b00000000000000000000000010000000;        // ALU M In
@@ -122,6 +122,7 @@ namespace SAP2Modules
         const UInt32 S1 = 0b00000000000000000000000000010000;       // ALU Mode Select 1 In
         const UInt32 S0 = 0b00000000000000000000000000001000;       // ALU Mode Select 0 In
         const UInt32 CRI = 0b00000000000000000000000000000100;      // Carry In In
+        const UInt32 TO =  0b00000000000000000000000000000010;      // Temp Reg Out
 
 
 
@@ -133,7 +134,7 @@ namespace SAP2Modules
         const byte FLASGS_Z1C1 = 3;
         const byte JM = 0xFA;
         const byte JNZ = 0xC2;
-        const byte JZ = 0xCA;        
+        const byte JZ = 0xCA;
 
         /*
             +-------------------+---------+-------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+
@@ -182,6 +183,7 @@ namespace SAP2Modules
          x  |   XRA B 			|    A8   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor B											|   Logical         |
          x  |   XRA C 			|    A9   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor C											|   Logical         |
          x  |   XRI byte 		|    EE   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A xor (1 byte immediate data)					|   Logical         |
+         x  |   STA [address]   |    01   |     15	    |	None	|   Indirect    |   3   |   Store Accumulator content to memory at valof address|   Logical         |
             +-------------------+---------+-------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+
 
 
@@ -194,7 +196,7 @@ namespace SAP2Modules
 /*            T0 -FETCH- T1           T2          T3                       T4                           T5                  T6                  T7                  T8                  T9                        Unused               OpCode INST
             -----     --------      -----       -----                     -----                         ----               -----               -----               ----                ----                       ------              ------  ----  */
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 00 - NOP
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 01 -  
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,     PCO|TI, MDO|MI ,RO|MDI,              MO|JMP|CE, PCO|MI    ,RO|MDI|MDS,TO|JMP, MDO|MI,AO|RI|RT,0,0,0},    // 01 - STA [Address] (Indirect)
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 02 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 03 - 
             {MI|PCO,    RO|II|CE,     BO|TI,      CRI|FI|EO|BI|RT,          0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 04 - INR B
@@ -496,13 +498,13 @@ namespace SAP2Modules
             [BitFieldInfo(0x0D, 1)] public bool MDO { get; set; }
             [BitFieldInfo(0x0C, 1)] public bool MDS { get; set; }
             [BitFieldInfo(0x0B, 1)] public bool TI { get; set; }
-            [BitFieldInfo(0x0A, 1)] public bool NA2 { get; set; }
+            [BitFieldInfo(0x0A, 1)] public bool MO { get; set; }
             [BitFieldInfo(0x09, 1)] public bool CO { get; set; }
             [BitFieldInfo(0x08, 1)] public bool CI { get; set; }
             [BitFieldInfo(0x07, 1)] public bool M { get; set; }
             [BitFieldInfo(0x03, 4)] public byte ALUModeSelect { get; set; }
             [BitFieldInfo(0x02, 1)] public bool CRI { get; set; }
-            [BitFieldInfo(0x01, 1)] public bool NAd { get; set; }
+            [BitFieldInfo(0x01, 1)] public bool TO { get; set; }
             [BitFieldInfo(0x00, 1)] public bool NAe { get; set; }
 
 
@@ -511,6 +513,7 @@ namespace SAP2Modules
         }
         public enum Instructions
         {
+            STA_Ind         =   0x01,
             ADD_B			=   0x80,
             ADD_C			=   0x81,
             ANA_B			=   0xA0,

@@ -16,6 +16,7 @@ namespace SAPEmulator
         bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
         System.Diagnostics.Stopwatch SW;
         Sap2AssemblyForm assemblyForm;
+        List<string> RAMUpdateCommands;
         public Sap2SimulationForm()
         {
             InitializeComponent();
@@ -28,7 +29,9 @@ namespace SAPEmulator
             Computer = new SAP2_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
 
             SW = new System.Diagnostics.Stopwatch();
-            UpdateRamView(); ;
+            RAMUpdateCommands = new List<string> { "STA", "STA Ind" };
+            UpdateRamView(); 
+
 
 
         }
@@ -128,6 +131,7 @@ namespace SAPEmulator
             RAMGroup.ForeColor = GetGroupColour(Computer.RAM);
             MARGroup.ForeColor = GetGroupColour(Computer.MAR);
             FlagsGroup.ForeColor = GetGroupColour(Computer.Flags, true);
+            TempRegGroup.ForeColor = GetGroupColour(Computer.Temp);
 
             CRegGroup.ForeColor = GetGroupColour(Computer.C);
 
@@ -143,9 +147,13 @@ namespace SAPEmulator
 
 
             OutputRegArrowIn.ChangeState(Computer.Output1.Load);
-            MARArrowIn.ChangeState(Computer.MAR.Load);
+            //MARArrowIn.ChangeState(Computer.MAR.Load);
+
+            MARArrow.ChangeState(GetArrowDirection(Computer.MAR, true));
+
             InstArrowIn.ChangeState(Computer.IR.Load);
-            TempRegArrowIn.ChangeState(Computer.Temp.Load);
+            //TempRegArrowIn.ChangeState(Computer.Temp.Load);
+            TempRegArrow.ChangeState(GetArrowDirection(Computer.Temp));
             FlagRegArrowIn.ChangeState(Computer.Flags.Load);
             SUMArrowOut.ChangeState(Computer.Alu.Enable);
 
@@ -170,10 +178,10 @@ namespace SAPEmulator
             }
 
             //Update RAM content viewer slowing it down abit to reduce flicker
-                UpdateRamSelectedByte();
+                if (UpdateRAMViewCB.Checked)UpdateRamSelectedByte();
             if (updateRAMViewFlag || Frames % 10000 == 0)
             {
-                if (InstructionLBL.Text == "STA") UpdateRamView();
+                if (RAMUpdateCommands.Contains(  InstructionLBL.Text) && UpdateRAMViewCB.Checked)  UpdateRamView();
                 updateRAMViewFlag = false;
             }
 
@@ -201,13 +209,14 @@ namespace SAPEmulator
                 for (int j = 0; j < 16; j++) dataLine.LineVals.Add(Computer.RAM.MEM[(i * 16) + j]);
                 MemoryMap.Add(dataLine);
             }
-            RAMGridView.DataSource = MemoryMap;
-
+            RAMGridView.DataSource = MemoryMap;            
             RAMGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             RAMGridView.Columns[0].Width = 38;
+            RAMGridView.Columns[0].HeaderText = string.Empty;
             RAMGridView.Columns[17].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             for (int i = 1; i < 17; i++)
             {
+                RAMGridView.Columns[i].HeaderText = (i-1).ToString("X");
                 RAMGridView.Columns[i].DefaultCellStyle.Format = "X2";
                 RAMGridView.Columns[i].Width = 19;
                 RAMGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -215,6 +224,8 @@ namespace SAPEmulator
 
             RAMGridView.Columns[8].Width = 27;
             RAMGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            RAMGridView.Columns[17].HeaderText = string.Empty;
+            if (UpdateRAMViewCB.Checked) UpdateRamSelectedByte(); 
 
 
         }
@@ -222,7 +233,7 @@ namespace SAPEmulator
         public void UpdateRamSelectedByte()
         {
             int x = (int)(Computer.MAR.Data % 16.0 + 1);
-            int y = (int)(Computer.MAR.Data / 16.0);
+            int y = (int)(Computer.MAR.Data / 16.0);           
             if (x == 0 && y == 0) return;
             RAMGridView.CurrentCell = RAMGridView[x,y ];
         }
@@ -369,7 +380,7 @@ namespace SAPEmulator
         {
             public string LineAddress { get; set; }
             public List<int> LineVals { get; set; }
-            public string Test
+            public string LineAscii
             {
                 get
                 {
