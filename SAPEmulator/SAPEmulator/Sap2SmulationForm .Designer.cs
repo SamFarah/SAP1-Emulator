@@ -41,13 +41,13 @@
             this.InstRegValLbl = new System.Windows.Forms.Label();
             this.RAMRegValLbl = new System.Windows.Forms.Label();
             this.MARRegValLbl = new System.Windows.Forms.Label();
-            this.RAMView = new System.Windows.Forms.ListBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.ProgRAMAddrTB = new System.Windows.Forms.TextBox();
             this.ProgRamDataTB = new System.Windows.Forms.TextBox();
             this.ProramBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.LoadSampleBtn = new System.Windows.Forms.Button();
             this.RefreshRamView = new System.Windows.Forms.Button();
             this.RandomizeRAMBtn = new System.Windows.Forms.Button();
@@ -62,6 +62,8 @@
             this.OpenAssemblerBtn = new System.Windows.Forms.Button();
             this.LoadedProgramTB = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.SWLbl = new System.Windows.Forms.Label();
+            this.ClkCounterLBL = new System.Windows.Forms.Label();
             this.PCGroup = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -85,9 +87,7 @@
             this.MDRRegValLbl = new System.Windows.Forms.Label();
             this.CRegGroup = new System.Windows.Forms.GroupBox();
             this.CRegValLbl = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.ClkCounterLBL = new System.Windows.Forms.Label();
-            this.SWLbl = new System.Windows.Forms.Label();
+            this.RAMGridView = new System.Windows.Forms.DataGridView();
             this.MDRArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.RAMArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.PCArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
@@ -383,6 +383,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.CRegGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).BeginInit();
             this.CRegLEDDisplay.SuspendLayout();
             this.MDRLEDDisplay.SuspendLayout();
             this.TempRegLEDDisplay.SuspendLayout();
@@ -515,18 +516,6 @@
             this.MARRegValLbl.TabIndex = 55;
             this.MARRegValLbl.Text = "Mval";
             // 
-            // RAMView
-            // 
-            this.RAMView.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RAMView.FormattingEnabled = true;
-            this.RAMView.Items.AddRange(new object[] {
-            "xxxx  xx xx xx xx xx xx xx xx  xx xx xx xx xx xx xx xx |................|"});
-            this.RAMView.Location = new System.Drawing.Point(119, 16);
-            this.RAMView.Name = "RAMView";
-            this.RAMView.ScrollAlwaysVisible = true;
-            this.RAMView.Size = new System.Drawing.Size(463, 368);
-            this.RAMView.TabIndex = 58;
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -573,12 +562,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.RAMGridView);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.LoadSampleBtn);
             this.groupBox2.Controls.Add(this.RefreshRamView);
             this.groupBox2.Controls.Add(this.RandomizeRAMBtn);
             this.groupBox2.Controls.Add(this.WipeRAMBtn);
-            this.groupBox2.Controls.Add(this.RAMView);
             this.groupBox2.Controls.Add(this.ProramBtn);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.ProgRamDataTB);
@@ -586,10 +575,20 @@
             this.groupBox2.Controls.Add(this.ProgRAMAddrTB);
             this.groupBox2.Location = new System.Drawing.Point(653, 174);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(591, 396);
+            this.groupBox2.Size = new System.Drawing.Size(614, 396);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Debug";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(39, 204);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 50);
+            this.button1.TabIndex = 68;
+            this.button1.Text = "Load Sample";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // LoadSampleBtn
             // 
@@ -744,6 +743,24 @@
             this.groupBox4.TabIndex = 123;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Clock";
+            // 
+            // SWLbl
+            // 
+            this.SWLbl.AutoSize = true;
+            this.SWLbl.Location = new System.Drawing.Point(41, 96);
+            this.SWLbl.Name = "SWLbl";
+            this.SWLbl.Size = new System.Drawing.Size(35, 13);
+            this.SWLbl.TabIndex = 183;
+            this.SWLbl.Text = "label2";
+            // 
+            // ClkCounterLBL
+            // 
+            this.ClkCounterLBL.AutoSize = true;
+            this.ClkCounterLBL.Location = new System.Drawing.Point(155, 75);
+            this.ClkCounterLBL.Name = "ClkCounterLBL";
+            this.ClkCounterLBL.Size = new System.Drawing.Size(58, 13);
+            this.ClkCounterLBL.TabIndex = 113;
+            this.ClkCounterLBL.Text = "clkCounter";
             // 
             // PCGroup
             // 
@@ -1042,33 +1059,24 @@
             this.CRegValLbl.TabIndex = 32;
             this.CRegValLbl.Text = "CVal";
             // 
-            // button1
+            // RAMGridView
             // 
-            this.button1.Location = new System.Drawing.Point(39, 204);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 50);
-            this.button1.TabIndex = 68;
-            this.button1.Text = "Load Sample";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // ClkCounterLBL
-            // 
-            this.ClkCounterLBL.AutoSize = true;
-            this.ClkCounterLBL.Location = new System.Drawing.Point(155, 75);
-            this.ClkCounterLBL.Name = "ClkCounterLBL";
-            this.ClkCounterLBL.Size = new System.Drawing.Size(58, 13);
-            this.ClkCounterLBL.TabIndex = 113;
-            this.ClkCounterLBL.Text = "clkCounter";
-            // 
-            // SWLbl
-            // 
-            this.SWLbl.AutoSize = true;
-            this.SWLbl.Location = new System.Drawing.Point(41, 96);
-            this.SWLbl.Name = "SWLbl";
-            this.SWLbl.Size = new System.Drawing.Size(35, 13);
-            this.SWLbl.TabIndex = 183;
-            this.SWLbl.Text = "label2";
+            this.RAMGridView.AllowUserToAddRows = false;
+            this.RAMGridView.AllowUserToDeleteRows = false;
+            this.RAMGridView.AllowUserToOrderColumns = true;
+            this.RAMGridView.AllowUserToResizeColumns = false;
+            this.RAMGridView.AllowUserToResizeRows = false;
+            this.RAMGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.RAMGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RAMGridView.ColumnHeadersVisible = false;
+            this.RAMGridView.Location = new System.Drawing.Point(120, 15);
+            this.RAMGridView.Name = "RAMGridView";
+            this.RAMGridView.RowHeadersVisible = false;
+            this.RAMGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RAMGridView.RowTemplate.Height = 12;
+            this.RAMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.RAMGridView.Size = new System.Drawing.Size(485, 370);
+            this.RAMGridView.TabIndex = 183;
             // 
             // MDRArrow
             // 
@@ -3919,7 +3927,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1255, 595);
+            this.ClientSize = new System.Drawing.Size(1282, 595);
             this.Controls.Add(this.MDRArrow);
             this.Controls.Add(this.RAMArrow);
             this.Controls.Add(this.PCArrow);
@@ -3992,6 +4000,7 @@
             this.groupBox7.PerformLayout();
             this.CRegGroup.ResumeLayout(false);
             this.CRegGroup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).EndInit();
             this.CRegLEDDisplay.ResumeLayout(false);
             this.MDRLEDDisplay.ResumeLayout(false);
             this.TempRegLEDDisplay.ResumeLayout(false);
@@ -4087,7 +4096,6 @@
         private AppCode.Visual.LED led52;
         private AppCode.Visual.LED led53;
         private AppCode.Visual.LED led54;
-        private System.Windows.Forms.ListBox RAMView;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox ProgRAMAddrTB;
@@ -4350,6 +4358,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label ClkCounterLBL;
         private System.Windows.Forms.Label SWLbl;
+        private System.Windows.Forms.DataGridView RAMGridView;
     }
 }
 

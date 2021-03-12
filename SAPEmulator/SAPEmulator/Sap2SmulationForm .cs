@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,7 +14,7 @@ namespace SAPEmulator
         public SAP2_8Bit Computer { get; set; }
         private uint Frames = 0;
         bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
-        System.Diagnostics.Stopwatch  SW;
+        System.Diagnostics.Stopwatch SW;
         Sap2AssemblyForm assemblyForm;
         public Sap2SimulationForm()
         {
@@ -26,7 +28,7 @@ namespace SAPEmulator
             Computer = new SAP2_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
 
             SW = new System.Diagnostics.Stopwatch();
-            UpdateRamView();
+            UpdateRamView(); ;
 
 
         }
@@ -67,7 +69,7 @@ namespace SAPEmulator
         }
         void updateScreen()
         {
-            if (Computer.Clock .ClockMode== ClockGenerator.ClockModes.Auto && !Computer.Clock.Halt )
+            if (Computer.Clock.ClockMode == ClockGenerator.ClockModes.Auto && !Computer.Clock.Halt)
             {
                 if (!SW.IsRunning) { SW.Reset(); SW.Start(); }
             }
@@ -115,7 +117,7 @@ namespace SAPEmulator
             MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";
             TempRegValLbl.Text = $"0x{Computer.Temp.Data.ToString("X2")}";
             CRegValLbl.Text = $"0x{Computer.C.Data.ToString("X2")}";
-            InstructionLBL.Text = ((ControlSequencer.Instructions)Computer.IR.Data).ToString().Replace("__",",").Replace("_"," ");
+            InstructionLBL.Text = ((ControlSequencer.Instructions)Computer.IR.Data).ToString().Replace("__", ",").Replace("_", " ");
             // Update Group Colors according to control signals
             PCGroup.ForeColor = GetGroupColour(Computer.PC);
             ARegGroup.ForeColor = GetGroupColour(Computer.A);
@@ -131,29 +133,29 @@ namespace SAPEmulator
 
 
             //Update IN Arrows according to "Load" signals
-            PCArrow.ChangeState(GetArrowDirection(Computer.PC,true));
+            PCArrow.ChangeState(GetArrowDirection(Computer.PC, true));
             ARegArrow.ChangeState(GetArrowDirection(Computer.A));
             BRegArrow.ChangeState(GetArrowDirection(Computer.B));
             CRegArrow.ChangeState(GetArrowDirection(Computer.C));
 
-            RAMArrow.ChangeState(GetArrowDirection(Computer.RAM,true));
-            MDRArrow.ChangeState(GetArrowDirection(Computer.MDR,true));
+            RAMArrow.ChangeState(GetArrowDirection(Computer.RAM, true));
+            MDRArrow.ChangeState(GetArrowDirection(Computer.MDR, true));
 
 
             OutputRegArrowIn.ChangeState(Computer.Output1.Load);
             MARArrowIn.ChangeState(Computer.MAR.Load);
-            InstArrowIn.ChangeState(Computer.IR.Load);           
-            TempRegArrowIn.ChangeState(Computer.Temp.Load);                                
+            InstArrowIn.ChangeState(Computer.IR.Load);
+            TempRegArrowIn.ChangeState(Computer.Temp.Load);
             FlagRegArrowIn.ChangeState(Computer.Flags.Load);
             SUMArrowOut.ChangeState(Computer.Alu.Enable);
-            
-            
+
+
 
 
             //Update signle LEDs
             IncLED.ChangeState(Computer.PC.Count);
             //SubLED.ChangeState(Computer.Alu.Subtract);
-            ClkLed.ChangeState(Computer.Clock.Output);            
+            ClkLed.ChangeState(Computer.Clock.Output);
 
 
             //Update 7-Segment Display
@@ -168,9 +170,10 @@ namespace SAPEmulator
             }
 
             //Update RAM content viewer slowing it down abit to reduce flicker
+                UpdateRamSelectedByte();
             if (updateRAMViewFlag || Frames % 10000 == 0)
             {
-                // UpdateRamView();
+                if (InstructionLBL.Text == "STA") UpdateRamView();
                 updateRAMViewFlag = false;
             }
 
@@ -181,30 +184,47 @@ namespace SAPEmulator
             }
             Frames++;
         }
-        AppCode.Visual.DoubleEndedArrow.Direction GetArrowDirection(Register Reg,bool flipped=false)
+        AppCode.Visual.DoubleEndedArrow.Direction GetArrowDirection(Register Reg, bool flipped = false)
         {
 
-            return (AppCode.Visual.DoubleEndedArrow.Direction) ((Reg.Load ? 1 : 0) << (flipped?0:1) | ((Reg.Enable ? 1 : 0)<< (flipped ? 1 : 0)));
+            return (AppCode.Visual.DoubleEndedArrow.Direction)((Reg.Load ? 1 : 0) << (flipped ? 0 : 1) | ((Reg.Enable ? 1 : 0) << (flipped ? 1 : 0)));
 
         }
         Color GetGroupColour(Register Reg, bool AlwaysEnabled = false) { return (!AlwaysEnabled && Reg.Enable) ? Color.DarkGreen : Reg.Load ? Color.Red : Color.Black; }
         public void UpdateRamView()
         {
-            RAMView.Items.Clear();
+            DataList MemoryMap = new DataList();
 
             for (int i = 0; i < 4096; i++)
             {
-                string line = $"{(i * 16).ToString("X4")}  ";
-                for (int j = 0; j < 16; j++) line += $"{Computer.RAM.MEM[(i * 16) + j].ToString("X2")}{(j == 7 ? "  " : " ")}";
-
-                line += '|';
-
-                for (int j = 0; j < 16; j++) line += $"{(isPrintable((char)Computer.RAM.MEM[(i * 16) + j]) ? (char)Computer.RAM.MEM[(i * 16) + j] : '.')}";
-                line += '|';
-                RAMView.Items.Add(line);
+                DataLine dataLine = new DataLine() { LineAddress = (i * 16).ToString("X4"), LineVals = new List<int>() };
+                for (int j = 0; j < 16; j++) dataLine.LineVals.Add(Computer.RAM.MEM[(i * 16) + j]);
+                MemoryMap.Add(dataLine);
             }
-            //   RAMView.SelectedIndex = Computer.MAR.Data;
+            RAMGridView.DataSource = MemoryMap;
 
+            RAMGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            RAMGridView.Columns[0].Width = 38;
+            RAMGridView.Columns[17].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            for (int i = 1; i < 17; i++)
+            {
+                RAMGridView.Columns[i].DefaultCellStyle.Format = "X2";
+                RAMGridView.Columns[i].Width = 19;
+                RAMGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            RAMGridView.Columns[8].Width = 27;
+            RAMGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+
+        }
+
+        public void UpdateRamSelectedByte()
+        {
+            int x = (int)(Computer.MAR.Data % 16.0 + 1);
+            int y = (int)(Computer.MAR.Data / 16.0);
+            if (x == 0 && y == 0) return;
+            RAMGridView.CurrentCell = RAMGridView[x,y ];
         }
 
         bool isPrintable(char ch)
@@ -338,12 +358,123 @@ namespace SAPEmulator
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-           byte[] prog = { 0x3E, 0x00, 0x32, 0x03, 0xFF, 0x3E, 0x03, 0x32, 0x01, 0xFF, 0x3E, 0x05, 0x32, 0x02, 0xFF, 0x3E, 0x01, 0x32, 0x00, 0xFF, 0x3A, 0x00, 0xFF, 0x47, 0x3A, 0x01, 0xFF, 0x90, 0xFA, 0x25, 0x00, 0x3A, 0x03, 0xFF, 0xD3, 0x00, 0x76, 0x32, 0x01, 0xFF, 0x3A, 0x02, 0xFF, 0x47, 0x3A, 0x03, 0xFF, 0x80, 0x32, 0x03, 0xFF, 0xC3, 0x14, 0x00 };
+            byte[] prog = { 0x3E, 0x00, 0x32, 0x03, 0xFF, 0x3E, 0x03, 0x32, 0x01, 0xFF, 0x3E, 0x05, 0x32, 0x02, 0xFF, 0x3E, 0x01, 0x32, 0x00, 0xFF, 0x3A, 0x00, 0xFF, 0x47, 0x3A, 0x01, 0xFF, 0x90, 0xFA, 0x25, 0x00, 0x3A, 0x03, 0xFF, 0xD3, 0x00, 0x76, 0x32, 0x01, 0xFF, 0x3A, 0x02, 0xFF, 0x47, 0x3A, 0x03, 0xFF, 0x80, 0x32, 0x03, 0xFF, 0xC3, 0x14, 0x00 };
 
             for (int i = 0; i < prog.Length; i++)
                 Computer.RAM.MEM[i] = prog[i];
             UpdateRamView();
         }
+
+        public class DataLine
+        {
+            public string LineAddress { get; set; }
+            public List<int> LineVals { get; set; }
+            public string Test
+            {
+                get
+                {
+                    return $"|{string.Join("", LineVals.Select(x => (!(x < 0x20 || x > 126) ? (char)x : '.')))}|";
+                }
+            }
+        }
+
+
+
+
+
+        class DataList : List<DataLine>, ITypedList
+        {
+
+            public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
+            {
+                var origProps = TypeDescriptor.GetProperties(typeof(DataLine));
+                List<PropertyDescriptor> newProps = new List<PropertyDescriptor>(origProps.Count);
+                //PropertyDescriptor doThisLast = null;
+                foreach (PropertyDescriptor prop in origProps)
+                {
+
+                    if (prop.Name == "LineVals")
+                    {
+                        var max = (from dataLine in this
+                                   let lineVals = dataLine.LineVals
+                                   where lineVals != null
+                                   select (int?)lineVals.Count).Max() ?? 0;
+                        if (max > 0)
+                        {
+                            // want it nullable to account for jagged arrays
+                            Type propType = typeof(int?); // could also figure this out from List<T> in
+                                                          // the general case, but make it nullable
+                            for (int i = 0; i < max; i++)
+                            {
+                                newProps.Add(new ListItemDescriptor(prop, i, propType));
+                            }
+                        }
+                    }
+                    // doThisLast = prop;
+                    else newProps.Add(prop);
+                }
+                //if (doThisLast != null)
+
+                return new PropertyDescriptorCollection(newProps.ToArray());
+            }
+
+            public string GetListName(PropertyDescriptor[] listAccessors)
+            {
+                return "";
+            }
+        }
+        class ListItemDescriptor : PropertyDescriptor
+        {
+            private static readonly Attribute[] nix = new Attribute[0];
+            private readonly PropertyDescriptor tail;
+            private readonly Type type;
+            private readonly int index;
+            public ListItemDescriptor(PropertyDescriptor tail, int index, Type type) : base(tail.Name + "[" + index + "]", nix)
+            {
+                this.tail = tail;
+                this.type = type;
+                this.index = index;
+            }
+            public override object GetValue(object component)
+            {
+                IList list = tail.GetValue(component) as IList;
+                return (list == null || list.Count <= index) ? null : list[index];
+            }
+            public override Type PropertyType
+            {
+                get { return type; }
+            }
+            public override bool IsReadOnly
+            {
+                get { return true; }
+            }
+            public override void SetValue(object component, object value)
+            {
+                throw new NotSupportedException();
+            }
+            public override void ResetValue(object component)
+            {
+                throw new NotSupportedException();
+            }
+            public override bool CanResetValue(object component)
+            {
+                return false;
+            }
+            public override Type ComponentType
+            {
+                get { return tail.ComponentType; }
+            }
+            public override bool ShouldSerializeValue(object component)
+            {
+                return false;
+            }
+        }
+
+
+
+
+
+
 
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)
         {
