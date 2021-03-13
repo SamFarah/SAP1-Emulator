@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Simple-As-Possible (SAP)-1 explained by Albert Paul is an 8-bit computer with the following features:
+* 8 Bit Registers
+* 8 Bit Program Counter
+* 16 bytes addressable memory
+* 4 bit opcodes (up to 16 different 
+  instructions)</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>SAP2 has a few improvements compared to SAP1. It is still an 8-bit computer with the following features:
+* 8 Bit Registers
+* 16 Bit Program Counter
+* 64 Kbyte addressable memory
+* 8 bit opcodes (up to 256 different 
+  instructions)</value>
+  </data>
 </root>
