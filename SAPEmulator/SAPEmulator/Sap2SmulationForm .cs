@@ -481,11 +481,19 @@ namespace SAPEmulator
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            byte[] prog = { 0x3E, 0x2B, 0x32, 0x29, 0x00, 0x3E, 0x00, 0x32, 0x2A, 0x00, 0x3E, 0x00, 0x01, 0x29, 0x00, 0x3A, 0x29, 0x00, 0x3C, 0xC2, 0x22, 0x00, 0x3A, 0x2A, 0x00, 0x3C, 0xCA, 0x28, 0x00, 0x32, 0x2A, 0x00, 0x3E, 0x00, 0x32, 0x29, 0x00, 0xC3, 0x0A, 0x00, 0x76 };
 
+            for (int i = 0; i < prog.Length; i++)
+                Computer.RAM.MEM[i] = prog[i];
+            UpdateRamView();
+        }
 
-
-
-
+        private void AnimationCB_CheckedChanged(object sender, EventArgs e)
+        {
+            ScreenUpdateTimer.Enabled = AnimationCB.Checked;
+        }
 
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)
         {

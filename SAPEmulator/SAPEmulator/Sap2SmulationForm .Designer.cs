@@ -364,6 +364,8 @@
             this.led113 = new SAPEmulator.AppCode.Visual.LED();
             this.led2 = new SAPEmulator.AppCode.Visual.LED();
             this.led193 = new SAPEmulator.AppCode.Visual.LED();
+            this.button2 = new System.Windows.Forms.Button();
+            this.AnimationCB = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyAdjust)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).BeginInit();
@@ -563,6 +565,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.UpdateRAMViewCB);
             this.groupBox2.Controls.Add(this.RAMGridView);
             this.groupBox2.Controls.Add(this.button1);
@@ -616,9 +619,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 204);
+            this.button1.Location = new System.Drawing.Point(6, 183);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 50);
+            this.button1.Size = new System.Drawing.Size(108, 25);
             this.button1.TabIndex = 68;
             this.button1.Text = "Load Sample";
             this.button1.UseVisualStyleBackColor = true;
@@ -628,7 +631,7 @@
             // 
             this.LoadSampleBtn.Location = new System.Drawing.Point(6, 148);
             this.LoadSampleBtn.Name = "LoadSampleBtn";
-            this.LoadSampleBtn.Size = new System.Drawing.Size(108, 50);
+            this.LoadSampleBtn.Size = new System.Drawing.Size(108, 29);
             this.LoadSampleBtn.TabIndex = 67;
             this.LoadSampleBtn.Text = "Load Sample";
             this.LoadSampleBtn.UseVisualStyleBackColor = true;
@@ -3944,11 +3947,35 @@
             this.led193.Size = new System.Drawing.Size(11, 11);
             this.led193.TabIndex = 4;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 214);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 25);
+            this.button2.TabIndex = 185;
+            this.button2.Text = "Load Sample";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // AnimationCB
+            // 
+            this.AnimationCB.AutoSize = true;
+            this.AnimationCB.Checked = true;
+            this.AnimationCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AnimationCB.Location = new System.Drawing.Point(1065, 108);
+            this.AnimationCB.Name = "AnimationCB";
+            this.AnimationCB.Size = new System.Drawing.Size(102, 17);
+            this.AnimationCB.TabIndex = 185;
+            this.AnimationCB.Text = "Show Animation";
+            this.AnimationCB.UseVisualStyleBackColor = true;
+            this.AnimationCB.CheckedChanged += new System.EventHandler(this.AnimationCB_CheckedChanged);
+            // 
             // Sap2SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1282, 595);
+            this.Controls.Add(this.AnimationCB);
             this.Controls.Add(this.TempRegArrow);
             this.Controls.Add(this.MARArrow);
             this.Controls.Add(this.MDRArrow);
@@ -4381,6 +4408,8 @@
         private System.Windows.Forms.CheckBox UpdateRAMViewCB;
         private AppCode.Visual.DoubleEndedArrow MARArrow;
         private AppCode.Visual.DoubleEndedArrow TempRegArrow;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox AnimationCB;
     }
 }
 
