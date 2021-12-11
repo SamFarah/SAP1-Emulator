@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using SAP2Modules;
@@ -14,6 +15,7 @@ namespace SAPEmulator
         public SAP2_8Bit Computer { get; set; }
         private uint Frames = 0;
         bool updateRAMViewFlag = false, NotPrevCPUOutput = false;
+        bool finalupdate = false;
         System.Diagnostics.Stopwatch SW;
         Sap2AssemblyForm assemblyForm;
         List<string> RAMUpdateCommands;
@@ -29,7 +31,7 @@ namespace SAPEmulator
             Computer = new SAP2_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
 
             SW = new System.Diagnostics.Stopwatch();
-            RAMUpdateCommands = new List<string> { "STA", "STA Ind" };
+            RAMUpdateCommands = new List<string> { "STA", "STA Ind", "STI" };
             UpdateRamView(); 
 
 
@@ -191,6 +193,21 @@ namespace SAPEmulator
                 NotPrevCPUOutput = Computer.Clock.Output;
             }
             Frames++;
+
+
+            if (Computer.Clock.Halt)
+            {
+                if (!finalupdate)
+                {
+                    UpdateRamView();
+                    finalupdate = true;
+                }
+            }
+            else
+            {
+                finalupdate = false;
+            }
+
         }
         AppCode.Visual.DoubleEndedArrow.Direction GetArrowDirection(Register Reg, bool flipped = false)
         {
@@ -353,28 +370,7 @@ namespace SAPEmulator
         private void button1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void LoadSampleBtn_Click(object sender, EventArgs e)
-        {
-
-            //for (int i = 0; i < 64 * 1024; i++) Computer.RAM.MEM[i] = 0xFF;
-
-            byte[] prog = { 0x3E, 0x00, 0xD3, 0x00, 0x3C, 0xFA, 0x0B, 0x00, 0xC3, 0x02, 0x00, 0x3D, 0xD3, 0x00, 0xCA, 0x02, 0x00, 0xC3, 0x0B, 0x00 };
-
-            for (int i = 0; i < prog.Length; i++)
-                Computer.RAM.MEM[i] = prog[i];
-            UpdateRamView();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            byte[] prog = { 0x3E, 0x00, 0x32, 0x03, 0xFF, 0x3E, 0x03, 0x32, 0x01, 0xFF, 0x3E, 0x05, 0x32, 0x02, 0xFF, 0x3E, 0x01, 0x32, 0x00, 0xFF, 0x3A, 0x00, 0xFF, 0x47, 0x3A, 0x01, 0xFF, 0x90, 0xFA, 0x25, 0x00, 0x3A, 0x03, 0xFF, 0xD3, 0x00, 0x76, 0x32, 0x01, 0xFF, 0x3A, 0x02, 0xFF, 0x47, 0x3A, 0x03, 0xFF, 0x80, 0x32, 0x03, 0xFF, 0xC3, 0x14, 0x00 };
-
-            for (int i = 0; i < prog.Length; i++)
-                Computer.RAM.MEM[i] = prog[i];
-            UpdateRamView();
-        }
+        }                    
 
         public class DataLine
         {
@@ -479,20 +475,26 @@ namespace SAPEmulator
             {
                 return false;
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            byte[] prog = { 0x3E, 0x2B, 0x32, 0x29, 0x00, 0x3E, 0x00, 0x32, 0x2A, 0x00, 0x3E, 0x00, 0x01, 0x29, 0x00, 0x3A, 0x29, 0x00, 0x3C, 0xC2, 0x22, 0x00, 0x3A, 0x2A, 0x00, 0x3C, 0xCA, 0x28, 0x00, 0x32, 0x2A, 0x00, 0x3E, 0x00, 0x32, 0x29, 0x00, 0xC3, 0x0A, 0x00, 0x76 };
-
-            for (int i = 0; i < prog.Length; i++)
-                Computer.RAM.MEM[i] = prog[i];
-            UpdateRamView();
-        }
+        }        
 
         private void AnimationCB_CheckedChanged(object sender, EventArgs e)
         {
             ScreenUpdateTimer.Enabled = AnimationCB.Checked;
+        }
+
+        private void LoadBinFileBtn_Click(object sender, EventArgs e)
+        {
+            if(openFileDialog1.ShowDialog()== DialogResult.OK)
+            {
+                if (File.Exists(openFileDialog1.FileName))
+                {
+                    using (BinaryReader br = new BinaryReader(File.Open(openFileDialog1.FileName, FileMode.Open)))                                           
+                        while (br.BaseStream.Position != br.BaseStream.Length) Computer.RAM.MEM[br.BaseStream.Position] = br.ReadByte();                        
+                    
+                        UpdateRamView();
+                }
+                
+            }
         }
 
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)

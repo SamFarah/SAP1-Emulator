@@ -48,7 +48,7 @@ namespace SAP1Modules
             get
             {
                 //As long as the control logic doesnt "Enable" more than one device on the bus then the 
-                //output sum will be the value of the one enable device
+                //output sum will be the value of the one enabled device
                 //if more than one device is enabled at once. the Bus value will be "unpredictable"
                 return (byte)Devices.Sum(x => x.GetData());
             }
@@ -61,7 +61,7 @@ namespace SAP1Modules
             Devices = devices;
         }
 
-        //Writes whatever data is "on the bus" into any device that has "load" control signal active.
+        //Writes whatever data that is "on the bus" into any device that has "load" control signal active.
         public void UpdateDevices()
         {
             byte dataOnBus = Data; //Store in local variable to prevent reading devices multiple times.        

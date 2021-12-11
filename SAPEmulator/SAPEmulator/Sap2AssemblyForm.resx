@@ -117,21 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox2.Text" xml:space="preserve">
-    <value>LDA: Load A; MEM-&gt;A
-ADD: (A+B)-&gt;A 
-SUB: (A-B)-&gt;A
-STA: Store A; A-&gt;MEM
-LDI: Load Immediate
-JMP: Jump to label
- JC: Jmp if CF=1
- JZ: Jmp if ZF=1
-OUT: A-&gt;Output
-HLT: Stop Clock
-
-Values in Hex as $00</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>The code is split into two sections, .CODE Section where the instructions are entered. Note that they fill the memory from top to bottom. And .DATA section where variables can be defined and initialized with a value. note that they fill the memory from bottom to top. Careful not to let them overlap.</value>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>For this to work Customasm executable should be in the same folder as this program. You can download Customasm from https://github.com/hlorenzi/customasm/releases. Big thanks to Lorenzi hlorenzi (https://github.com/hlorenzi) for sharing this program</value>
   </data>
 </root>

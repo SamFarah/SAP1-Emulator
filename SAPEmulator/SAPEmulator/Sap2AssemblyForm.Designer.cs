@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sap2AssemblyForm));
-            this.AssemblyTB = new System.Windows.Forms.TextBox();
             this.LoadASMBtn = new System.Windows.Forms.Button();
             this.LoadExample1Btn = new System.Windows.Forms.Button();
             this.LoadExample2Btn = new System.Windows.Forms.Button();
@@ -37,30 +36,19 @@
             this.LoadExample4Btn = new System.Windows.Forms.Button();
             this.NewProgramBtn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CMDOutTB = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.RandomizeBlanksCB = new System.Windows.Forms.CheckBox();
-            this.CodeValidationResultTB = new System.Windows.Forms.TextBox();
+            this.WipeMemoryCB = new System.Windows.Forms.CheckBox();
             this.HideFormBtn = new System.Windows.Forms.Button();
-            this.groupBox3.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AssemblyTB = new SyntaxHighlightingTextBox();
+            this.LoadExample5Btn = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // AssemblyTB
-            // 
-            this.AssemblyTB.AcceptsTab = true;
-            this.AssemblyTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AssemblyTB.Location = new System.Drawing.Point(162, 51);
-            this.AssemblyTB.Multiline = true;
-            this.AssemblyTB.Name = "AssemblyTB";
-            this.AssemblyTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AssemblyTB.Size = new System.Drawing.Size(388, 326);
-            this.AssemblyTB.TabIndex = 153;
-            this.AssemblyTB.TextChanged += new System.EventHandler(this.AssemblyTB_TextChanged);
             // 
             // LoadASMBtn
             // 
-            this.LoadASMBtn.Location = new System.Drawing.Point(470, 452);
+            this.LoadASMBtn.Location = new System.Drawing.Point(624, 489);
             this.LoadASMBtn.Name = "LoadASMBtn";
             this.LoadASMBtn.Size = new System.Drawing.Size(80, 41);
             this.LoadASMBtn.TabIndex = 154;
@@ -110,7 +98,7 @@
             // 
             // NewProgramBtn
             // 
-            this.NewProgramBtn.Location = new System.Drawing.Point(6, 176);
+            this.NewProgramBtn.Location = new System.Drawing.Point(6, 198);
             this.NewProgramBtn.Name = "NewProgramBtn";
             this.NewProgramBtn.Size = new System.Drawing.Size(150, 23);
             this.NewProgramBtn.TabIndex = 159;
@@ -120,35 +108,25 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Location = new System.Drawing.Point(6, 239);
+            this.groupBox3.Location = new System.Drawing.Point(6, 250);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(150, 207);
+            this.groupBox3.Size = new System.Drawing.Size(150, 233);
             this.groupBox3.TabIndex = 160;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Instruction Cheatsheet";
             // 
-            // textBox2
+            // CMDOutTB
             // 
-            this.textBox2.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(6, 19);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(135, 182);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.Text = resources.GetString("textBox2.Text");
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(6, 452);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(458, 73);
-            this.textBox1.TabIndex = 161;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.CMDOutTB.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.CMDOutTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CMDOutTB.ForeColor = System.Drawing.Color.LimeGreen;
+            this.CMDOutTB.Location = new System.Drawing.Point(6, 489);
+            this.CMDOutTB.Multiline = true;
+            this.CMDOutTB.Name = "CMDOutTB";
+            this.CMDOutTB.ReadOnly = true;
+            this.CMDOutTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.CMDOutTB.Size = new System.Drawing.Size(612, 177);
+            this.CMDOutTB.TabIndex = 161;
             // 
             // textBox3
             // 
@@ -157,38 +135,25 @@
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(544, 33);
+            this.textBox3.Size = new System.Drawing.Size(698, 33);
             this.textBox3.TabIndex = 163;
-            this.textBox3.Text = "Please note that values are entered in Hexadecimal in the form of $00 ... $FF, fo" +
-    "r example LDA $0F. they could also be variable or label names";
+            this.textBox3.Text = "Please note that values are entered in Hexadecimal in the form of 0x00 ... 0xFF, " +
+    "for example LDA 0x0F. they could also be variable or label names, binary 0b01001" +
+    ", and decimal 255";
             // 
-            // RandomizeBlanksCB
+            // WipeMemoryCB
             // 
-            this.RandomizeBlanksCB.AutoSize = true;
-            this.RandomizeBlanksCB.Checked = true;
-            this.RandomizeBlanksCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.RandomizeBlanksCB.Location = new System.Drawing.Point(12, 210);
-            this.RandomizeBlanksCB.Name = "RandomizeBlanksCB";
-            this.RandomizeBlanksCB.Size = new System.Drawing.Size(114, 17);
-            this.RandomizeBlanksCB.TabIndex = 164;
-            this.RandomizeBlanksCB.Text = "Randomize Blanks";
-            this.RandomizeBlanksCB.UseVisualStyleBackColor = true;
-            // 
-            // CodeValidationResultTB
-            // 
-            this.CodeValidationResultTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CodeValidationResultTB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.CodeValidationResultTB.Location = new System.Drawing.Point(162, 383);
-            this.CodeValidationResultTB.Multiline = true;
-            this.CodeValidationResultTB.Name = "CodeValidationResultTB";
-            this.CodeValidationResultTB.ReadOnly = true;
-            this.CodeValidationResultTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.CodeValidationResultTB.Size = new System.Drawing.Size(388, 63);
-            this.CodeValidationResultTB.TabIndex = 165;
+            this.WipeMemoryCB.AutoSize = true;
+            this.WipeMemoryCB.Location = new System.Drawing.Point(7, 227);
+            this.WipeMemoryCB.Name = "WipeMemoryCB";
+            this.WipeMemoryCB.Size = new System.Drawing.Size(91, 17);
+            this.WipeMemoryCB.TabIndex = 164;
+            this.WipeMemoryCB.Text = "Wipe Memory";
+            this.WipeMemoryCB.UseVisualStyleBackColor = true;
             // 
             // HideFormBtn
             // 
-            this.HideFormBtn.Location = new System.Drawing.Point(470, 499);
+            this.HideFormBtn.Location = new System.Drawing.Point(624, 536);
             this.HideFormBtn.Name = "HideFormBtn";
             this.HideFormBtn.Size = new System.Drawing.Size(80, 26);
             this.HideFormBtn.TabIndex = 166;
@@ -196,16 +161,60 @@
             this.HideFormBtn.UseVisualStyleBackColor = true;
             this.HideFormBtn.Click += new System.EventHandler(this.HideFormBtn_Click);
             // 
-            // AssemblyForm
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(220, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 169;
+            this.label1.Text = "label1";
+            // 
+            // AssemblyTB
+            // 
+            this.AssemblyTB.AcceptsTab = true;
+            this.AssemblyTB.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AssemblyTB.Location = new System.Drawing.Point(162, 51);
+            this.AssemblyTB.MaxUndoRedoSteps = 500;
+            this.AssemblyTB.Name = "AssemblyTB";
+            this.AssemblyTB.Size = new System.Drawing.Size(542, 432);
+            this.AssemblyTB.TabIndex = 167;
+            this.AssemblyTB.Text = "";
+            this.AssemblyTB.TextChanged += new System.EventHandler(this.AssemblyTB_TextChanged);
+            // 
+            // LoadExample5Btn
+            // 
+            this.LoadExample5Btn.Location = new System.Drawing.Point(6, 167);
+            this.LoadExample5Btn.Name = "LoadExample5Btn";
+            this.LoadExample5Btn.Size = new System.Drawing.Size(150, 23);
+            this.LoadExample5Btn.TabIndex = 170;
+            this.LoadExample5Btn.Text = "Example 5";
+            this.LoadExample5Btn.UseVisualStyleBackColor = true;
+            this.LoadExample5Btn.Click += new System.EventHandler(this.LoadExample5Btn_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.richTextBox1.Location = new System.Drawing.Point(7, 672);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(698, 31);
+            this.richTextBox1.TabIndex = 171;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
+            // 
+            // Sap2AssemblyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 531);
+            this.ClientSize = new System.Drawing.Size(716, 715);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.LoadExample5Btn);
+            this.Controls.Add(this.AssemblyTB);
             this.Controls.Add(this.HideFormBtn);
-            this.Controls.Add(this.CodeValidationResultTB);
-            this.Controls.Add(this.RandomizeBlanksCB);
+            this.Controls.Add(this.WipeMemoryCB);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.CMDOutTB);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.NewProgramBtn);
             this.Controls.Add(this.LoadExample4Btn);
@@ -213,23 +222,19 @@
             this.Controls.Add(this.LoadExample2Btn);
             this.Controls.Add(this.LoadExample1Btn);
             this.Controls.Add(this.LoadASMBtn);
-            this.Controls.Add(this.AssemblyTB);
+            this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.Name = "AssemblyForm";
+            this.Name = "Sap2AssemblyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Assembly";
+            this.Text = "SAP 2 Assembly";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AssemblyForm_FormClosing);
             this.Shown += new System.EventHandler(this.AssemblyForm_Shown);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox AssemblyTB;
         private System.Windows.Forms.Button LoadASMBtn;
         private System.Windows.Forms.Button LoadExample1Btn;
         private System.Windows.Forms.Button LoadExample2Btn;
@@ -237,11 +242,13 @@
         private System.Windows.Forms.Button LoadExample4Btn;
         private System.Windows.Forms.Button NewProgramBtn;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CMDOutTB;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.CheckBox RandomizeBlanksCB;
-        private System.Windows.Forms.TextBox CodeValidationResultTB;
+        private System.Windows.Forms.CheckBox WipeMemoryCB;
         private System.Windows.Forms.Button HideFormBtn;
+        private SyntaxHighlightingTextBox AssemblyTB;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button LoadExample5Btn;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

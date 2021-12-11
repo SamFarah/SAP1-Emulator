@@ -7,9 +7,10 @@
         public virtual bool Load { get; set; } //if active will read from bus (active HIHG)
         public bool Enable { get; set; } //if active will write to bus (active HIHG)
         protected byte MaskIn { get; set; } //represents connections from Bus into device, Defaults to 0xFF (8bits)
-        protected byte MaskOut { get; set; }//represents connections from device into bus, Defaults to 0xFF (8bits)
-        public virtual byte Data { get; set; }
+        protected byte MaskOut { get; set; } //represents connections from device into bus, Defaults to 0xFF (8bits)
+        public virtual byte Data { get; set; } // The memory contents of the register (8bit)
 
+        //Initialize
         public Register(byte maskIn = 0xFF, byte maskOut = 0xFF)
         {
             MaskIn = maskIn;

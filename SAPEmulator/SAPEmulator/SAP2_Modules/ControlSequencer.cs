@@ -122,7 +122,7 @@ namespace SAP2Modules
         const UInt32 S1 = 0b00000000000000000000000000010000;       // ALU Mode Select 1 In
         const UInt32 S0 = 0b00000000000000000000000000001000;       // ALU Mode Select 0 In
         const UInt32 CRI = 0b00000000000000000000000000000100;      // Carry In In
-        const UInt32 TO =  0b00000000000000000000000000000010;      // Temp Reg Out
+        const UInt32 TO = 0b00000000000000000000000000000010;      // Temp Reg Out
 
 
 
@@ -137,55 +137,62 @@ namespace SAP2Modules
         const byte JZ = 0xCA;
 
         /*
-            +-------------------+---------+-------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+
-            |    Instruction	| Op Code |	 T States	|   Flags   |   Addressing 	| Bytes	|                     Description						|       Type        |
-            +-------------------+---------+-------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+
-         x  |   ADD B			|    80   |     4	    |	S, Z	|   Register    |   1   |   A = A + B											|   Arithmetic      |
-         x  |   ADD C			|    81   |     4	    |	S, Z	|   Register    |   1   |   A = A + C											|   Arithmetic      |
-         x  |   ANA B			|    A0   |     4	    |	S, Z	|   Register    |   1   |   A = A . B											|   Logical         |
-         x  |   ANA C			|    A1   |     4	    |	S, Z	|   Register    |   1   |   A = A . C											|   Logical         |
-         x  |   ANI byte		|    E6   |     5	    |	S, Z	|   Immediate   |   2   |   A = A . (1 byte immediate data)						|   Logical         |
-            |   CALL address	|    CD   |     ??	    |	None	|   Immediate   |   3   |   Call subrotine 										|   Branching       |
-         x  |   CMA				|    2F   |     4	    |	None	|   Implied     |   1   |   A = A’												|   Logical         |
-         x  |   DCR A			|    3D   |     4	    |	S, Z	|   Register    |   1   |   A = A - 1											|   Arithmetic      |
-         x  |   DCR B			|    05   |     4	    |	S, Z	|   Register    |   1   |   B = B - 1											|   Arithmetic      |
-         x  |   DCR C			|    0D   |     4	    |	S, Z	|   Register    |   1   |   C = C - 1											|   Arithmetic      |
-         x  |   HLT 			|    76   |     3	    |	None 	|   -		    |   1   |   Terminate program									|   -               |
-            |   IN byte			|    DB   |     ??	    |	None 	|   Direct	    |   2   |   Transfer the Data from Input port to Accumulator	|   Data Transfer   |
-         x  |   INR A			|    3C   |     4	    |	S, Z 	|   Register    |   1   |   A = A + 1											|   Arithmetic      |
-         x  |   INR B			|    04   |     4	    |	S, Z 	|   Register    |   1   |   B = B + 1											|   Arithmetic      |
-         x  |   INR C			|    0C   |     4	    |	S, Z 	|   Register    |   1   |   C = C + 1											|   Arithmetic      |
-         x  |   JM address		|    FA   |     7       |	None 	|   Immediate   |   3   |   Jump on minus to specified Address					|   Branching       |
-         x  |   JMP address		|    C3   |     7	    |	None 	|   Immediate   |   3   |   Jump to specified Address							|   Branching       |
-         x  |   JNZ address		|    C2   |     7       |	None 	|   Immediate   |   3   |   Jump on Not Zero to specified Address				|   Branching       |
-         x  |   JZ address		|    CA   |     7       |	None 	|   Immediate   |   3   |   Jump on zero to specified Address					|   Branching       |
-         x  |   LDA address		|    3A   |     8	    |	None 	|   Direct	    |   3   |   Load A with value in specified address				|   Data Transfer   |
-         x  |   MOV A,B			|    78   |     3	    |	None 	|   Register    |   1   |   Copy the content of B to A 							|   Data Transfer   |
-         x  |   MOV A,C			|    79   |     3	    |	None 	|   Register    |   1   |   Copy the content of C to A 							|   Data Transfer   |
-         x  |   MOV B,A			|    47   |     3	    |	None 	|   Register    |   1   |   Copy the content of A to B 							|   Data Transfer   |
-         x  |   MOV B,C			|    41   |     3	    |	None 	|   Register    |   1   |   Copy the content of C to B 							|   Data Transfer   |
-         x  |   MOV C,A			|    4F   |     3	    |	None 	|   Register    |   1   |   Copy the content of A to C 							|   Data Transfer   |
-         x  |   MOV C,B			|    48   |     3	    |	None 	|   Register    |   1   |   Copy the content of B to C 							|   Data Transfer   |
-         x  |   MVI A,byte		|    3E   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to accumulator			|   Data Transfer   |
-         x  |   MVI B,byte		|    06   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to B Regster				|   Data Transfer   |
-         x  |   MVI C,byte		|    0E   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to C register			|   Data Transfer   |
-         x  |   NOP 			|    00   |     3	    |	None 	|   -		    |   1   |   No Operation 										|   -               |
-         x  |   ORA B 			|    B0   |     4	    |	S, Z 	|   Register    |   1   |   A = A or B											|   Logical         |
-         x  |   ORA C 			|    B1   |     4	    |	S, Z 	|   Register    |   1   |   A = A or C											|   Logical         |
-         x  |   ORI byte 		|    F6   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A  or (1 byte immediate data)					|   Logical         |
-         ?  |   OUT byte 		|    D3   |     ??	    |	None 	|   Direct	    |   2   |   Transfer content of Accumulator to output port		|   Data Transfer   |
-         x  |   RAL 			|    17   |     4	    |	None 	|   Implied	    |   1   |   Rotate left Accumulator content						|   Logical         |
-         x  |   RAR 			|    1F   |     10	    |	None 	|   Implied	    |   1   |   Rotate Right Accumulator content					|   Logical         |
-            |   RET 			|    C9   |     ??	    |	None 	|   Implied	    |   1   |   Return												|   Branching       |
-         x  |   STA address 	|    32   |     8	    |	None 	|   Direct	    |   3   |   Store Accumulator content to memory					|   Data Transfer   |
-         x  |   SUB B 			|    90   |     5	    |	S, Z 	|   Register    |   1   |   A = A - B											|   Arithmetic      |
-         x  |   SUB C 			|    91   |     5	    |	S, Z 	|   Register    |   1   |   A = A - C 											|   Arithmetic      |
-         x  |   XRA B 			|    A8   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor B											|   Logical         |
-         x  |   XRA C 			|    A9   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor C											|   Logical         |
-         x  |   XRI byte 		|    EE   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A xor (1 byte immediate data)					|   Logical         |
-         x  |   STA [address]   |    01   |     15	    |	None	|   Indirect    |   3   |   Store Accumulator content to memory at valof address|   Logical         |
-            +-------------------+---------+-------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+
-
+            +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+
+            |    Instruction	 | Op Code |T States	|   Flags   |   Addressing 	| Bytes	|                     Description						|       Type        |   Implemented   |
+            +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+
+            |   ADD B			 |    80   |     4	    |	S, Z	|   Register    |   1   |   A = A + B											|   Arithmetic      |       Yes       |
+            |   ADD C			 |    81   |     4	    |	S, Z	|   Register    |   1   |   A = A + C											|   Arithmetic      |       Yes       |
+            |   ADD [Address]    |    82   |     ??     |   S, Z    |   Direct      |   3   |   A=  A + [Address]                                   |   Arithmetic      |       Yes       |
+            |   ADI byte		 |    83   |     ??	    |	S, Z	|   Immediate   |   2   |   A = A + byte										|   Arithmetic      |       Yes       |
+            |   ANA B			 |    A0   |     4	    |	S, Z	|   Register    |   1   |   A = A . B											|   Logical         |       Yes       |
+            |   ANA C			 |    A1   |     4	    |	S, Z	|   Register    |   1   |   A = A . C											|   Logical         |       Yes       |
+            |   ANI byte		 |    E6   |     5	    |	S, Z	|   Immediate   |   2   |   A = A . (1 byte immediate data)						|   Logical         |       Yes       |
+            |   CALL address	 |    CD   |     ??	    |	None	|   Immediate   |   3   |   Call subrotine 										|   Branching       |       No        |
+            |   CMA				 |    2F   |     4	    |	None	|   Implied     |   1   |   A = A’												|   Logical         |       Yes       |
+            |   DCR A			 |    3D   |     4	    |	S, Z	|   Register    |   1   |   A = A - 1											|   Arithmetic      |       Yes       |
+            |   DCR B			 |    05   |     4	    |	S, Z	|   Register    |   1   |   B = B - 1											|   Arithmetic      |       Yes       |
+            |   DCR C			 |    0D   |     4	    |	S, Z	|   Register    |   1   |   C = C - 1											|   Arithmetic      |       Yes       |
+            |   HLT 			 |    76   |     3	    |	None 	|   -		    |   1   |   Terminate program									|   -               |       Yes       |
+            |   IN byte			 |    DB   |     ??	    |	None 	|   Direct	    |   2   |   Transfer the Data from Input port to Accumulator	|   Data Transfer   |       No        |
+            |   INR A			 |    3C   |     4	    |	S, Z 	|   Register    |   1   |   A = A + 1											|   Arithmetic      |       Yes       |
+            |   INR B			 |    04   |     4	    |	S, Z 	|   Register    |   1   |   B = B + 1											|   Arithmetic      |       Yes       |
+            |   INR C			 |    0C   |     4	    |	S, Z 	|   Register    |   1   |   C = C + 1											|   Arithmetic      |       Yes       |
+            |   JM address		 |    FA   |     7      |	None 	|   Immediate   |   3   |   Jump on minus to specified Address					|   Branching       |       Yes       |
+            |   JMP address		 |    C3   |     7	    |	None 	|   Immediate   |   3   |   Jump to specified Address							|   Branching       |       Yes       |
+            |   JNZ address		 |    C2   |     7      |	None 	|   Immediate   |   3   |   Jump on Not Zero to specified Address				|   Branching       |       Yes       |
+            |   JZ address		 |    CA   |     7      |	None 	|   Immediate   |   3   |   Jump on zero to specified Address					|   Branching       |       Yes       |
+            |   LDA address		 |    3A   |     8	    |	None 	|   Direct	    |   3   |   Load A with value in specified address				|   Data Transfer   |       Yes       |
+            |   MOV A,B			 |    78   |     3	    |	None 	|   Register    |   1   |   Copy the content of B to A 							|   Data Transfer   |       Yes       |
+            |   MOV A,C			 |    79   |     3	    |	None 	|   Register    |   1   |   Copy the content of C to A 							|   Data Transfer   |       Yes       |
+            |   MOV B,A			 |    47   |     3	    |	None 	|   Register    |   1   |   Copy the content of A to B 							|   Data Transfer   |       Yes       |
+            |   MOV B,C			 |    41   |     3	    |	None 	|   Register    |   1   |   Copy the content of C to B 							|   Data Transfer   |       Yes       |
+            |   MOV C,A			 |    4F   |     3	    |	None 	|   Register    |   1   |   Copy the content of A to C 							|   Data Transfer   |       Yes       |
+            |   MOV C,B			 |    48   |     3	    |	None 	|   Register    |   1   |   Copy the content of B to C 							|   Data Transfer   |       Yes       |
+            |   MVI A,byte		 |    3E   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to accumulator			|   Data Transfer   |       Yes       |
+            |   MVI B,byte		 |    06   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to B Regster				|   Data Transfer   |       Yes       |
+            |   MVI C,byte		 |    0E   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate data to C register			|   Data Transfer   |       Yes       |
+            |   NOP 			 |    00   |     3	    |	None 	|   -		    |   1   |   No Operation 										|   -               |       Yes       |
+            |   ORA B 			 |    B0   |     4	    |	S, Z 	|   Register    |   1   |   A = A or B											|   Logical         |       Yes       |
+            |   ORA C 			 |    B1   |     4	    |	S, Z 	|   Register    |   1   |   A = A or C											|   Logical         |       Yes       |
+            |   ORI byte 		 |    F6   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A  or (1 byte immediate data)					|   Logical         |       Yes       |
+            |   OUT      		 |    D2   |     3	    |	None 	|   Implied	    |   1   |   Transfer content of Accumulator to output port		|   Data Transfer   |       Yes       |
+            |   OUT byte 		 |    D3   |     5	    |	None 	|   Immediate   |   2   |   Load 1 byte immediate to output port        		|   Data Transfer   |       Yes       |
+            |   OUT [address]    |    D4   |     8	    |	None 	|   Direct      |   3   |   Load the value from memory add {address} to output	|   Data Transfer   |       Yes       |
+            |   RAL 			 |    17   |     4	    |	None 	|   Implied	    |   1   |   Rotate left Accumulator content						|   Logical         |       Yes       |
+            |   RAR 			 |    1F   |     10	    |	None 	|   Implied	    |   1   |   Rotate Right Accumulator content					|   Logical         |       Yes       |
+            |   RET 			 |    C9   |     ??	    |	None 	|   Implied	    |   1   |   Return												|   Branching       |       No        |
+            |   STA address 	 |    32   |     8	    |	None 	|   Direct	    |   3   |   Store Accumulator content to memory					|   Data Transfer   |       Yes       |
+            |   STA [address]    |    01   |     15	    |	None	|   Indirect    |   3   |   Store Accumulator content to memory at valof address|   Logical         |       Yes       |
+            |   STI address,byte |    33   |     15	    |	None	|   Indirect    |   4   |   Store an immediate value to memory at address       |   Logical         |       Yes       |
+            |   SUB B 			 |    90   |     5	    |	S, Z 	|   Register    |   1   |   A = A - B											|   Arithmetic      |       Yes       |
+            |   SUB C 			 |    91   |     5	    |	S, Z 	|   Register    |   1   |   A = A - C 											|   Arithmetic      |       Yes       |
+            |   SUB [Address]	 |    92   |     ??	    |	S, Z 	|   Direct      |   3   |   A = A - [Address]									|   Arithmetic      |       Yes       |
+            |   SBI Byte		 |    93   |     ??	    |	S, Z 	|   Immediate   |   2   |   A = A - Byte										|   Arithmetic      |       Yes       |
+            |   XRA B 			 |    A8   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor B											|   Logical         |       Yes       |
+            |   XRA C 			 |    A9   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor C											|   Logical         |       Yes       |
+            |   XRI byte 		 |    EE   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A xor (1 byte immediate data)					|   Logical         |       Yes       |            
+            +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+                 
+                                 
 
              */
 
@@ -196,7 +203,7 @@ namespace SAP2Modules
 /*            T0 -FETCH- T1           T2          T3                       T4                           T5                  T6                  T7                  T8                  T9                        Unused               OpCode INST
             -----     --------      -----       -----                     -----                         ----               -----               -----               ----                ----                       ------              ------  ----  */
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 00 - NOP
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,     PCO|TI, MDO|MI ,RO|MDI,              MO|JMP|CE, PCO|MI    ,RO|MDI|MDS,TO|JMP, MDO|MI,AO|RI|RT,0,0,0},    // 01 - STA [Address] (Indirect)
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,     PCO|TI, MDO|MI ,RO|MDI,              MO|JMP|CE, PCO|MI    ,RO|MDI|MDS,TO|JMP, MDO|MI,AO|RI|RT, 0,0,0},    // 01 - STA [Address] (Indirect)
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 02 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 03 - 
             {MI|PCO,    RO|II|CE,     BO|TI,      CRI|FI|EO|BI|RT,          0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 04 - INR B
@@ -246,14 +253,14 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 30 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 31 - 
             {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             AO|RI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 32 - STA address
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 33 - 
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MI|PCO,             RO|TI|CE,           MDO|MI,             TO|RI|RT,               0,0,0,0,0,0,0,0},    // 33 - STI address, byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 34 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 35 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 36 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 37 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 38 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 39 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             RO|AI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 3A - LDA, Address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             RO|AI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 3A - LDA Address
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3B - 
             {MI|PCO,    RO|II|CE,     AO|TI,      CRI|FI|EO|AI|RT,          0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3C - INR A
             {MI|PCO,    RO|II|CE,     AO|TI,      S0|S1|S2|S3|EO|FI|AI|RT,  0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3D - DCR A
@@ -325,8 +332,8 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 7F - 
             {MI|PCO,    RO|II|CE,     BO|TI,      EO|AI|S3|S0|FI|RT,        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 80 - ADD B
             {MI|PCO,    RO|II|CE,     CO|TI,      EO|AI|S3|S0|FI|RT,        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 81 - ADD C
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 82 - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 83 - 
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             TI|RO,              EO|AI|S3|S0|FI|RT,  0,                      0,0,0,0,0,0,0,0},    // 82 - ADD [Address]
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|TI|CE,                 EO|AI|S3|S0|FI|RT,          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 83 - ADI Byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 84 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 85 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 86 - 
@@ -339,10 +346,10 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 8D - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 8E - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 8F - 
-            {MI|PCO,    RO|II|CE,     AO|TI,      BO|AI,                    EO|AI|FI|CRI|S2|S1|FI|RT,   0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 90 - SUB B
-            {MI|PCO,    RO|II|CE,     AO|TI,      CO|AI,                    EO|AI|FI|CRI|S2|S1|FI|RT,   0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 91 - SUB C
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 92 - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 93 - 
+            {MI|PCO,    RO|II|CE,     AO|TI,      BO|AI,                    EO|AI|FI|CRI|S2|S1|RT,      0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 90 - SUB B
+            {MI|PCO,    RO|II|CE,     AO|TI,      CO|AI,                    EO|AI|FI|CRI|S2|S1|RT,      0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 91 - SUB C
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI, AO|TI,      AI|RO,              EO|AI|FI|CRI|S2|S1|RT,                      0,0,0,0,0,0,0,0},    // 92 - SUB [Address]
+            {MI|PCO,    RO|II|CE,     MI|PCO,     AO|TI,                    RO|AI|CE,                   EO|AI|FI|CRI|S2|S1|RT,0,                0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 93 - SBI Byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 94 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 95 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 96 - 
@@ -405,9 +412,9 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CF - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D0 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D1 - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D2 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                AO|OI|RT,                   0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D3 - OUT - not finished <testing>
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D4 - 
+            {MI|PCO,    RO|II|CE,     AO|OI|RT,   0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D2 - OUT
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MDO|OI|RT,                  0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D3 - OUT byte
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             OI|RO|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // D4 - OUT [address]
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D5 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D6 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D7 - 
@@ -450,7 +457,7 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FC - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FD - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FE - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FF - 
+            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FF - NOP 
     };
 
         void InitUCode()
@@ -513,50 +520,58 @@ namespace SAP2Modules
         }
         public enum Instructions
         {
-            STA_Ind         =   0x01,
-            ADD_B			=   0x80,
-            ADD_C			=   0x81,
-            ANA_B			=   0xA0,
-            ANA_C			=   0xA1,
-            ANI     		=   0xE6,
-            CALL        	=   0xCD,
-            CMA				=   0x2F,
-            DCR_A			=   0x3D,
-            DCR_B			=   0x05,
-            DCR_C			=   0x0D,
-            HLT 			=   0x76,
-            IN  			=   0xDB,
-            INR_A			=   0x3C,
-            INR_B			=   0x04,
-            INR_C			=   0x0C,
-            JM      		=   0xFA,
-            JMP     		=   0xC3,
-            JNZ     		=   0xC2,
-            JZ      		=   0xCA,
-            LDA     		=   0x3A,
-            MOV_A__B			=   0x78,
-            MOV_A__C 		=   0x79,
-            MOV_B__A 		=   0x47,
-            MOV_B__C		    =   0x41,
-            MOV_C__A		    =   0x4F,
-            MOV_C__B		    =   0x48,
-            MVI_A   		=   0x3E,
-            MVI_B   		=   0x06,
-            MVI_C   		=   0x0E,
-            NOP			    =   0x00,
-            ORA_B			=   0xB0,
-            ORA_C			=   0xB1,
-            ORI     		=   0xF6,
-            OUT     		=   0xD3,
-            RAL 			=   0x17,
-            RAR 			=   0x1F,
-            RET 			=   0xC9,
-            STA     	    =   0x32,
-            SUB_B			=   0x90,
-            SUB_C			=   0x91,
-            XRA_B			=   0xA8,
-            XRA_C			=   0xA9,
-            XRI     		=   0xEE,
-    }
+            STA_Ind = 0x01,
+            STA = 0x32,
+            STI =0x33,
+            ADD_B = 0x80,
+            ADD_C = 0x81,
+            Add_Addr = 0x82,
+            ADI = 0x83,
+            ANA_B = 0xA0,
+            ANA_C = 0xA1,
+            ANI = 0xE6,
+            CALL = 0xCD,
+            CMA = 0x2F,
+            DCR_A = 0x3D,
+            DCR_B = 0x05,
+            DCR_C = 0x0D,
+            HLT = 0x76,
+            IN = 0xDB,
+            INR_A = 0x3C,
+            INR_B = 0x04,
+            INR_C = 0x0C,
+            JM = 0xFA,
+            JMP = 0xC3,
+            JNZ = 0xC2,
+            JZ = 0xCA,
+            LDA = 0x3A,
+            MOV_A__B = 0x78,
+            MOV_A__C = 0x79,
+            MOV_B__A = 0x47,
+            MOV_B__C = 0x41,
+            MOV_C__A = 0x4F,
+            MOV_C__B = 0x48,
+            MVI_A = 0x3E,
+            MVI_B = 0x06,
+            MVI_C = 0x0E,
+            NOP = 0x00,
+            NOP_ = 0xFF,
+            ORA_B = 0xB0,
+            ORA_C = 0xB1,
+            ORI = 0xF6,
+            OUT=0xD2,
+            OUT_Imd = 0xD3,
+            OUT_Addr = 0xD4,
+            RAL = 0x17,
+            RAR = 0x1F,
+            RET = 0xC9,
+            SUB_B = 0x90,
+            SUB_C = 0x91,
+            SUB_Addr = 0x92,
+            SBI = 0x93,
+            XRA_B = 0xA8,
+            XRA_C = 0xA9,
+            XRI = 0xEE
+        }
     }
 }

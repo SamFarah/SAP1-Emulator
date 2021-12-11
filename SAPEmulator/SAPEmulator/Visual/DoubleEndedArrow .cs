@@ -18,7 +18,8 @@ namespace SAPEmulator.AppCode.Visual
         {
             None,
             Left,
-            Right
+            Right,
+            both
         }
         Graphics gra;
         private Direction State;
@@ -153,7 +154,7 @@ namespace SAPEmulator.AppCode.Visual
                         ArrowPath.AddLines(rightArrow);
                         gra.FillPath(new SolidBrush(OnRColorFill), ArrowPath);
                         gra.DrawPath(p, ArrowPath);
-                        gra.DrawString(CapRNumber.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(127, 127, 127)), ArrowLength + xOffset, yOffset - 3, new StringFormat());                       
+                        gra.DrawString(CapRNumber.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(127, 127, 127)), ArrowLength + xOffset, yOffset - 3, new StringFormat());
                     }
                     break;
                 case Direction.Left:
@@ -172,11 +173,45 @@ namespace SAPEmulator.AppCode.Visual
                             };
                         ArrowPath.AddLines(leftArrow);
                         gra.FillPath(new SolidBrush(OnLColorFill), ArrowPath);
-                        gra.DrawPath(p, ArrowPath);                        
+                        gra.DrawPath(p, ArrowPath);
                         gra.DrawString(CapLNumber.ToString(), new Font("Arial", 8), new SolidBrush(Color.FromArgb(127, 127, 127)), -9 + xOffset, yOffset - 2, new StringFormat());
                     }
                     break;
-            }          
+                case Direction.both: //should not happen 
+                    using (Pen p = new Pen(Color.Red))
+                    using (GraphicsPath ArrowPath = new GraphicsPath())
+                    {
+                        Point[] leftArrow =
+                            {
+                                new Point(ArrowLength + xOffset, 8 + yOffset ),
+                                new Point(0 + xOffset, 8 + yOffset),
+                                new Point(0 + xOffset, 13 + yOffset),
+                                new Point(-19 + xOffset, 4 + yOffset),
+                                new Point(0 + xOffset, -5+ yOffset),
+                                new Point(0 + xOffset, 0 + yOffset),
+                                new Point(ArrowLength + xOffset, 0 + yOffset),
+                            };
+
+                        Point[] rightArrow =
+                            {
+                                new Point(  xOffset, 0 + yOffset),
+                                new Point(ArrowLength + xOffset, 0 + yOffset),
+                                new Point(ArrowLength + xOffset, -5 + yOffset),
+                                new Point(ArrowLength + xOffset + 19, 4 + yOffset),
+                                new Point(ArrowLength + xOffset, 13 + yOffset),
+                                new Point(ArrowLength + xOffset, 8 + yOffset ),
+                                new Point( xOffset, 8 + yOffset)
+                            };
+                        ArrowPath.AddLines(leftArrow);
+                        ArrowPath.AddLines(rightArrow);
+                        gra.FillPath(new SolidBrush(Color.White), ArrowPath);
+                        gra.DrawPath(p, ArrowPath);
+                        gra.DrawString("ERROR", new Font("Arial", 5,FontStyle.Bold ), new SolidBrush(Color.Red), 3 + xOffset, yOffset +1 , new StringFormat());
+                        
+                    }
+                    break;
+
+            }
         }
         public void ChangeState(Direction dir)
         {

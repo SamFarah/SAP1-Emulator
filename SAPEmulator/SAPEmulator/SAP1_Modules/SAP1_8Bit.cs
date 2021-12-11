@@ -40,7 +40,7 @@ namespace SAP1Modules
         */
 
         //The CPU has the following modules
-        public ClockGenerator Clock { get; set; }   // A clock signal generator to synchronize  all devices together 
+        public ClockGenerator Clock { get; set; }   // A clock signal generator to synchronize all devices together 
         public Bus Bus { get; set; }                // A bus that acts has a "data highway" to allow data transfer from one device to another
         public Register A { get; set; }             // Accumilator "A" Register
         public Register B { get; set; }             // "B" Register
@@ -60,7 +60,7 @@ namespace SAP1Modules
         {
             Flags = new FlagsRegister(0x03); // Create a 2-bit flag register
 
-            // Create the devices and configure how many bits they connect with other devices.
+            // Create the devices and configure how many bits they connected with other devices.
             A = new Register(); //Create an 8-bit register (no mask provided defualts to 8-bit)
             B = new Register(); //Create an 8-bit register
             Inst = new Register(maskOut: 0x0F); //Instruction Register only connects to bus with 4 LSB, thus the maskOut=0x0F, defaults to 8-bit into the Bus

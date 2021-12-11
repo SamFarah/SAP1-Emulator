@@ -47,10 +47,9 @@
             this.ProgRamDataTB = new System.Windows.Forms.TextBox();
             this.ProramBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LoadBinFileBtn = new System.Windows.Forms.Button();
             this.UpdateRAMViewCB = new System.Windows.Forms.CheckBox();
             this.RAMGridView = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.LoadSampleBtn = new System.Windows.Forms.Button();
             this.RefreshRamView = new System.Windows.Forms.Button();
             this.RandomizeRAMBtn = new System.Windows.Forms.Button();
             this.WipeRAMBtn = new System.Windows.Forms.Button();
@@ -60,9 +59,7 @@
             this.DisplayShadowLbl = new System.Windows.Forms.Label();
             this.DisplaySignedCB = new System.Windows.Forms.CheckBox();
             this.ResetBtn = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.OpenAssemblerBtn = new System.Windows.Forms.Button();
-            this.LoadedProgramTB = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.SWLbl = new System.Windows.Forms.Label();
             this.ClkCounterLBL = new System.Windows.Forms.Label();
@@ -89,6 +86,8 @@
             this.MDRRegValLbl = new System.Windows.Forms.Label();
             this.CRegGroup = new System.Windows.Forms.GroupBox();
             this.CRegValLbl = new System.Windows.Forms.Label();
+            this.AnimationCB = new System.Windows.Forms.CheckBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.TempRegArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.MARArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
             this.MDRArrow = new SAPEmulator.AppCode.Visual.DoubleEndedArrow();
@@ -364,12 +363,9 @@
             this.led113 = new SAPEmulator.AppCode.Visual.LED();
             this.led2 = new SAPEmulator.AppCode.Visual.LED();
             this.led193 = new SAPEmulator.AppCode.Visual.LED();
-            this.button2 = new System.Windows.Forms.Button();
-            this.AnimationCB = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyAdjust)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.PCGroup.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -477,7 +473,7 @@
             // SumRegValLbl
             // 
             this.SumRegValLbl.AutoSize = true;
-            this.SumRegValLbl.Location = new System.Drawing.Point(116, 22);
+            this.SumRegValLbl.Location = new System.Drawing.Point(116, 21);
             this.SumRegValLbl.Name = "SumRegValLbl";
             this.SumRegValLbl.Size = new System.Drawing.Size(43, 13);
             this.SumRegValLbl.TabIndex = 31;
@@ -565,11 +561,10 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.OpenAssemblerBtn);
+            this.groupBox2.Controls.Add(this.LoadBinFileBtn);
             this.groupBox2.Controls.Add(this.UpdateRAMViewCB);
             this.groupBox2.Controls.Add(this.RAMGridView);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.LoadSampleBtn);
             this.groupBox2.Controls.Add(this.RefreshRamView);
             this.groupBox2.Controls.Add(this.RandomizeRAMBtn);
             this.groupBox2.Controls.Add(this.WipeRAMBtn);
@@ -578,19 +573,29 @@
             this.groupBox2.Controls.Add(this.ProgRamDataTB);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.ProgRAMAddrTB);
-            this.groupBox2.Location = new System.Drawing.Point(653, 174);
+            this.groupBox2.Location = new System.Drawing.Point(817, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(614, 412);
+            this.groupBox2.Size = new System.Drawing.Size(614, 574);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "RAM Debug";
+            // 
+            // LoadBinFileBtn
+            // 
+            this.LoadBinFileBtn.Location = new System.Drawing.Point(6, 198);
+            this.LoadBinFileBtn.Name = "LoadBinFileBtn";
+            this.LoadBinFileBtn.Size = new System.Drawing.Size(108, 25);
+            this.LoadBinFileBtn.TabIndex = 186;
+            this.LoadBinFileBtn.Text = "Load .Bin File";
+            this.LoadBinFileBtn.UseVisualStyleBackColor = true;
+            this.LoadBinFileBtn.Click += new System.EventHandler(this.LoadBinFileBtn_Click);
             // 
             // UpdateRAMViewCB
             // 
             this.UpdateRAMViewCB.AutoSize = true;
             this.UpdateRAMViewCB.Checked = true;
             this.UpdateRAMViewCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.UpdateRAMViewCB.Location = new System.Drawing.Point(9, 303);
+            this.UpdateRAMViewCB.Location = new System.Drawing.Point(9, 466);
             this.UpdateRAMViewCB.Name = "UpdateRAMViewCB";
             this.UpdateRAMViewCB.Size = new System.Drawing.Size(95, 17);
             this.UpdateRAMViewCB.TabIndex = 184;
@@ -614,32 +619,12 @@
             this.RAMGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RAMGridView.RowTemplate.Height = 12;
             this.RAMGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.RAMGridView.Size = new System.Drawing.Size(485, 386);
+            this.RAMGridView.Size = new System.Drawing.Size(485, 553);
             this.RAMGridView.TabIndex = 183;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 183);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 25);
-            this.button1.TabIndex = 68;
-            this.button1.Text = "Load Sample";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // LoadSampleBtn
-            // 
-            this.LoadSampleBtn.Location = new System.Drawing.Point(6, 148);
-            this.LoadSampleBtn.Name = "LoadSampleBtn";
-            this.LoadSampleBtn.Size = new System.Drawing.Size(108, 29);
-            this.LoadSampleBtn.TabIndex = 67;
-            this.LoadSampleBtn.Text = "Load Sample";
-            this.LoadSampleBtn.UseVisualStyleBackColor = true;
-            this.LoadSampleBtn.Click += new System.EventHandler(this.LoadSampleBtn_Click);
             // 
             // RefreshRamView
             // 
-            this.RefreshRamView.Location = new System.Drawing.Point(6, 274);
+            this.RefreshRamView.Location = new System.Drawing.Point(6, 437);
             this.RefreshRamView.Name = "RefreshRamView";
             this.RefreshRamView.Size = new System.Drawing.Size(108, 23);
             this.RefreshRamView.TabIndex = 66;
@@ -649,7 +634,7 @@
             // 
             // RandomizeRAMBtn
             // 
-            this.RandomizeRAMBtn.Location = new System.Drawing.Point(6, 348);
+            this.RandomizeRAMBtn.Location = new System.Drawing.Point(6, 516);
             this.RandomizeRAMBtn.Name = "RandomizeRAMBtn";
             this.RandomizeRAMBtn.Size = new System.Drawing.Size(108, 23);
             this.RandomizeRAMBtn.TabIndex = 65;
@@ -659,7 +644,7 @@
             // 
             // WipeRAMBtn
             // 
-            this.WipeRAMBtn.Location = new System.Drawing.Point(6, 378);
+            this.WipeRAMBtn.Location = new System.Drawing.Point(6, 545);
             this.WipeRAMBtn.Name = "WipeRAMBtn";
             this.WipeRAMBtn.Size = new System.Drawing.Size(108, 23);
             this.WipeRAMBtn.TabIndex = 64;
@@ -730,42 +715,19 @@
             this.ResetBtn.UseVisualStyleBackColor = true;
             this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.OpenAssemblerBtn);
-            this.groupBox1.Controls.Add(this.LoadedProgramTB);
-            this.groupBox1.Location = new System.Drawing.Point(817, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(208, 161);
-            this.groupBox1.TabIndex = 101;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Loaded Program";
-            // 
             // OpenAssemblerBtn
             // 
-            this.OpenAssemblerBtn.Location = new System.Drawing.Point(6, 129);
+            this.OpenAssemblerBtn.Location = new System.Drawing.Point(6, 169);
             this.OpenAssemblerBtn.Name = "OpenAssemblerBtn";
-            this.OpenAssemblerBtn.Size = new System.Drawing.Size(196, 23);
+            this.OpenAssemblerBtn.Size = new System.Drawing.Size(108, 23);
             this.OpenAssemblerBtn.TabIndex = 151;
             this.OpenAssemblerBtn.Text = "Open Assembler";
             this.OpenAssemblerBtn.UseVisualStyleBackColor = true;
             this.OpenAssemblerBtn.Click += new System.EventHandler(this.OpenAssemblerBtn_Click);
             // 
-            // LoadedProgramTB
-            // 
-            this.LoadedProgramTB.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadedProgramTB.Location = new System.Drawing.Point(6, 19);
-            this.LoadedProgramTB.Multiline = true;
-            this.LoadedProgramTB.Name = "LoadedProgramTB";
-            this.LoadedProgramTB.ReadOnly = true;
-            this.LoadedProgramTB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LoadedProgramTB.Size = new System.Drawing.Size(196, 104);
-            this.LoadedProgramTB.TabIndex = 0;
-            this.LoadedProgramTB.Text = "No code loaded into the computer. Use \"Open Assembler\" to write assembly code and" +
-    " load it into the memory";
-            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.AnimationCB);
             this.groupBox4.Controls.Add(this.SWLbl);
             this.groupBox4.Controls.Add(this.ClkCounterLBL);
             this.groupBox4.Controls.Add(this.ClkLed);
@@ -932,7 +894,7 @@
             this.groupBox12.Controls.Add(this.rLabel15);
             this.groupBox12.Location = new System.Drawing.Point(108, 438);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(240, 132);
+            this.groupBox12.Size = new System.Drawing.Size(240, 148);
             this.groupBox12.TabIndex = 131;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Control Word";
@@ -1024,7 +986,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(1101, 58);
+            this.label3.Location = new System.Drawing.Point(671, 573);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 13);
             this.label3.TabIndex = 151;
@@ -1050,7 +1012,7 @@
             // TempRegValLbl
             // 
             this.TempRegValLbl.AutoSize = true;
-            this.TempRegValLbl.Location = new System.Drawing.Point(116, 22);
+            this.TempRegValLbl.Location = new System.Drawing.Point(116, 21);
             this.TempRegValLbl.Name = "TempRegValLbl";
             this.TempRegValLbl.Size = new System.Drawing.Size(29, 13);
             this.TempRegValLbl.TabIndex = 30;
@@ -1095,6 +1057,24 @@
             this.CRegValLbl.Size = new System.Drawing.Size(29, 13);
             this.CRegValLbl.TabIndex = 32;
             this.CRegValLbl.Text = "CVal";
+            // 
+            // AnimationCB
+            // 
+            this.AnimationCB.AutoSize = true;
+            this.AnimationCB.Checked = true;
+            this.AnimationCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AnimationCB.Location = new System.Drawing.Point(175, 96);
+            this.AnimationCB.Name = "AnimationCB";
+            this.AnimationCB.Size = new System.Drawing.Size(102, 17);
+            this.AnimationCB.TabIndex = 185;
+            this.AnimationCB.Text = "Show Animation";
+            this.AnimationCB.UseVisualStyleBackColor = true;
+            this.AnimationCB.CheckedChanged += new System.EventHandler(this.AnimationCB_CheckedChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "bin";
+            this.openFileDialog1.Filter = "Binary|*.bin";
             // 
             // TempRegArrow
             // 
@@ -2431,7 +2411,7 @@
             // rLabel41
             // 
             this.rLabel41.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel41.Location = new System.Drawing.Point(204, 92);
+            this.rLabel41.Location = new System.Drawing.Point(204, 99);
             this.rLabel41.Name = "rLabel41";
             this.rLabel41.RotationAngle = 90D;
             this.rLabel41.Size = new System.Drawing.Size(14, 16);
@@ -2442,7 +2422,7 @@
             // rLabel35
             // 
             this.rLabel35.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel35.Location = new System.Drawing.Point(136, 92);
+            this.rLabel35.Location = new System.Drawing.Point(136, 99);
             this.rLabel35.Name = "rLabel35";
             this.rLabel35.RotationAngle = 90D;
             this.rLabel35.Size = new System.Drawing.Size(14, 16);
@@ -2464,7 +2444,7 @@
             // rLabel26
             // 
             this.rLabel26.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel26.Location = new System.Drawing.Point(8, 92);
+            this.rLabel26.Location = new System.Drawing.Point(8, 99);
             this.rLabel26.Name = "rLabel26";
             this.rLabel26.RotationAngle = 90D;
             this.rLabel26.Size = new System.Drawing.Size(14, 16);
@@ -2475,7 +2455,7 @@
             // rLabel27
             // 
             this.rLabel27.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel27.Location = new System.Drawing.Point(23, 84);
+            this.rLabel27.Location = new System.Drawing.Point(23, 91);
             this.rLabel27.Name = "rLabel27";
             this.rLabel27.RotationAngle = 90D;
             this.rLabel27.Size = new System.Drawing.Size(12, 25);
@@ -2486,7 +2466,7 @@
             // rLabel28
             // 
             this.rLabel28.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel28.Location = new System.Drawing.Point(37, 84);
+            this.rLabel28.Location = new System.Drawing.Point(37, 91);
             this.rLabel28.Name = "rLabel28";
             this.rLabel28.RotationAngle = 90D;
             this.rLabel28.Size = new System.Drawing.Size(11, 25);
@@ -2497,7 +2477,7 @@
             // rLabel29
             // 
             this.rLabel29.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel29.Location = new System.Drawing.Point(51, 84);
+            this.rLabel29.Location = new System.Drawing.Point(51, 91);
             this.rLabel29.Name = "rLabel29";
             this.rLabel29.RotationAngle = 90D;
             this.rLabel29.Size = new System.Drawing.Size(11, 25);
@@ -2508,7 +2488,7 @@
             // rLabel30
             // 
             this.rLabel30.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel30.Location = new System.Drawing.Point(64, 92);
+            this.rLabel30.Location = new System.Drawing.Point(64, 99);
             this.rLabel30.Name = "rLabel30";
             this.rLabel30.RotationAngle = 90D;
             this.rLabel30.Size = new System.Drawing.Size(14, 16);
@@ -2519,7 +2499,7 @@
             // rLabel31
             // 
             this.rLabel31.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel31.Location = new System.Drawing.Point(78, 92);
+            this.rLabel31.Location = new System.Drawing.Point(78, 99);
             this.rLabel31.Name = "rLabel31";
             this.rLabel31.RotationAngle = 90D;
             this.rLabel31.Size = new System.Drawing.Size(14, 16);
@@ -2530,7 +2510,7 @@
             // rLabel32
             // 
             this.rLabel32.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel32.Location = new System.Drawing.Point(94, 92);
+            this.rLabel32.Location = new System.Drawing.Point(94, 99);
             this.rLabel32.Name = "rLabel32";
             this.rLabel32.RotationAngle = 90D;
             this.rLabel32.Size = new System.Drawing.Size(14, 16);
@@ -2541,7 +2521,7 @@
             // rLabel33
             // 
             this.rLabel33.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel33.Location = new System.Drawing.Point(108, 92);
+            this.rLabel33.Location = new System.Drawing.Point(108, 99);
             this.rLabel33.Name = "rLabel33";
             this.rLabel33.RotationAngle = 90D;
             this.rLabel33.Size = new System.Drawing.Size(14, 16);
@@ -2552,7 +2532,7 @@
             // rLabel34
             // 
             this.rLabel34.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel34.Location = new System.Drawing.Point(121, 92);
+            this.rLabel34.Location = new System.Drawing.Point(121, 99);
             this.rLabel34.Name = "rLabel34";
             this.rLabel34.RotationAngle = 90D;
             this.rLabel34.Size = new System.Drawing.Size(14, 16);
@@ -2563,7 +2543,7 @@
             // rLabel36
             // 
             this.rLabel36.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel36.Location = new System.Drawing.Point(219, 92);
+            this.rLabel36.Location = new System.Drawing.Point(219, 99);
             this.rLabel36.Name = "rLabel36";
             this.rLabel36.RotationAngle = 90D;
             this.rLabel36.Size = new System.Drawing.Size(14, 16);
@@ -2574,7 +2554,7 @@
             // rLabel37
             // 
             this.rLabel37.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel37.Location = new System.Drawing.Point(149, 92);
+            this.rLabel37.Location = new System.Drawing.Point(149, 99);
             this.rLabel37.Name = "rLabel37";
             this.rLabel37.RotationAngle = 90D;
             this.rLabel37.Size = new System.Drawing.Size(14, 16);
@@ -2585,7 +2565,7 @@
             // rLabel38
             // 
             this.rLabel38.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel38.Location = new System.Drawing.Point(163, 93);
+            this.rLabel38.Location = new System.Drawing.Point(163, 100);
             this.rLabel38.Name = "rLabel38";
             this.rLabel38.RotationAngle = 90D;
             this.rLabel38.Size = new System.Drawing.Size(14, 16);
@@ -2596,7 +2576,7 @@
             // rLabel39
             // 
             this.rLabel39.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel39.Location = new System.Drawing.Point(177, 92);
+            this.rLabel39.Location = new System.Drawing.Point(177, 99);
             this.rLabel39.Name = "rLabel39";
             this.rLabel39.RotationAngle = 90D;
             this.rLabel39.Size = new System.Drawing.Size(14, 16);
@@ -2607,7 +2587,7 @@
             // rLabel40
             // 
             this.rLabel40.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rLabel40.Location = new System.Drawing.Point(191, 85);
+            this.rLabel40.Location = new System.Drawing.Point(191, 92);
             this.rLabel40.Name = "rLabel40";
             this.rLabel40.RotationAngle = 90D;
             this.rLabel40.Size = new System.Drawing.Size(15, 25);
@@ -2650,7 +2630,7 @@
             this.StatusLEDDsiaply2.LEDs.Add(this.led164);
             this.StatusLEDDsiaply2.LEDs.Add(this.led165);
             this.StatusLEDDsiaply2.LEDSpacing = 4;
-            this.StatusLEDDsiaply2.Location = new System.Drawing.Point(6, 110);
+            this.StatusLEDDsiaply2.Location = new System.Drawing.Point(6, 117);
             this.StatusLEDDsiaply2.Name = "StatusLEDDsiaply2";
             this.StatusLEDDsiaply2.NibbleSpacing = 0;
             this.StatusLEDDsiaply2.Size = new System.Drawing.Size(230, 16);
@@ -3947,35 +3927,11 @@
             this.led193.Size = new System.Drawing.Size(11, 11);
             this.led193.TabIndex = 4;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(6, 214);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 25);
-            this.button2.TabIndex = 185;
-            this.button2.Text = "Load Sample";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // AnimationCB
-            // 
-            this.AnimationCB.AutoSize = true;
-            this.AnimationCB.Checked = true;
-            this.AnimationCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AnimationCB.Location = new System.Drawing.Point(1065, 108);
-            this.AnimationCB.Name = "AnimationCB";
-            this.AnimationCB.Size = new System.Drawing.Size(102, 17);
-            this.AnimationCB.TabIndex = 185;
-            this.AnimationCB.Text = "Show Animation";
-            this.AnimationCB.UseVisualStyleBackColor = true;
-            this.AnimationCB.CheckedChanged += new System.EventHandler(this.AnimationCB_CheckedChanged);
-            // 
             // Sap2SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1282, 595);
-            this.Controls.Add(this.AnimationCB);
+            this.ClientSize = new System.Drawing.Size(1437, 595);
             this.Controls.Add(this.TempRegArrow);
             this.Controls.Add(this.MARArrow);
             this.Controls.Add(this.MDRArrow);
@@ -4005,7 +3961,6 @@
             this.Controls.Add(this.ARegGroup);
             this.Controls.Add(this.PCGroup);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox6);
             this.DoubleBuffered = true;
@@ -4017,8 +3972,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RAMGridView)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.PCGroup.ResumeLayout(false);
@@ -4216,7 +4169,6 @@
         private AppCode.Visual.RLabel rLabel21;
         private System.Windows.Forms.Button ResetBtn;
         private System.Windows.Forms.Button WipeRAMBtn;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button RandomizeRAMBtn;
         private AppCode.Visual.LEDDisplay SumFlagsLEDDisplay;
         private AppCode.Visual.LED led90;
@@ -4251,7 +4203,6 @@
         private AppCode.Visual.LED IncLED;
         private AppCode.Visual.LED ClkLed;
         private System.Windows.Forms.Button OpenAssemblerBtn;
-        public System.Windows.Forms.TextBox LoadedProgramTB;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer ScreenUpdateTimer;
         private AppCode.Visual.LED led1;
@@ -4392,7 +4343,6 @@
         private AppCode.Visual.RLabel rLabel60;
         private AppCode.Visual.RLabel rLabel61;
         private System.Windows.Forms.Label InstructionLBL;
-        private System.Windows.Forms.Button LoadSampleBtn;
         private AppCode.Visual.Arrow FlagRegArrowIn;
         private AppCode.Visual.Arrow SUMArrowOut;
         private AppCode.Visual.DoubleEndedArrow ARegArrow;
@@ -4401,15 +4351,15 @@
         private AppCode.Visual.DoubleEndedArrow PCArrow;
         private AppCode.Visual.DoubleEndedArrow RAMArrow;
         private AppCode.Visual.DoubleEndedArrow MDRArrow;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label ClkCounterLBL;
         private System.Windows.Forms.Label SWLbl;
         private System.Windows.Forms.DataGridView RAMGridView;
         private System.Windows.Forms.CheckBox UpdateRAMViewCB;
         private AppCode.Visual.DoubleEndedArrow MARArrow;
         private AppCode.Visual.DoubleEndedArrow TempRegArrow;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox AnimationCB;
+        private System.Windows.Forms.Button LoadBinFileBtn;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

@@ -1,12 +1,11 @@
 ﻿using SAP2Modules;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace SAPEmulator
@@ -16,12 +15,14 @@ namespace SAPEmulator
         public Sap2AssemblyForm()
         {
             InitializeComponent();
+            this.AssemblyTB.theLabel = label1;
         }
         private Sap2SimulationForm mainForm = null;
         public Sap2AssemblyForm(Form callingForm)
         {
             mainForm = callingForm as Sap2SimulationForm;
             InitializeComponent();
+            this.AssemblyTB.theLabel = label1;
         }
         private void AssemblyForm_Shown(object sender, EventArgs e)
         {
@@ -32,41 +33,264 @@ namespace SAPEmulator
 
         private void LoadASMBtn_Click(object sender, EventArgs e)
         {
-            Assembler assembler = new Assembler();
+            //Create a temp file
 
-            assembler.GenerateCommands(AssemblyTB.Lines);
-            if (assembler.Errors.Count == 0)
+            string FileName = @"tempCodeFile.asm";
+
+            try
             {
-                mainForm.Computer.RAM.MEM = assembler.GetMachineCode(RandomizeBlanksCB.Checked);
-                mainForm.UpdateRamView();
-                mainForm.LoadedProgramTB.Text = string.Empty;
-                foreach (string line in AssemblyTB.Lines)
+                using (FileStream fs = File.Create(FileName))
                 {
-                    string strippedline = line;
-                    int index = strippedline.IndexOf(";");
-                    if (index >= 0) strippedline = strippedline.Substring(0, index);
-                    if (string.IsNullOrEmpty(strippedline.Trim())) continue;
-                    mainForm.LoadedProgramTB.Text += strippedline + Environment.NewLine;
-
+                    byte[] info = new UTF8Encoding(true).GetBytes(@"
+#ruledef
+{
+	add b			        => 0x80 
+	add c			        => 0x81
+    add [{address}]         => 0x82 @ le(address`16)
+    adi {value}             => 0x83 @ value`8
+	ana b			        => 0xA0
+	ana c			        => 0xA1
+	ani	{value}		        => 0xE6	@ value`8
+	call {address}	        => 0xCD @ le(address`16)
+	cma				        => 0x2F
+	dcr a			        => 0x3D
+	dcr b			        => 0x05
+	dcr c			        => 0x0D
+	hlt				        => 0x76
+	in	{value}		        => 0xDB @ value`8
+	inr a                   => 0x3C
+	inr b                   => 0x04
+	inr c                   => 0x0C
+	jm{address}		        => 0xFA @ le(address`16)
+	jmp {address}	        => 0xC3	@ le(address`16)
+	jnz {address}	        => 0xC2	@ le(address`16)
+	jz	{address}  	        => 0xCA	@ le(address`16)
+	lda {address} 	        => 0x3A	@ le(address`16)
+	mov a, b		        => 0x78
+	mov a, c		        => 0x79
+	mov b, a		        => 0x47
+	mov b, c		        => 0x41
+	mov c, a		        => 0x4F
+	mov c, b		        => 0x48
+	mvi a, {value}	        => 0x3E @ value`8
+	mvi b, {value}	        => 0x06 @ value`8
+	mvi c, {value}	        => 0x0E @ value`8
+	nop				        => 0x00
+	ora b			        => 0xB0	
+	ora c			        => 0xB1
+	ori {value}		        => 0xF6 @ value`8
+    out                     => 0xD2
+	out	{value}		        => 0xD3 @ value`8	
+    out [{address}]         => 0xD4 @ le(address`16)
+	ral				        => 0x17
+	rar				        => 0x1F
+	ret				        => 0xC9
+	sta {address}	        => 0x32	@ le(address`16)
+	sta [{address}]	        => 0x01	@ le(address`16)        
+    sti {address},{value}   => 0x33 @ le(address`16) @ value`8
+	sub b			        => 0x90
+	sub c			        => 0x91
+    sub [{address}]         => 0x92 @ le(address`16)
+    sbi {value}             => 0x93 @ value`8
+	xra b			        => 0xA8	
+	xra c			        => 0xA9
+	xri	{value}		        => 0xEE	@ value`8
+}	
+" + AssemblyTB.Text);
+                    fs.Write(info, 0, info.Length);
                 }
-                CodeValidationResultTB.Text = "Successfully Loaded Into RAM";
-                CodeValidationResultTB.BackColor = SystemColors.Control;
-                CodeValidationResultTB.ForeColor = Color.Green;
             }
-            else
+            catch (Exception ex)
             {
-                CodeValidationResultTB.Text = $"{assembler.Errors.Count} errors found:{Environment.NewLine}\t{ string.Join($"{Environment.NewLine}\t", assembler.Errors)}";
-                CodeValidationResultTB.BackColor = SystemColors.Control;
-                CodeValidationResultTB.ForeColor = Color.Red;
+
 
             }
+
+
+            //Create BIN file
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = $@"/C customasm.exe {FileName}  -p -f hexstr -q ";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.StandardOutputEncoding = System.Text.Encoding.UTF8;
+            process.StartInfo.StandardErrorEncoding = System.Text.Encoding.UTF7;
+            process.Start();
+            string q = "";
+            string error = "";
+            string res = "";
+            while (!process.HasExited)
+            {
+                q += process.StandardOutput.ReadToEnd();
+                error += process.StandardError.ReadToEnd();
+                res = q + (error.Replace('`', '\''));
+            }
+            File.Delete(FileName);
+            string outga = @"(.*\d+m}*)(\d+:\d+:)?";
+            res = Regex.Replace(res, outga, "");
+            if (process.ExitCode == 0)
+            {
+                //success                
+                res = "customasm v0.11.12 (2021-10-10, x86_64-pc-windows-gnu)\nassembling...\nSuccess: Program written to Memory";
+
+
+                byte[] retVal = mainForm.Computer.RAM.MEM;
+                int address = 0;
+                if (WipeMemoryCB.Checked) for (int i = 0; i < 64 * 1024; i++) retVal[i] = 0xFF;
+                for (int i = 0; i < q.Length - 1; i += 2)
+                {
+                    StringBuilder temp = new StringBuilder();
+                    temp.Append(q[i]);
+                    temp.Append(q[i + 1]);
+                    retVal[address++] = byte.Parse(temp.ToString(), System.Globalization.NumberStyles.HexNumber);
+                }
+
+                mainForm.Computer.RAM.MEM = retVal;
+                mainForm.UpdateRamView();
+            }
+            List<string> Q = res.Split(Environment.NewLine.ToCharArray()).ToList();
+            CMDOutTB.Text = string.Empty;
+            Application.DoEvents();
+            foreach (string Line in Q)
+            {
+                CMDOutTB.AppendText(Line + '\r' + '\n');
+                System.Threading.Thread.Sleep(10);
+            }
+
+            CMDOutTB.SelectionStart = CMDOutTB.Text.Length;
+            CMDOutTB.ScrollToCaret();
         }
 
-        private void LoadExample1Btn_Click(object sender, EventArgs e) { AssemblyTB.Text = "; Example 1\r\n; This program adds 2 variables together \r\n; https://youtu.be/dHWFpkGsxOs?t=1669\r\n\r\n.CODE\r\n\tLDA var1\t; Load A with the value of var1\r\n\tADD var2 \t; Add A with the value of var2\r\n\tOUT\t\t; Output the value in register A\r\n\tHLT\t\t; Halt the Computer\r\n\r\n.DATA\r\n\tvar1 $0E\t; Var1 initialized with 14 (DEC)\r\n\tvar2 $1C\t; Var2 initialized with 28 (DEC)"; }
-        private void LoadExample2Btn_Click(object sender, EventArgs e) { AssemblyTB.Text = "; Example 2\r\n; This program counts in threes\r\n; https://youtu.be/FCscQGBIL-Y?t=558\r\n\r\n.CODE\r\n\tLDI $03\t\t; Load immediate value 3 to A\r\n\tSTA $0F\t\t; Store reg A value into memory 0F\r\n\tLDI $00\t\t; Load immediate value 0 to A\r\nLOOP:\tADD $0F\t\t; Add content of memory 0F to A\r\n\tOUT\t\t; Output Reg A to display\r\n\tJMP LOOP\t; Jump to loop"; }
-        private void LoadExample3Btn_Click(object sender, EventArgs e) { AssemblyTB.Text = "; Example 3\r\n; This program counts from 0 to 255 then back to 0, repeats\r\n; https://youtu.be/Zg1NdPKoosU?t=1710\r\n\r\n.CODE\r\nSTART:\tOUT\t\t; Output Reg A\r\n\tADD var1\t; Add var1 value to Reg A\r\n\tJC LOOP\t\t; Jump to LOOP if cary =1\r\n\tJMP START\t; Jump to Start\r\nLOOP:\tSUB var1\t; Subtract var1 value from Reg A\r\n\tOUT\t\t; Output Reg A\r\n\tJZ START\t; Jump to start if ZF=0\r\n\tJMP LOOP\t; Jump to loop\r\n\r\n\r\n.DATA\r\n\tvar1 $01\t; Define inc/dev val"; }
-        private void LoadExample4Btn_Click(object sender, EventArgs e) { AssemblyTB.Text = "; Example 4\r\n; This program that multiplies x and y.\r\n; https://youtu.be/Zg1NdPKoosU?t=2298\r\n\r\n.CODE\r\ntop:\t  LDA x\t\t; Load value of Op1 into A\r\n\t  SUB i\t\t; subtract value of i from A\r\n\t  JC  Continue:\t; jump to Cont if carry\r\n\t  LDA product\t; Load value of Res in A\r\n\t  OUT\t\t; Output result\r\n\t  HLT\t\t; Hault Computer\r\nContinue: STA x\t\t; Store value of A in Op1\r\n\t  LDA product\t; Load value of Res in A\r\n\t  ADD y\t\t; Add value of Op2 into A\r\n\t  STA product\t; Sore value of A in Res\r\n\t  JMP top:\t; Jump to Start\r\n\r\n\r\n.DATA\r\n\ti  \t$01\t; Decrement variable\r\n\tx   \t$03\t; First operand variable\r\n\ty \t$05\t; Second operand variable\r\n\tproduct\t$00\t; Result variable"; }
-        private void NewProgramBtn_Click(object sender, EventArgs e) { AssemblyTB.Text = "\r\n.CODE\r\n\r\n\r\n\r\n.DATA"; }
+        private void LoadExample1Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 1:                                                 |
+; 	| This program adds 2 variables together (var1 + var2)       |
+;	+------------------------------------------------------------+
+
+	STI var1, 0x0E ; var1 initialized with 14 (DEC = 0E Hex)
+	STI var2, 28 ; var2 initialized with 28 (DEC)
+
+	LDA var1	 ; Load A with the value of var1
+	ADD [var2] 	 ; Add (Direct) A with the value of var2
+	OUT		 ; Output the value in register A
+	HLT		 ; Halt the Computer
+
+; Variables
+var1: #res 1		 ; define a mem location as a var reserve 1 byte
+var2: #res 1		 ; define a mem location as a var reserve 1 byte";
+        }
+        private void LoadExample2Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 2:                                                 |
+; 	| This program counts in fives                               |
+;	+------------------------------------------------------------+
+
+	MVI B,0b00000101	; cpy the value 5 (in binary) to Reg B
+	MVI A,0		; Initialize Reg A with 0
+LOOP:
+	ADD B			; Add Reg B to Reg A and store in A
+	OUT			; ouput the value of reg A
+	JMP LOOP		; go back to loop
+";
+        }
+        private void LoadExample3Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 3:                                                 |
+; 	| This program counts from 0 to 255 then back to 0, repeats  |
+;	+------------------------------------------------------------+
+
+	MVI A, 0x00	; Initialize Reg A with 0
+START:
+	OUT		; Output contect of Reg A
+	INR A		; Increment A
+	JM Loop	; Jump to Loop if carry (Negative) flag is active
+	JMP START	; Jump to Start
+Loop:
+	DCR A		; Decrement A
+	OUT		; Output contect of Reg A
+	JZ START	; Jump to Start if Zero flag is active
+	JMP Loop	; Jump to Loop";
+        }
+        private void LoadExample4Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 4:                                                 |
+; 	| This program multiplies x by y and outputs the result      |
+;	+------------------------------------------------------------+
+
+; Constants
+x= 0x03		; constant
+y= 0x05		; constant
+
+	STI prod,0x00	; initialize prod var with 0
+	STI tmp1,x	; initialize tmp1 var with value of x	
+loop:
+	LDA prod	; Load value of prod into Reg A	
+	ADI y		; Add (immediate) A = A + y 
+	STA prod	; Store the value of Reg A into prod	
+	LDA tmp1	; Load the value of tmp1 into Reg A
+	DCR A		; Decrement Reg A
+	STA tmp1	; Store the value of Reg A into tmp1
+	jz finish	; Jump to finish if decrement was 0
+	jmp loop	; Jump to loop
+finish:
+	out [prod]	; output the value of prod
+	hlt		; hault the program
+	
+; Variables, will be stored right after the program
+prod:	#res 1		; define a mem location as a var reserve 1 byte
+tmp1:	#res 1		; define a mem location as a var reserve 1 byte";
+        }
+
+        private void LoadExample5Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 5:                                                 |
+; 	| This program utilizes STA [address] to empty out its own   |
+;	| memory right after its program                             |
+;	+------------------------------------------------------------+
+
+	STI CurAddrL, CurAddrH+1	; this will take the low part of the 
+				     	; address of CurAddrH and add one to it 
+				     	; (technically getting the address of 
+					; the last line of the code) and store 
+					; it in CurAddrL memory location
+	STI CurAddrH, 0x00		; Initialize var to 0
+LOOP:
+	MVI A,0x00			; Initialize Reg A to 0
+	STA [CurAddrL]		; Store 0 in the location of the value 
+					; of CurAddrL|CurAddrH (think pointer)
+	LDA CurAddrL			; Load value of CurAddrL to Reg A
+	INR A				; Increment A
+	JNZ A1				; If not 0 Jump to A1
+	LDA CurAddrH			; Load value of CurAddrH to Reg A
+	INR A				; Inrement A
+	JZ Finish			; If 0 jump to finish (wrapped over)
+	STA CurAddrH			; Store A into CurAddrH
+	MVI A,0x00			; Reinit Reg A with 0
+A1:
+	STA CurAddrL			; Store A into CurAddrL
+	JMP LOOP			; Jump to start
+Finish:
+	HLT				; Hault the program
+
+;Variables
+CurAddrL: #res 1	; Holds the low part of current address
+CurAddrH: #res 1	; Holds the high part of current address";
+        }
+        private void NewProgramBtn_Click(object sender, EventArgs e) { AssemblyTB.Text = ""; }
 
         //prevent form from being disposed of and not able to open again
         private void AssemblyForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -78,7 +302,9 @@ namespace SAPEmulator
             }
         }
 
-        private void AssemblyTB_TextChanged(object sender, EventArgs e) { CodeValidationResultTB.Text = string.Empty; }
+        private void AssemblyTB_TextChanged(object sender, EventArgs e) { CMDOutTB.Text = string.Empty; }
         private void HideFormBtn_Click(object sender, EventArgs e) { this.Hide(); }
+
+
     }
 }

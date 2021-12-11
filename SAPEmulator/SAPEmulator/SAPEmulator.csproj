@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SAPEmulator</RootNamespace>
     <AssemblyName>SAPEmulator</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -83,7 +84,6 @@
     <Compile Include="SAP1_Modules\SRAM.cs" />
     <Compile Include="SAP1_Modules\Register.cs" />
     <Compile Include="SAP2_Modules\ALU.cs" />
-    <Compile Include="SAP2_Modules\Assembler.cs" />
     <Compile Include="SAP2_Modules\Buffer.cs" />
     <Compile Include="SAP2_Modules\Bus.cs" />
     <Compile Include="SAP2_Modules\ControlSequencer.cs" />
@@ -176,6 +176,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\customasm.exe" />
     <Content Include="Images\BusBackground.png" />
     <Content Include="Images\SAP2BusBackground.png" />
   </ItemGroup>
