@@ -37,6 +37,7 @@ namespace SAP2Modules
         public bool CarryIn { get; set; } //Ability to take exteranl Carry in
         public bool CarryOut { get { return AluResult > 255; } } //Active if result of operation caused an overflow
         public bool IsZero { get { return (AluResult & 0xFF) == 0; } } //Active if result of operation is zero     
+        public bool IsMinus { get { return (AluResult & 0x80) > 0; } } //Active if result of operation is minus     
         public bool WithCarry { get; set; }
 
 
@@ -149,6 +150,7 @@ namespace SAP2Modules
             {
                 Flags.FlagsBits.ZeroFlag = IsZero;
                 Flags.FlagsBits.CarryFlag = CarryOut;
+                Flags.FlagsBits.MinusFlag = IsMinus;
             }
         }
 

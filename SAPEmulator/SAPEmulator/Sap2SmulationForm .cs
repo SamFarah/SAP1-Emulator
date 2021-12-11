@@ -31,8 +31,8 @@ namespace SAPEmulator
             Computer = new SAP2_8Bit(FrequencyAdjust.Value, ClockGenerator.ClockModes.SingleStep); //Create an instance of the computer       
 
             SW = new System.Diagnostics.Stopwatch();
-            RAMUpdateCommands = new List<string> { "STA", "STA Ind", "STI" };
-            UpdateRamView(); 
+            RAMUpdateCommands = new List<string> { "STA", "STA Ind", "STI", "PHA", "CALL" };
+            UpdateRamView();
 
 
 
@@ -92,13 +92,15 @@ namespace SAPEmulator
             MARLEDDisplay.DisplayData(Computer.MAR.Data);
             RAMLEDDisplay.DisplayData(Computer.RAM.Data);
             PCLEDDisplay.DisplayData(Computer.PC.Data);
+            SRLEDDisplay.DisplayData(Computer.SR.Data);
             OutputRegLEDDisplay.DisplayData(Computer.Output1.Data);
-            SumFlagsLEDDisplay.DisplayData((UInt32)(((Computer.Alu.CarryOut ? 1 : 0) << 1) | (Computer.Alu.IsZero ? 1 : 0)));
+            SumFlagsLEDDisplay.DisplayData((UInt32)(((Computer.Alu.CarryOut ? 1 : 0) << 2) | (Computer.Alu.IsZero ? 1 : 0) << 1 | (Computer.Alu.IsMinus ? 1 : 0)));
             FlagRegLEDDisplay.DisplayData(Computer.Flags.Data, true);
             MICounterLEDDisplay.DisplayData(Computer.CL.StepCounter.Data, true);
             CLDecodedLEDDisplay.DisplayData(Computer.CL.Decoder, true);
-            StatusLEDDsiaply1.DisplayData((UInt16)(Computer.ControlWord >> 16));
-            StatusLEDDsiaply2.DisplayData((UInt16)(Computer.ControlWord));
+            StatusLEDDsiaply1.DisplayData((UInt32)(Computer.ControlWord >> 18));
+            StatusLEDDsiaply2.DisplayData((UInt32)(Computer.ControlWord));
+            //StatusLEDDsiaply3.DisplayData((UInt32)(Computer.ControlWord));            
 
             MDRLEDDisplay.DisplayData(Computer.MDR.Data);
             TempRegLEDDisplay.DisplayData(Computer.Temp.Data);
@@ -117,6 +119,7 @@ namespace SAPEmulator
             MARRegValLbl.Text = $"0x{Computer.MAR.Data.ToString("X4")}";
             RAMRegValLbl.Text = $"0x{Computer.RAM.Data.ToString("X2")}";
             PCRegValLbl.Text = $"0x{Computer.PC.Data.ToString("X4")}";
+            SRRegValLbl.Text = $"0x{Computer.SR.Data.ToString("X4")}";
             OutputRegValLbl.Text = $"0x{Computer.Output1.Data.ToString("X2")}";
 
             MDRRegValLbl.Text = $"0x{Computer.MDR.Data.ToString("X4")}";
@@ -125,6 +128,7 @@ namespace SAPEmulator
             InstructionLBL.Text = ((ControlSequencer.Instructions)Computer.IR.Data).ToString().Replace("__", ",").Replace("_", " ");
             // Update Group Colors according to control signals
             PCGroup.ForeColor = GetGroupColour(Computer.PC);
+            SRGroup.ForeColor = GetGroupColour(Computer.SR);
             ARegGroup.ForeColor = GetGroupColour(Computer.A);
             SumGroup.ForeColor = GetGroupColour(Computer.Alu);
             BRegGroup.ForeColor = GetGroupColour(Computer.B);
@@ -140,6 +144,7 @@ namespace SAPEmulator
 
             //Update IN Arrows according to "Load" signals
             PCArrow.ChangeState(GetArrowDirection(Computer.PC, true));
+            SRArrow.ChangeState(GetArrowDirection(Computer.SR, true));
             ARegArrow.ChangeState(GetArrowDirection(Computer.A));
             BRegArrow.ChangeState(GetArrowDirection(Computer.B));
             CRegArrow.ChangeState(GetArrowDirection(Computer.C));
@@ -163,7 +168,9 @@ namespace SAPEmulator
 
 
             //Update signle LEDs
-            IncLED.ChangeState(Computer.PC.Count);
+            PCIncLED.ChangeState(Computer.PC.Count);
+            SRIncLED.ChangeState(Computer.SR.Inc);
+            SRDecLED.ChangeState(Computer.SR.Dec);
             //SubLED.ChangeState(Computer.Alu.Subtract);
             ClkLed.ChangeState(Computer.Clock.Output);
 
@@ -180,10 +187,10 @@ namespace SAPEmulator
             }
 
             //Update RAM content viewer slowing it down abit to reduce flicker
-                if (UpdateRAMViewCB.Checked)UpdateRamSelectedByte();
+            if (UpdateRAMViewCB.Checked) UpdateRamSelectedByte();
             if (updateRAMViewFlag || Frames % 10000 == 0)
             {
-                if (RAMUpdateCommands.Contains(  InstructionLBL.Text) && UpdateRAMViewCB.Checked)  UpdateRamView();
+                if (RAMUpdateCommands.Contains(InstructionLBL.Text) && UpdateRAMViewCB.Checked) UpdateRamView();
                 updateRAMViewFlag = false;
             }
 
@@ -226,14 +233,14 @@ namespace SAPEmulator
                 for (int j = 0; j < 16; j++) dataLine.LineVals.Add(Computer.RAM.MEM[(i * 16) + j]);
                 MemoryMap.Add(dataLine);
             }
-            RAMGridView.DataSource = MemoryMap;            
+            RAMGridView.DataSource = MemoryMap;
             RAMGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             RAMGridView.Columns[0].Width = 38;
             RAMGridView.Columns[0].HeaderText = string.Empty;
             RAMGridView.Columns[17].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             for (int i = 1; i < 17; i++)
             {
-                RAMGridView.Columns[i].HeaderText = (i-1).ToString("X");
+                RAMGridView.Columns[i].HeaderText = (i - 1).ToString("X");
                 RAMGridView.Columns[i].DefaultCellStyle.Format = "X2";
                 RAMGridView.Columns[i].Width = 19;
                 RAMGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -242,7 +249,7 @@ namespace SAPEmulator
             RAMGridView.Columns[8].Width = 27;
             RAMGridView.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             RAMGridView.Columns[17].HeaderText = string.Empty;
-            if (UpdateRAMViewCB.Checked) UpdateRamSelectedByte(); 
+            if (UpdateRAMViewCB.Checked) UpdateRamSelectedByte();
 
 
         }
@@ -250,9 +257,9 @@ namespace SAPEmulator
         public void UpdateRamSelectedByte()
         {
             int x = (int)(Computer.MAR.Data % 16.0 + 1);
-            int y = (int)(Computer.MAR.Data / 16.0);           
+            int y = (int)(Computer.MAR.Data / 16.0);
             if (x == 0 && y == 0) return;
-            RAMGridView.CurrentCell = RAMGridView[x,y ];
+            RAMGridView.CurrentCell = RAMGridView[x, y];
         }
 
         bool isPrintable(char ch)
@@ -299,7 +306,7 @@ namespace SAPEmulator
         {
             updateScreen();
         }
-
+        /*
         private bool BtnClick(object sender, bool StateFlag, bool activeLow = false)
         {
             StateFlag = !StateFlag;
@@ -307,8 +314,7 @@ namespace SAPEmulator
             if (StateFlag != activeLow) btn.BackColor = Color.Red;
             else btn.BackColor = SystemColors.Control;
             return StateFlag;
-        }
-
+        }        
         private bool BtnClick(object sender, bool StateFlag, string OnText, string OffText, bool activeLow = false)
         {
             StateFlag = !StateFlag;
@@ -316,61 +322,31 @@ namespace SAPEmulator
             if (StateFlag != activeLow) btn.Text = OnText;
             else btn.Text = OffText;
             return StateFlag;
-        }
-
+        }        
         private void PCOutBtn_Click(object sender, EventArgs e) { Computer.PC.Enable = BtnClick(sender, Computer.PC.Enable); }
         private void PCInBtn_Click(object sender, EventArgs e) { Computer.PC.Load = BtnClick(sender, Computer.PC.Load); }
         private void PCEnBtn_Click(object sender, EventArgs e) { Computer.PC.Count = BtnClick(sender, Computer.PC.Count); }
         private void MARLoadBtn_Click(object sender, EventArgs e) { Computer.MAR.Load = BtnClick(sender, Computer.MAR.Load); }
-
-        private void MDRLoadBtn_Click(object sender, EventArgs e)
-        {
-            Computer.MDR.Load = BtnClick(sender, Computer.MDR.Load);
-        }
-
-        private void RAMEnableBtn_Click(object sender, EventArgs e)
-        {
-            Computer.RAM.Enable = BtnClick(sender, Computer.RAM.Enable);
-        }
-        private void RAMLoadBtn_Click(object sender, EventArgs e)
-        {
-            Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load);
-        }
-
-        private void ShiftMDRBtn_Click(object sender, EventArgs e)
-        {
-            Computer.MDR.Shift = BtnClick(sender, Computer.MDR.Shift);
-        }
-
-        private void MDREnableBtn_Click(object sender, EventArgs e)
-        {
-            Computer.MDR.Enable = BtnClick(sender, Computer.MDR.Enable);
-        }
-
-        private void InstEnableBtn_Click(object sender, EventArgs e)
-        {
-            Computer.IR.Enable = BtnClick(sender, Computer.IR.Enable);
-        }
-
-        private void InstLoadBtn_Click(object sender, EventArgs e)
-        {
-            Computer.IR.Load = BtnClick(sender, Computer.IR.Load);
-        }
+        private void MDRLoadBtn_Click(object sender, EventArgs e) { Computer.MDR.Load = BtnClick(sender, Computer.MDR.Load); }
+        private void RAMEnableBtn_Click(object sender, EventArgs e) { Computer.RAM.Enable = BtnClick(sender, Computer.RAM.Enable); }
+        private void RAMLoadBtn_Click(object sender, EventArgs e) { Computer.RAM.Load = BtnClick(sender, Computer.RAM.Load); }
+        private void ShiftMDRBtn_Click(object sender, EventArgs e) { Computer.MDR.Shift = BtnClick(sender, Computer.MDR.Shift); }
+        private void MDREnableBtn_Click(object sender, EventArgs e) { Computer.MDR.Enable = BtnClick(sender, Computer.MDR.Enable); }
+        private void InstEnableBtn_Click(object sender, EventArgs e) { Computer.IR.Enable = BtnClick(sender, Computer.IR.Enable); }
+        private void InstLoadBtn_Click(object sender, EventArgs e) { Computer.IR.Load = BtnClick(sender, Computer.IR.Load); }
+        private void ResetStepCounter_Click(object sender, EventArgs e) { Computer.CL.StepCounter.sReset = BtnClick(sender, Computer.CL.StepCounter.sReset); }
+        */
 
         private void RefreshRamView_Click(object sender, EventArgs e)
         {
             UpdateRamView();
         }
 
-        private void ResetStepCounter_Click(object sender, EventArgs e)
-        {
-            Computer.CL.StepCounter.sReset = BtnClick(sender, Computer.CL.StepCounter.sReset);
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-        }                    
+        }
 
         public class DataLine
         {
@@ -475,7 +451,7 @@ namespace SAPEmulator
             {
                 return false;
             }
-        }        
+        }
 
         private void AnimationCB_CheckedChanged(object sender, EventArgs e)
         {
@@ -484,16 +460,16 @@ namespace SAPEmulator
 
         private void LoadBinFileBtn_Click(object sender, EventArgs e)
         {
-            if(openFileDialog1.ShowDialog()== DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 if (File.Exists(openFileDialog1.FileName))
                 {
-                    using (BinaryReader br = new BinaryReader(File.Open(openFileDialog1.FileName, FileMode.Open)))                                           
-                        while (br.BaseStream.Position != br.BaseStream.Length) Computer.RAM.MEM[br.BaseStream.Position] = br.ReadByte();                        
-                    
-                        UpdateRamView();
+                    using (BinaryReader br = new BinaryReader(File.Open(openFileDialog1.FileName, FileMode.Open)))
+                        while (br.BaseStream.Position != br.BaseStream.Length) Computer.RAM.MEM[br.BaseStream.Position] = br.ReadByte();
+
+                    UpdateRamView();
                 }
-                
+
             }
         }
 

@@ -24,7 +24,8 @@ namespace SAP2Modules
 
         public ALU Alu { get; set; }                // Adder / Subtracter 
         public SRAM RAM { get; set; }               // Random Access Memory
-        public Counter PC { get; set; }             // Program Countervisual
+        public Counter PC { get; set; }             // Program Counter
+        public StackRegister SR { get; set; }       // Stack Register
         public ControlSequencer CL { get; set; }    // Generates control word depending on instructions to enable/load devices on the bus.
         public FlagsRegister Flags { get; set; }    // A register to hold flags after an operation
 
@@ -32,7 +33,7 @@ namespace SAP2Modules
         //Constructor: takes frequency and an optional clock mode
         public SAP2_8Bit(int frequency = 1000, ClockGenerator.ClockModes clockMode = ClockGenerator.ClockModes.Auto)
         {
-            Flags = new FlagsRegister(0x03); // Create a 2-bit flag register
+            Flags = new FlagsRegister(0x07); // Create a 2-bit flag register
 
             // Create the devices and configure how many bits they connect with other devices.
             A = new Register(0x00FF); //Create an 8-bit register (no mask provided defualts to 8-bit)
@@ -48,10 +49,11 @@ namespace SAP2Modules
             Input2 = new Register(0x00FF); //Create an 8-bit register
             Alu = new ALU(A, Temp, Flags); // Connect A Reg and B Reg as operands and the Flags Register to the ALU, 1st Op is also the accumilator
             RAM = new SRAM(MAR); // Connect MAR as the address pointer to the RAM  
-            PC = new Counter(mask: 0xFFFF);   //PC is a 4 Bit counter so gets a 4bit mask
+            PC = new Counter(mask: 0xFFFF);   //PC is a 16 Bit counter so gets a 16bit mask
+            SR = new StackRegister(mask: 0xFFFF);   //SR is a 8 Bit counter so gets a 8bit mask
 
             //Initialize the Bus and connect the devices to it as shown in the figure above.
-            Bus = new Bus(new List<Register> { A, B, C, Temp, IR, MAR, Output1, Output2, Alu, RAM, PC, MDR, Input1, Input2 });
+            Bus = new Bus(new List<Register> { A, B, C, Temp, IR, MAR, Output1, Output2, Alu, RAM, PC, MDR, Input1, Input2, SR });
 
             CL = new ControlSequencer(IR, Flags); // Control logic is directly connected to the instruction register and flags register.
             Clock = new ClockGenerator(frequency, RisingEdge, FallingEdge, clockMode); // Initialize the clock and tell it what to do on rising edge and faling edge.
@@ -73,7 +75,7 @@ namespace SAP2Modules
                 MAR.Load = value.MI;
                 MAR.Enable = value.MO;
                 RAM.Load = value.RI;
-                RAM.Enable = value.RO;                
+                RAM.Enable = value.RO;
                 IR.Load = value.II;
                 A.Load = value.AI;
                 A.Enable = value.AO;
@@ -90,13 +92,18 @@ namespace SAP2Modules
                 CL.StepCounter.sReset = value.RT;
                 MDR.Load = value.MDI;
                 MDR.Enable = value.MDO;
-                MDR.Shift = value.MDS;
+                MDR.ShiftLeft = value.MDL;
+                MDR.ShiftRight = value.MDR;
                 Temp.Load = value.TI;
                 Temp.Enable = value.TO;
                 B.Enable = value.BO;
                 C.Enable = value.CO;
                 C.Load = value.CI;
                 Alu.WithCarry = value.AC;
+                SR.Enable = value.SRO;
+                SR.Load = value.SRI;
+                SR.Inc = value.SRA;
+                SR.Dec = value.SRS;
             }
 
             // Create control word (for display purposes) from device control signals

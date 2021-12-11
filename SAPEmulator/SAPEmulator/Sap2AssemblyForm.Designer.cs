@@ -35,7 +35,6 @@
             this.LoadExample3Btn = new System.Windows.Forms.Button();
             this.LoadExample4Btn = new System.Windows.Forms.Button();
             this.NewProgramBtn = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.CMDOutTB = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.WipeMemoryCB = new System.Windows.Forms.CheckBox();
@@ -44,6 +43,7 @@
             this.AssemblyTB = new SyntaxHighlightingTextBox();
             this.LoadExample5Btn = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.LoadExample6Btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LoadASMBtn
@@ -98,22 +98,13 @@
             // 
             // NewProgramBtn
             // 
-            this.NewProgramBtn.Location = new System.Drawing.Point(6, 198);
+            this.NewProgramBtn.Location = new System.Drawing.Point(6, 437);
             this.NewProgramBtn.Name = "NewProgramBtn";
             this.NewProgramBtn.Size = new System.Drawing.Size(150, 23);
             this.NewProgramBtn.TabIndex = 159;
             this.NewProgramBtn.Text = "New Program";
             this.NewProgramBtn.UseVisualStyleBackColor = true;
             this.NewProgramBtn.Click += new System.EventHandler(this.NewProgramBtn_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Location = new System.Drawing.Point(6, 250);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(150, 233);
-            this.groupBox3.TabIndex = 160;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Instruction Cheatsheet";
             // 
             // CMDOutTB
             // 
@@ -144,7 +135,7 @@
             // WipeMemoryCB
             // 
             this.WipeMemoryCB.AutoSize = true;
-            this.WipeMemoryCB.Location = new System.Drawing.Point(7, 227);
+            this.WipeMemoryCB.Location = new System.Drawing.Point(6, 466);
             this.WipeMemoryCB.Name = "WipeMemoryCB";
             this.WipeMemoryCB.Size = new System.Drawing.Size(91, 17);
             this.WipeMemoryCB.TabIndex = 164;
@@ -203,19 +194,29 @@
             this.richTextBox1.TabIndex = 171;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // LoadExample6Btn
+            // 
+            this.LoadExample6Btn.Location = new System.Drawing.Point(7, 196);
+            this.LoadExample6Btn.Name = "LoadExample6Btn";
+            this.LoadExample6Btn.Size = new System.Drawing.Size(150, 23);
+            this.LoadExample6Btn.TabIndex = 170;
+            this.LoadExample6Btn.Text = "Example 6";
+            this.LoadExample6Btn.UseVisualStyleBackColor = true;
+            this.LoadExample6Btn.Click += new System.EventHandler(this.LoadExample6Btn_Click);
+            // 
             // Sap2AssemblyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 715);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.LoadExample6Btn);
             this.Controls.Add(this.LoadExample5Btn);
             this.Controls.Add(this.AssemblyTB);
             this.Controls.Add(this.HideFormBtn);
             this.Controls.Add(this.WipeMemoryCB);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.CMDOutTB);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.NewProgramBtn);
             this.Controls.Add(this.LoadExample4Btn);
             this.Controls.Add(this.LoadExample3Btn);
@@ -241,7 +242,6 @@
         private System.Windows.Forms.Button LoadExample3Btn;
         private System.Windows.Forms.Button LoadExample4Btn;
         private System.Windows.Forms.Button NewProgramBtn;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox CMDOutTB;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.CheckBox WipeMemoryCB;
@@ -250,5 +250,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button LoadExample5Btn;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button LoadExample6Btn;
     }
 }

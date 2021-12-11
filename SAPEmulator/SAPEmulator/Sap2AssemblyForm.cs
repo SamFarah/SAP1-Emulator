@@ -61,11 +61,13 @@ namespace SAPEmulator
 	inr a                   => 0x3C
 	inr b                   => 0x04
 	inr c                   => 0x0C
-	jm{address}		        => 0xFA @ le(address`16)
+	jm {address}	        => 0xFA @ le(address`16)
+    jc {address}	        => 0xFB @ le(address`16)
 	jmp {address}	        => 0xC3	@ le(address`16)
 	jnz {address}	        => 0xC2	@ le(address`16)
 	jz	{address}  	        => 0xCA	@ le(address`16)
 	lda {address} 	        => 0x3A	@ le(address`16)
+    lda [{address}]	        => 0x3B	@ le(address`16)
 	mov a, b		        => 0x78
 	mov a, c		        => 0x79
 	mov b, a		        => 0x47
@@ -95,6 +97,8 @@ namespace SAPEmulator
 	xra b			        => 0xA8	
 	xra c			        => 0xA9
 	xri	{value}		        => 0xEE	@ value`8
+    pha                     => 0x60
+    pla                     => 0x61
 }	
 " + AssemblyTB.Text);
                     fs.Write(info, 0, info.Length);
@@ -213,7 +217,7 @@ LOOP:
 START:
 	OUT		; Output contect of Reg A
 	INR A		; Increment A
-	JM Loop	; Jump to Loop if carry (Negative) flag is active
+	JC Loop	; Jump to Loop if carry flag is active
 	JMP START	; Jump to Start
 Loop:
 	DCR A		; Decrement A
@@ -290,6 +294,66 @@ Finish:
 CurAddrL: #res 1	; Holds the low part of current address
 CurAddrH: #res 1	; Holds the high part of current address";
         }
+        private void LoadExample6Btn_Click(object sender, EventArgs e)
+        {
+            AssemblyTB.Text =
+@";	+------------------------------------------------------------+
+; 	| Example 6:                                                 |
+; 	| This program does a bubble sort on an array, still WIP     |
+;	+------------------------------------------------------------+
+
+ArraySize = 10
+
+	STI i, Array
+	STI i+1, le(Array`16) 
+	LDA [i]
+
+Loop:	
+	MOV B,A
+	LDA i
+	INR A
+	STA i
+	LDA [i]
+
+	SUB B
+	JM Swap	
+	
+Cont:	
+	LDA i
+	INR A
+	JNZ A1
+	LDA i+1
+	INR A
+	JZ Finish
+	STA i+1
+	MVI A,0x00	
+A1:
+	STA i
+	LDA [i]
+	JMP Loop
+Finish: 
+	HLT
+
+Swap:
+	LDA [i]
+	STA temp
+	LDA i
+	DCR A
+	STA i2
+	LDA [i2]
+	STA [i]
+	LDA temp
+	STA [i2]
+	JMP Cont
+	
+;Variables
+#addr 0x0100	; skip to address 0x0100 for variables
+Array:	#res ArraySize
+i:	#res 2
+i2:	#res 2
+j:	#res 1
+temp:	#res 2";
+        }
         private void NewProgramBtn_Click(object sender, EventArgs e) { AssemblyTB.Text = ""; }
 
         //prevent form from being disposed of and not able to open again
@@ -305,6 +369,6 @@ CurAddrH: #res 1	; Holds the high part of current address";
         private void AssemblyTB_TextChanged(object sender, EventArgs e) { CMDOutTB.Text = string.Empty; }
         private void HideFormBtn_Click(object sender, EventArgs e) { this.Hide(); }
 
-
+        
     }
 }

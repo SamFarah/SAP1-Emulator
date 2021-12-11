@@ -141,7 +141,7 @@ public class SyntaxHighlightingTextBox : RichTextBox
          */
 
         // getting keywords/functions
-        string keywords = @"\b(add|adi|ana|ani|call|cma|dcr|hlt|in|inr|jm|jmp|jnz|jz|lda|mov|mvi|nop|ora|ori|out|ral|rar|ret|sta|sti|sub|sbi|xra|xri)\b";
+        string keywords = @"\b(add|adi|ana|ani|call|cma|dcr|hlt|in|inr|jm|jc|jmp|jnz|jz|lda|mov|mvi|nop|ora|ori|out|ral|rar|ret|sta|sti|sub|sbi|xra|xri|pha|pla)\b";
         MatchCollection keywordMatches = Regex.Matches(Text, keywords, RegexOptions.IgnoreCase);
 
 

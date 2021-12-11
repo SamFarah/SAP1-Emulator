@@ -29,11 +29,11 @@ namespace SAP2Modules
 
         // Connected Devices as shown in the figure above
         private Register InstructionRegister { get; set; }
-        private Register FlagsRegister { get; set; }
+        private FlagsRegister FlagsRegister { get; set; }
         public Counter StepCounter { get; set; }
-        private UInt32[,,] uCode { get; set; } //Internal EEPROM that holds all the uCode sequences
+        //private UInt32[,,] uCode { get; set; } //Internal EEPROM that holds all the uCode sequences
 
-        public ControlSequencer(Register instructionRegister, Register flags)
+        public ControlSequencer(Register instructionRegister, FlagsRegister flags)
         {
             StepCounter = new Counter(); //not connected to bus no need to set up masks.
             StepCounter.Count = true; //always counting 
@@ -42,7 +42,7 @@ namespace SAP2Modules
             InstructionRegister = instructionRegister;
             FlagsRegister = flags;
 
-            InitUCode(); //generate "ROM" of microinstructions
+            //InitUCode(); //generate "ROM" of microinstructions
         }
 
         public ControlWordBitField GetControlWord(bool init = false)
@@ -54,10 +54,27 @@ namespace SAP2Modules
 
             //uCode address is defined by [FlagValue][InstructionValue][StepValue]
             //Get the uCode address
-            byte FlagValue = (byte)(FlagsRegister.Data & 0x03);
+            //byte FlagValue = (byte)(FlagsRegister.Data & 0x07);
             byte InstructionValue = (byte)((InstructionRegister.Data & 0xFF));
             byte StepValue = (byte)(StepCounter.Data & 0x1F);
-            return (ControlWordBitField)uCode[FlagValue, InstructionValue, StepValue]; //return uCode
+
+            // this is needed for conditional instructions, at step 6 it changes depending on flags, this is better than having a ROM of 8 copies one for each flag
+            // this does not reflect the ROM implementation in hardware. but makes the program easier to maintain and uses less memory
+            // with this adding new flags is much easier.
+
+            if (StepValue == 6)
+            {
+                UInt64 JmpuInst = MDO | JMP | RT;
+                switch ((Instructions)InstructionValue)
+                {
+                    case Instructions.JM: return (ControlWordBitField)(FlagsRegister.FlagsBits.MinusFlag ? JmpuInst : RT);
+                    case Instructions.JC: return (ControlWordBitField)(FlagsRegister.FlagsBits.CarryFlag ? JmpuInst : RT);
+                    case Instructions.JZ: return (ControlWordBitField)(FlagsRegister.FlagsBits.ZeroFlag ? JmpuInst : RT);
+                    case Instructions.JNZ: return (ControlWordBitField)(!FlagsRegister.FlagsBits.ZeroFlag ? JmpuInst : RT);
+                }
+            }
+            return (ControlWordBitField)uCodeTmeplate[InstructionValue, StepValue]; //return uCode
+
         }
 
         // Mostly used for display purposes. however it also resets the stepcounter.
@@ -78,51 +95,44 @@ namespace SAP2Modules
 
         #region uCode EEPROM (Simulation)
 
-        /*****************************************************************************************************************************************
-        * 
-        * Title: Microcode Eeprom With Flags
-        * Author: Ben Eater
-        * Date: Apr 21, 2018    
-        * Availability: https://github.com/beneater/eeprom-programmer/blob/master/microcode-eeprom-with-flags/microcode-eeprom-with-flags.ino
-        * Note: This is not the exact code Ben Eater wrote, since this is doesn't actually program an EEPROM. It just stores 
-        *       values in an array which acts as the EEPROM. In other words, We could just directly store the final static content 
-        *       of the EEPROM array as values. However, doing it this way follows Ben Eater's idea of keeping it readable and easy
-        *       to update in the future if needed.
-        * 
-        *****************************************************************************************************************************************/
-
         //Control Signals
-        const UInt32 HLT = 0b10000000000000000000000000000000;      // Hault Clock...........................(Stop the Clock)
-        const UInt32 MI = 0b01000000000000000000000000000000;       // Memory Address Register.......In......(Read from Bus)
-        const UInt32 RI = 0b00100000000000000000000000000000;       // RAM (at current MAR value)....In......(Read from Bus)
-        const UInt32 RO = 0b00010000000000000000000000000000;       // RAM (at current MAR value)....Out.....(Write to Bus)
-        const UInt32 AC = 0b00001000000000000000000000000000;       // Add with Carry
-        const UInt32 II = 0b00000100000000000000000000000000;       // Instruction Register..........In......(Read from Bus)
-        const UInt32 AI = 0b00000010000000000000000000000000;       // Accumilator A Register........In......(Read from Bus)
-        const UInt32 AO = 0b00000001000000000000000000000000;       // Accumilator A Register........Out.....(Write to Bus)
-        const UInt32 EO = 0b00000000100000000000000000000000;       // SUM ALu.......................Out.....(Write to Bus)
-        const UInt32 BO = 0b00000000010000000000000000000000;       // B Out -------------------------------------------
-        const UInt32 BI = 0b00000000001000000000000000000000;       // Accumilator B Register........In......(Read from Bus)
-        const UInt32 OI = 0b00000000000100000000000000000000;       // Output Register...............In......(Read From Bus)
-        const UInt32 CE = 0b00000000000010000000000000000000;       // Program Counter Enable................(Increment PC)
-        const UInt32 PCO = 0b00000000000001000000000000000000;      // Program Counter...............Out.....(Write to Bus)
-        const UInt32 JMP = 0b00000000000000100000000000000000;      // Program Counter...............In......(Read from Bus)
-        const UInt32 FI = 0b00000000000000010000000000000000;       // Flags Register................In......(Read flags from Sum ALU)
-        const UInt32 RT = 0b00000000000000001000000000000000;       // Reset Step Counter
-        const UInt32 MDI = 0b00000000000000000100000000000000;      // MDR In
-        const UInt32 MDO = 0b00000000000000000010000000000000;      // MDR out
-        const UInt32 MDS = 0b00000000000000000001000000000000;      // MDR Shift
-        const UInt32 TI = 0b00000000000000000000100000000000;       // Temp Reg In
-        const UInt32 MO = 0b00000000000000000000010000000000;       // Memory Address Register.......Out......(Write to Bus)
-        const UInt32 CO = 0b00000000000000000000001000000000;       // C out
-        const UInt32 CI = 0b00000000000000000000000100000000;       // C In
-        const UInt32 M = 0b00000000000000000000000010000000;        // ALU M In
-        const UInt32 S3 = 0b00000000000000000000000001000000;       // ALU Mode Select 3 In
-        const UInt32 S2 = 0b00000000000000000000000000100000;       // ALU Mode Select 2 In
-        const UInt32 S1 = 0b00000000000000000000000000010000;       // ALU Mode Select 1 In
-        const UInt32 S0 = 0b00000000000000000000000000001000;       // ALU Mode Select 0 In
-        const UInt32 CRI = 0b00000000000000000000000000000100;      // Carry In In
-        const UInt32 TO = 0b00000000000000000000000000000010;      // Temp Reg Out
+        const UInt64 HLT = 0b100000000000000000000000000000000000;      // Hault Clock...........................(Stop the Clock)
+        const UInt64 MI = 0b010000000000000000000000000000000000;       // Memory Address Register.......In......(Read from Bus)
+        const UInt64 RI = 0b001000000000000000000000000000000000;       // RAM (at current MAR value)....In......(Read from Bus)
+        const UInt64 RO = 0b000100000000000000000000000000000000;       // RAM (at current MAR value)....Out.....(Write to Bus)
+        const UInt64 AC = 0b000010000000000000000000000000000000;       // Add with Carry
+        const UInt64 II = 0b000001000000000000000000000000000000;       // Instruction Register..........In......(Read from Bus)
+        const UInt64 AI = 0b000000100000000000000000000000000000;       // Accumilator A Register........In......(Read from Bus)
+        const UInt64 AO = 0b000000010000000000000000000000000000;       // Accumilator A Register........Out.....(Write to Bus)
+        const UInt64 EO = 0b000000001000000000000000000000000000;       // SUM ALu.......................Out.....(Write to Bus)
+        const UInt64 BO = 0b000000000100000000000000000000000000;       // B Out -------------------------------------------
+        const UInt64 BI = 0b000000000010000000000000000000000000;       // Accumilator B Register........In......(Read from Bus)
+        const UInt64 OI = 0b000000000001000000000000000000000000;       // Output Register...............In......(Read From Bus)
+        const UInt64 CE = 0b000000000000100000000000000000000000;       // Program Counter Enable................(Increment PC)
+        const UInt64 PCO = 0b000000000000010000000000000000000000;      // Program Counter...............Out.....(Write to Bus)
+        const UInt64 JMP = 0b000000000000001000000000000000000000;      // Program Counter...............In......(Read from Bus)
+        const UInt64 FI = 0b000000000000000100000000000000000000;       // Flags Register................In......(Read flags from Sum ALU)
+        const UInt64 RT = 0b000000000000000010000000000000000000;       // Reset Step Counter
+        const UInt64 MDI = 0b000000000000000001000000000000000000;      // MDR In
+        const UInt64 MDO = 0b000000000000000000100000000000000000;      // MDR out
+        const UInt64 MDL = 0b000000000000000000010000000000000000;      // MDR Shift Left
+        const UInt64 TI = 0b000000000000000000001000000000000000;       // Temp Reg In
+        const UInt64 MO = 0b000000000000000000000100000000000000;       // Memory Address Register.......Out......(Write to Bus)
+        const UInt64 CO = 0b000000000000000000000010000000000000;       // C out
+        const UInt64 CI = 0b000000000000000000000001000000000000;       // C In
+        const UInt64 M = 0b000000000000000000000000100000000000;        // ALU M In
+        const UInt64 S3 = 0b000000000000000000000000010000000000;       // ALU Mode Select 3 In
+        const UInt64 S2 = 0b000000000000000000000000001000000000;       // ALU Mode Select 2 In
+        const UInt64 S1 = 0b000000000000000000000000000100000000;       // ALU Mode Select 1 In
+        const UInt64 S0 = 0b000000000000000000000000000010000000;       // ALU Mode Select 0 In
+        const UInt64 CRI = 0b000000000000000000000000000001000000;      // Carry In In
+        const UInt64 TO = 0b000000000000000000000000000000100000;      // Temp Reg Out
+        const UInt64 SRO = 0b000000000000000000000000000000010000;      // Stack Reg Out
+        const UInt64 SRI = 0b000000000000000000000000000000001000;      // Stack Reg In
+        const UInt64 SRA = 0b000000000000000000000000000000000100;      // Stack Reg Inc
+        const UInt64 SRS = 0b000000000000000000000000000000000010;      // Stack Reg Dec
+        const UInt64 MDR = 0b000000000000000000000000000000000001;      // MDR Shift Right
+
 
 
 
@@ -132,13 +142,15 @@ namespace SAP2Modules
         const byte FLASGS_Z0C1 = 1;
         const byte FLASGS_Z1C0 = 2;
         const byte FLASGS_Z1C1 = 3;
-        const byte JM = 0xFA;
-        const byte JNZ = 0xC2;
-        const byte JZ = 0xCA;
+
+        const byte FLAGS_C = 1;
+        const byte FLAGS_Z = 2;
+        const byte FLAGS_M = 4;
+
 
         /*
             +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+
-            |    Instruction	 | Op Code |T States	|   Flags   |   Addressing 	| Bytes	|                     Description						|       Type        |   Implemented   |
+            |    Instruction	 | Op Code |  T States	|   Flags   |   Addressing 	| Bytes	|                     Description						|       Type        |   Implemented   |
             +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+
             |   ADD B			 |    80   |     4	    |	S, Z	|   Register    |   1   |   A = A + B											|   Arithmetic      |       Yes       |
             |   ADD C			 |    81   |     4	    |	S, Z	|   Register    |   1   |   A = A + C											|   Arithmetic      |       Yes       |
@@ -158,10 +170,12 @@ namespace SAP2Modules
             |   INR B			 |    04   |     4	    |	S, Z 	|   Register    |   1   |   B = B + 1											|   Arithmetic      |       Yes       |
             |   INR C			 |    0C   |     4	    |	S, Z 	|   Register    |   1   |   C = C + 1											|   Arithmetic      |       Yes       |
             |   JM address		 |    FA   |     7      |	None 	|   Immediate   |   3   |   Jump on minus to specified Address					|   Branching       |       Yes       |
+            |   JC address		 |    FB   |     7      |	None 	|   Immediate   |   3   |   Jump on carry to specified Address					|   Branching       |       Yes       |
             |   JMP address		 |    C3   |     7	    |	None 	|   Immediate   |   3   |   Jump to specified Address							|   Branching       |       Yes       |
             |   JNZ address		 |    C2   |     7      |	None 	|   Immediate   |   3   |   Jump on Not Zero to specified Address				|   Branching       |       Yes       |
             |   JZ address		 |    CA   |     7      |	None 	|   Immediate   |   3   |   Jump on zero to specified Address					|   Branching       |       Yes       |
             |   LDA address		 |    3A   |     8	    |	None 	|   Direct	    |   3   |   Load A with value in specified address				|   Data Transfer   |       Yes       |
+            |   LDA [address]	 |    3B   |     15	    |	None 	|   Indirect    |   3   |   Load A with value in the address of valof address	|   Data Transfer   |       Yes       |
             |   MOV A,B			 |    78   |     3	    |	None 	|   Register    |   1   |   Copy the content of B to A 							|   Data Transfer   |       Yes       |
             |   MOV A,C			 |    79   |     3	    |	None 	|   Register    |   1   |   Copy the content of C to A 							|   Data Transfer   |       Yes       |
             |   MOV B,A			 |    47   |     3	    |	None 	|   Register    |   1   |   Copy the content of A to B 							|   Data Transfer   |       Yes       |
@@ -191,6 +205,8 @@ namespace SAP2Modules
             |   XRA B 			 |    A8   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor B											|   Logical         |       Yes       |
             |   XRA C 			 |    A9   |     4	    |	S, Z 	|   Register    |   1   |   A = A xor C											|   Logical         |       Yes       |
             |   XRI byte 		 |    EE   |     5	    |	S, Z 	|   Immediate   |   2   |   A = A xor (1 byte immediate data)					|   Logical         |       Yes       |            
+            |   PHA      		 |    60   |     2	    |	None 	|   Register    |   1   |   Push value of A Reg into Stack  					|   Data Transfe    |       Yes       |            
+            |   PLA      		 |    61   |     3	    |	None 	|   Register    |   1   |   Pull from stack into Reg Ao Stack  					|   Data Transfe    |       Yes       |            
             +--------------------+---------+------------+-----------+---------------+-------+-------------------------------------------------------+-------------------+-----------------+                 
                                  
 
@@ -198,12 +214,12 @@ namespace SAP2Modules
 
 
         //Micro instructions Set template
-        private static readonly UInt32[,] uCodeTmeplate =
+        private static readonly UInt64[,] uCodeTmeplate =
             {            
 /*            T0 -FETCH- T1           T2          T3                       T4                           T5                  T6                  T7                  T8                  T9                        Unused               OpCode INST
             -----     --------      -----       -----                     -----                         ----               -----               -----               ----                ----                       ------              ------  ----  */
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 00 - NOP
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,     PCO|TI, MDO|MI ,RO|MDI,              MO|JMP|CE, PCO|MI    ,RO|MDI|MDS,TO|JMP, MDO|MI,AO|RI|RT, 0,0,0},    // 01 - STA [Address] (Indirect)
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,     PCO|TI, MDO|MI ,RO|MDI,              MO|JMP|CE, PCO|MI    ,RO|MDI|MDL,TO|JMP, MDO|MI,AO|RI|RT, 0,0,0},    // 01 - STA [Address] (Indirect)
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 02 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 03 - 
             {MI|PCO,    RO|II|CE,     BO|TI,      CRI|FI|EO|BI|RT,          0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 04 - INR B
@@ -252,16 +268,16 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     AO|TI,      EO|AI|M|RT,               0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 2F - CMA
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 30 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 31 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             AO|RI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 32 - STA address
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MI|PCO,             RO|TI|CE,           MDO|MI,             TO|RI|RT,               0,0,0,0,0,0,0,0},    // 33 - STI address, byte
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|MI,             AO|RI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 32 - STA address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MI|PCO,             RO|TI|CE,           MDO|MI,             TO|RI|RT,               0,0,0,0,0,0,0,0},    // 33 - STI address, byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 34 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 35 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 36 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 37 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 38 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 39 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             RO|AI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 3A - LDA Address
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3B - 
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|MI,             RO|AI|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // 3A - LDA Address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      PCO|TI,             MDO|MI,    RO|MDI, MO|JMP|CE, PCO|MI, RO|MDI|MDL,TO|JMP, MDO|MI, RO|AI|RT,0,0,0},    // 3B - LDA [Address] (Indirect)        
             {MI|PCO,    RO|II|CE,     AO|TI,      CRI|FI|EO|AI|RT,          0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3C - INR A
             {MI|PCO,    RO|II|CE,     AO|TI,      S0|S1|S2|S3|EO|FI|AI|RT,  0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3D - DCR A
             {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MDO|AI|RT,                  0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 3E - MVI A,byte
@@ -298,8 +314,8 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 5D - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 5E - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 5F - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 60 - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 61 - 
+            {MI|PCO,    RO|II|CE,     SRO|MI,     AO|RI|SRA|RT,             0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 60 - PHA
+            {MI|PCO,    RO|II|CE,     SRS,        SRO|MI,                   RO|AI|RT,                   0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 61 - PLA
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 62 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 63 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 64 - 
@@ -332,7 +348,7 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 7F - 
             {MI|PCO,    RO|II|CE,     BO|TI,      EO|AI|S3|S0|FI|RT,        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 80 - ADD B
             {MI|PCO,    RO|II|CE,     CO|TI,      EO|AI|S3|S0|FI|RT,        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 81 - ADD C
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             TI|RO,              EO|AI|S3|S0|FI|RT,  0,                      0,0,0,0,0,0,0,0},    // 82 - ADD [Address]
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|MI,             TI|RO,              EO|AI|S3|S0|FI|RT,  0,                      0,0,0,0,0,0,0,0},    // 82 - ADD [Address]
             {MI|PCO,    RO|II|CE,     MI|PCO,     RO|TI|CE,                 EO|AI|S3|S0|FI|RT,          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 83 - ADI Byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 84 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 85 - 
@@ -348,7 +364,7 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 8F - 
             {MI|PCO,    RO|II|CE,     AO|TI,      BO|AI,                    EO|AI|FI|CRI|S2|S1|RT,      0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 90 - SUB B
             {MI|PCO,    RO|II|CE,     AO|TI,      CO|AI,                    EO|AI|FI|CRI|S2|S1|RT,      0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 91 - SUB C
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI, AO|TI,      AI|RO,              EO|AI|FI|CRI|S2|S1|RT,                      0,0,0,0,0,0,0,0},    // 92 - SUB [Address]
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|MI, AO|TI,      AI|RO,              EO|AI|FI|CRI|S2|S1|RT,                      0,0,0,0,0,0,0,0},    // 92 - SUB [Address]
             {MI|PCO,    RO|II|CE,     MI|PCO,     AO|TI,                    RO|AI|CE,                   EO|AI|FI|CRI|S2|S1|RT,0,                0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 93 - SBI Byte
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 94 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // 95 - 
@@ -396,25 +412,25 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // BF - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C0 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C1 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C2 - JNZ address
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|JMP|RT,         0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C3 - JMP address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C2 - JNZ address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|JMP|RT,         0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C3 - JMP address
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C4 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C5 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C6 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C7 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C8 - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // C9 - <-
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CA - JZ address
+            {MI|PCO,    RO|II|CE,     SRS,        SRO|MI,                   RO|MDI|MDL|SRS,             SRO|MI,             RO|MDI,             MDO|JMP,            CE,                 CE,             MI|PCO|RT,0,0,0,0,0,0,0},    // C9 - RET
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CA - JZ address
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CB - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CC - 
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CD - <-
+            {MI|PCO,    RO|II|CE,     SRO|MI,     PCO|RI|SRA,               PCO|MDI|MDR,                SRO|MI,             MDO|RI|SRA,         MI|PCO,             RO|MDI|CE, MI|PCO,  RO|MDI|MDL|CE,   MDO|JMP|RT,0,0,0,0,0,0},    // CD - Call Address
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CE - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // CF - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D0 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D1 - 
             {MI|PCO,    RO|II|CE,     AO|OI|RT,   0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D2 - OUT
             {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MDO|OI|RT,                  0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D3 - OUT byte
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      MDO|MI,             OI|RO|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // D4 - OUT [address]
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      MDO|MI,             OI|RO|RT,           0,                  0,                      0,0,0,0,0,0,0,0},    // D4 - OUT [address]
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D5 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D6 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // D7 - 
@@ -452,77 +468,100 @@ namespace SAP2Modules
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // F7 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // F8 - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // F9 - 
-            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDS|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FA - JM address
-            {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FB - 
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FA - JM address
+            {MI|PCO,    RO|II|CE,     MI|PCO,     RO|MDI|CE,                MI|PCO,                     RO|MDI|MDL|CE,      RT,                 0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FB - JC address 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FC - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FD - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FE - 
             {MI|PCO,    RO|II|CE,     RT,         0,                        0,                          0,                  0,                  0,                  0,                  0,                      0,0,0,0,0,0,0,0},    // FF - NOP 
     };
 
-        void InitUCode()
-        {
-            uCode = new UInt32[4, 256, 18];
-            Utilities.arrayCopy32(uCodeTmeplate, uCode);
+        //void InitUCode()  
+        //{
+        //    uint JmpuInst = MDO | JMP | RT;
+        //    uCode = new UInt32[8, 256, 18];
+        //    Utilities.arrayCopy32(uCodeTmeplate, uCode);
 
-            // ZF = 0, CF = 0 No change
-            uCode[FLASGS_Z0C0, JNZ, 6] = MDO | JMP | RT;
+        //    // MF = 0, ZF = 0, CF = 0 No change
+        //    uCode[0, (int)Instructions.JNZ, 6] = JmpuInst;
 
-            // ZF = 0, CF = 1        
-            uCode[FLASGS_Z0C1, JM, 6] = MDO | JMP | RT;
+        //    // MF = 0, ZF = 0, CF = 1   
+        //    uCode[FLAGS_C, (int)Instructions.JC, 6] = JmpuInst;
 
-            // ZF = 1, CF = 0        
-            uCode[FLASGS_Z1C0, JZ, 6] = MDO | JMP | RT;
+        //    // MF = 0, ZF = 1, CF = 0        
+        //    uCode[FLAGS_Z, (int)Instructions.JZ, 6] = JmpuInst;
 
-            // ZF = 1, CF = 1        
-            uCode[FLASGS_Z1C1, JM, 6] = MDO | JMP | RT;
-            uCode[FLASGS_Z1C1, JZ, 6] = MDO | JMP | RT;
-        }
+        //    // MF = 0, ZF = 1, CF = 1        
+        //    uCode[FLAGS_Z | FLAGS_C, (int)Instructions.JC, 6] = JmpuInst;
+        //    uCode[FLAGS_Z | FLAGS_C, (int)Instructions.JZ, 6] = JmpuInst;
+
+
+        //    // MF = 1, ZF = 0, CF = 0
+        //    uCode[FLAGS_M, (int)Instructions.JNZ, 6] = JmpuInst;
+        //    uCode[FLAGS_M, (int)Instructions.JM, 6] = JmpuInst;
+
+        //    // MF = 1, ZF = 0, CF = 1   
+        //    uCode[FLAGS_M | FLAGS_C, (int)Instructions.JC, 6] = JmpuInst;
+        //    uCode[FLAGS_M | FLAGS_C, (int)Instructions.JM, 6] = JmpuInst;
+
+        //    // MF = 1, ZF = 1, CF = 0        
+        //    uCode[FLAGS_M | FLAGS_Z, (int)Instructions.JZ, 6] = JmpuInst;
+        //    uCode[FLAGS_M | FLAGS_Z, (int)Instructions.JM, 6] = JmpuInst;
+
+        //    // MF = 1, ZF = 1, CF = 1        
+        //    uCode[FLAGS_M | FLAGS_Z | FLAGS_C, (int)Instructions.JC, 6] = JmpuInst;
+        //    uCode[FLAGS_M | FLAGS_Z | FLAGS_C, (int)Instructions.JZ, 6] = JmpuInst;
+        //    uCode[FLAGS_M | FLAGS_Z | FLAGS_C, (int)Instructions.JM, 6] = JmpuInst;
+        //}
         #endregion
 
         //Bit Field Definition
-        [BitFieldNumberOfBits(32)]
+        [BitFieldNumberOfBits(35)]
         public struct ControlWordBitField : IBitField
         {
-            [BitFieldInfo(0x1F, 1)] public bool HLT { get; set; }
-            [BitFieldInfo(0x1E, 1)] public bool MI { get; set; }
-            [BitFieldInfo(0x1D, 1)] public bool RI { get; set; }
-            [BitFieldInfo(0x1C, 1)] public bool RO { get; set; }
-            [BitFieldInfo(0x1B, 1)] public bool AC { get; set; }
-            [BitFieldInfo(0x1A, 1)] public bool II { get; set; }
-            [BitFieldInfo(0x19, 1)] public bool AI { get; set; }
-            [BitFieldInfo(0x18, 1)] public bool AO { get; set; }
-            [BitFieldInfo(0x17, 1)] public bool SO { get; set; }
-            [BitFieldInfo(0x16, 1)] public bool BO { get; set; }
-            [BitFieldInfo(0x15, 1)] public bool BI { get; set; }
-            [BitFieldInfo(0x14, 1)] public bool OI { get; set; }
-            [BitFieldInfo(0x13, 1)] public bool CE { get; set; }
-            [BitFieldInfo(0x12, 1)] public bool PCO { get; set; }
-            [BitFieldInfo(0x11, 1)] public bool JMP { get; set; }
-            [BitFieldInfo(0x10, 1)] public bool FI { get; set; }
-            [BitFieldInfo(0x0F, 1)] public bool RT { get; set; }
-            [BitFieldInfo(0x0E, 1)] public bool MDI { get; set; }
-            [BitFieldInfo(0x0D, 1)] public bool MDO { get; set; }
-            [BitFieldInfo(0x0C, 1)] public bool MDS { get; set; }
-            [BitFieldInfo(0x0B, 1)] public bool TI { get; set; }
-            [BitFieldInfo(0x0A, 1)] public bool MO { get; set; }
-            [BitFieldInfo(0x09, 1)] public bool CO { get; set; }
-            [BitFieldInfo(0x08, 1)] public bool CI { get; set; }
-            [BitFieldInfo(0x07, 1)] public bool M { get; set; }
-            [BitFieldInfo(0x03, 4)] public byte ALUModeSelect { get; set; }
-            [BitFieldInfo(0x02, 1)] public bool CRI { get; set; }
-            [BitFieldInfo(0x01, 1)] public bool TO { get; set; }
-            [BitFieldInfo(0x00, 1)] public bool NAe { get; set; }
+            [BitFieldInfo(0x23, 1)] public bool HLT { get; set; }
+            [BitFieldInfo(0x22, 1)] public bool MI { get; set; }
+            [BitFieldInfo(0x21, 1)] public bool RI { get; set; }
+            [BitFieldInfo(0x20, 1)] public bool RO { get; set; }
+            [BitFieldInfo(0x1F, 1)] public bool AC { get; set; }
+            [BitFieldInfo(0x1E, 1)] public bool II { get; set; }
+            [BitFieldInfo(0x1D, 1)] public bool AI { get; set; }
+            [BitFieldInfo(0x1C, 1)] public bool AO { get; set; }
+            [BitFieldInfo(0x1B, 1)] public bool SO { get; set; }
+            [BitFieldInfo(0x1A, 1)] public bool BO { get; set; }
+            [BitFieldInfo(0x19, 1)] public bool BI { get; set; }
+            [BitFieldInfo(0x18, 1)] public bool OI { get; set; }
+            [BitFieldInfo(0x17, 1)] public bool CE { get; set; }
+            [BitFieldInfo(0x16, 1)] public bool PCO { get; set; }
+            [BitFieldInfo(0x15, 1)] public bool JMP { get; set; }
+            [BitFieldInfo(0x14, 1)] public bool FI { get; set; }
+            [BitFieldInfo(0x13, 1)] public bool RT { get; set; }
+            [BitFieldInfo(0x12, 1)] public bool MDI { get; set; }
+            [BitFieldInfo(0x11, 1)] public bool MDO { get; set; }
+            [BitFieldInfo(0x10, 1)] public bool MDL { get; set; }
+            [BitFieldInfo(0x0F, 1)] public bool TI { get; set; }
+            [BitFieldInfo(0x0E, 1)] public bool MO { get; set; }
+            [BitFieldInfo(0x0D, 1)] public bool CO { get; set; }
+            [BitFieldInfo(0x0C, 1)] public bool CI { get; set; }
+            [BitFieldInfo(0x0B, 1)] public bool M { get; set; }
+            [BitFieldInfo(0x07, 4)] public byte ALUModeSelect { get; set; }
+            [BitFieldInfo(0x06, 1)] public bool CRI { get; set; }
+            [BitFieldInfo(0x05, 1)] public bool TO { get; set; }
+            [BitFieldInfo(0x04, 1)] public bool SRO { get; set; }
+            [BitFieldInfo(0x03, 1)] public bool SRI { get; set; }
+            [BitFieldInfo(0x02, 1)] public bool SRA { get; set; }
+            [BitFieldInfo(0x01, 1)] public bool SRS { get; set; }
+            [BitFieldInfo(0x00, 1)] public bool MDR { get; set; }
 
 
-            public static implicit operator UInt32(ControlWordBitField content) => (UInt32)content.ToUInt64();
+            public static implicit operator UInt64(ControlWordBitField content) => (UInt64)content.ToUInt64();
             public static explicit operator ControlWordBitField(ulong content) => BitFieldExtensions.CreateBitField<ControlWordBitField>(content);
         }
         public enum Instructions
         {
             STA_Ind = 0x01,
             STA = 0x32,
-            STI =0x33,
+            STI = 0x33,
             ADD_B = 0x80,
             ADD_C = 0x81,
             Add_Addr = 0x82,
@@ -541,10 +580,12 @@ namespace SAP2Modules
             INR_B = 0x04,
             INR_C = 0x0C,
             JM = 0xFA,
+            JC = 0xFB,
             JMP = 0xC3,
             JNZ = 0xC2,
             JZ = 0xCA,
             LDA = 0x3A,
+            LDA_Ind = 0x3B,
             MOV_A__B = 0x78,
             MOV_A__C = 0x79,
             MOV_B__A = 0x47,
@@ -559,7 +600,7 @@ namespace SAP2Modules
             ORA_B = 0xB0,
             ORA_C = 0xB1,
             ORI = 0xF6,
-            OUT=0xD2,
+            OUT = 0xD2,
             OUT_Imd = 0xD3,
             OUT_Addr = 0xD4,
             RAL = 0x17,
@@ -571,7 +612,9 @@ namespace SAP2Modules
             SBI = 0x93,
             XRA_B = 0xA8,
             XRA_C = 0xA9,
-            XRI = 0xEE
+            XRI = 0xEE,
+            PHA = 0x60,
+            PLA = 0x61
         }
     }
 }

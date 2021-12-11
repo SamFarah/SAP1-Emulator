@@ -9,7 +9,8 @@ namespace SAP2Modules
     public class Buffer : Register
     {
 
-        public bool Shift { get; set; }
+        public bool ShiftLeft { get; set; } 
+        public bool ShiftRight { get; set; }
 
         public Buffer(UInt16 maskIn = 0xFFFF, UInt16 maskOut = 0xFFFF) : base(maskIn, maskOut) { }
 
@@ -18,8 +19,9 @@ namespace SAP2Modules
         {
             if (Load)
             {
-                if (Shift) Data |= (UInt16)(data << 8);
-                else Data = (UInt16)(data & MaskIn);
+                if (ShiftLeft) Data |= (UInt16)(data << 8);
+                else if(ShiftRight) Data = (UInt16 )(data>>8);
+                else Data =(UInt16)(Data& 0xFF00 | (data & 0x00FF));
 
             }
         }

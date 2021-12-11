@@ -92,6 +92,7 @@
     <Compile Include="SAP2_Modules\Register.cs" />
     <Compile Include="SAP2_Modules\SAP2_8Bit.cs" />
     <Compile Include="SAP2_Modules\SRAM.cs" />
+    <Compile Include="SAP2_Modules\StackRegister.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Visual\DoubleEndedArrow .cs">
       <SubType>UserControl</SubType>

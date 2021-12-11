@@ -18,6 +18,7 @@ namespace SAP2Modules
         [BitFieldNumberOfBits(2)]
         public struct FlagBitField : IBitField
         {
+            [BitFieldInfo(2, 1)] public bool MinusFlag { get; set; }
             [BitFieldInfo(1, 1)] public bool ZeroFlag { get; set; }
             [BitFieldInfo(0, 1)] public bool CarryFlag { get; set; }
 
