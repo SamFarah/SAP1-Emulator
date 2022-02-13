@@ -10,7 +10,7 @@ using SAP2Modules;
 
 namespace SAPEmulator
 {
-    public partial class Sap2SimulationForm : Form
+    public partial class ClockToNextInstructionBtn : Form
     {
         public SAP2_8Bit Computer { get; set; }
         private uint Frames = 0;
@@ -19,7 +19,7 @@ namespace SAPEmulator
         System.Diagnostics.Stopwatch SW;
         Sap2AssemblyForm assemblyForm;
         List<string> RAMUpdateCommands;
-        public Sap2SimulationForm()
+        public ClockToNextInstructionBtn()
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
@@ -471,6 +471,14 @@ namespace SAPEmulator
                 }
 
             }
+        }
+
+        private void ClkToNextInstBtn_Click(object sender, EventArgs e)
+        {
+            while (!Computer.ControlWord.RT )
+            { Computer.Clock.Step(); Computer.Clock.Step(); if (Computer.ControlWord.HLT) break; }
+            Computer.Clock.Step(); Computer.Clock.Step();
+            UpdateRamView();
         }
 
         private void OpenAssemblerBtn_Click(object sender, EventArgs e)

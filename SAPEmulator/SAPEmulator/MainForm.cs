@@ -26,7 +26,7 @@ namespace SAPEmulator
 
         private void OpenSap2Btn_Click(object sender, EventArgs e)
         {
-            new Sap2SimulationForm().Show();
+            new ClockToNextInstructionBtn().Show();
         }
     }
 }

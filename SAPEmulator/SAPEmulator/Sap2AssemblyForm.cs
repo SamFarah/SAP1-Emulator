@@ -17,10 +17,10 @@ namespace SAPEmulator
             InitializeComponent();
             this.AssemblyTB.theLabel = label1;
         }
-        private Sap2SimulationForm mainForm = null;
+        private ClockToNextInstructionBtn mainForm = null;
         public Sap2AssemblyForm(Form callingForm)
         {
-            mainForm = callingForm as Sap2SimulationForm;
+            mainForm = callingForm as ClockToNextInstructionBtn;
             InitializeComponent();
             this.AssemblyTB.theLabel = label1;
         }

@@ -19,9 +19,9 @@ namespace SAP2Modules
         {
             if (Load)
             {
-                if (ShiftLeft) Data |= (UInt16)(data << 8);
+                if (ShiftLeft) Data = (UInt16)((((data) << 8) & 0xFF00) | (Data & 0x00FF));
                 else if(ShiftRight) Data = (UInt16 )(data>>8);
-                else Data =(UInt16)(Data& 0xFF00 | (data & 0x00FF));
+                else Data =(UInt16)(Data & 0xFF00 | (data & 0x00FF));
 
             }
         }
